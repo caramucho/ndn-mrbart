@@ -56,7 +56,7 @@ namespace ns3{
     }
 
     DashClient::DashClient() :
-    m_rateChanges(0), m_payloadSize(8192), m_target_dt("35s"), m_bitrateEstimate(0.0), m_segmentId(0),  m_totBytes(0), m_startedReceiving(Seconds(0)), m_sumDt(Seconds(0)), m_lastDt(Seconds(-1)),m_id(m_countObjs++), m_requestTime("0s"), m_segment_bytes(0), m_bitRate(45000), m_window(Seconds(10)), m_segmentFetchTime(Seconds(0))
+    m_rateChanges(0), m_firstTime(true), m_payloadSize(8192), m_target_dt("35s"), m_bitrateEstimate(0.0), m_segmentId(0),  m_totBytes(0), m_startedReceiving(Seconds(0)), m_sumDt(Seconds(0)), m_lastDt(Seconds(-1)),m_id(m_countObjs++), m_requestTime("0s"), m_segment_bytes(0), m_bitRate(45000), m_window(Seconds(10)), m_segmentFetchTime(Seconds(0))
     {
       NS_LOG_FUNCTION(this);
       // m_parser.SetApp(this); // So the parser knows where to send the received messages
@@ -117,12 +117,13 @@ namespace ns3{
     void
     DashClient::SendPacket()
     {
-      if (!m_active)
-      return;
+      // if (!m_active)
+      // return;
 
       NS_LOG_FUNCTION_NOARGS();
 
-      if (m_seq >= m_seqMax) {
+
+      if (m_seq > m_seqMax) {
         return; // we are totally done
       }
       if (m_seq == 0) { // request the first packet of the segment
@@ -131,7 +132,8 @@ namespace ns3{
         SetInterestName();
       }
 
-      uint32_t seq = m_seq++;
+      uint32_t seq = m_seq;
+      m_seq++;
 
 
       //
@@ -177,8 +179,8 @@ namespace ns3{
     DashClient::OnData(shared_ptr<const Data> data)
     {
 
-      if (!m_active)
-      return;
+      // if (!m_active)
+      // return;
       Consumer::OnData(data);
       DashName dataname = data->getName();
       uint32_t seq = data->getName().at(-1).toSequenceNumber();
@@ -247,6 +249,8 @@ namespace ns3{
          }
 
          m_lastDt = currDt;
+         m_firstTime = true;
+         ScheduleNextPacket();
       }
 
     }
