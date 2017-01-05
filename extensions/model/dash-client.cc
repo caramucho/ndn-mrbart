@@ -111,7 +111,7 @@ namespace ns3{
       dashname.SetPeriod(m_periodId);
       dashname.SetSegmentId(m_segmentId++);
       dashname.Update();
-      m_interestName = *dashname;
+      m_interestName = dashname;
     }
 
     void
@@ -127,7 +127,9 @@ namespace ns3{
         return; // we are totally done
       }
       if (m_seq == 0) { // request the first packet of the segment
-        m_requestTime = Simulator::Now();
+        CalcSegMax();
+
+        m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
         m_segment_bytes = 0;
         SetInterestName();
       }
@@ -141,7 +143,6 @@ namespace ns3{
       nameWithSequence->appendSequenceNumber(seq);
       //
 
-      // shared_ptr<Interest> interest = make_shared<Interest> ();
       shared_ptr<Interest> interest = make_shared<Interest>();
       interest->setNonce(m_rand->GetValue(0, std::numeric_limits<uint32_t>::max()));
       interest->setName(*nameWithSequence);
@@ -361,7 +362,8 @@ namespace ns3{
       std::cout << " InterruptionTime: "
       << m_player.m_interruption_time.GetSeconds() << " interruptions: "
       << m_player.m_interrruptions << " avgRate: "
-      << (1.0 * m_player.m_totalRate) / m_player.m_framesPlayed
+      << (1.0 * m_player.m_t  void
+    CalcSegMax();otalRate) / m_player.m_framesPlayed
       << " minRate: " << m_player.m_minRate << " AvgDt: "
       << m_sumDt.GetSeconds() / m_player.m_framesPlayed << " changes: "
       << m_rateChanges << std::endl;
@@ -447,5 +449,11 @@ namespace ns3{
       }
       m_bitrateEstimate = sum / count;
     }
+
+    void
+    DashClient::CalcSegMax(){
+      m_bitRate * m_segmentLenth;
+    }
+
   } // Namespace ndn
 } // Namespace ns3

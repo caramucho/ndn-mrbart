@@ -173,6 +173,8 @@ namespace ns3
     CalcNextSegment(uint32_t currRate, uint32_t & nextRate, Time & delay);
     void
     LogBufferLevel(Time t);
+    void
+    CalcSegMax();
     void inline
     SetWindow(Time time)
     {

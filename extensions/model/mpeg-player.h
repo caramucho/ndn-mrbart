@@ -51,7 +51,7 @@ namespace ns3
 
     void
     Start();
-
+    // get the time since video play started 
     Time
     GetRealPlayTime(Time playTime);
 
