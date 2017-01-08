@@ -18,26 +18,28 @@
  * Author: Dimitrios J. Vergados <djvergad@gmail.com>
  */
 
-#ifndef HTTP_PARSER_H_
-#define HTTP_PARSER_H_
+#ifndef NDN_PARSER_H_
+#define NDN_PARSER_H_
 
 #include <ns3/ptr.h>
 #include "mpeg-header.h"
+#include <ns3/ndnSIM-module.h>
+
 
 namespace ns3
 {
 
-  class Socket;
+  // class Socket;
   class DashClient;
 
-  class HttpParser
+  class NdnParser
   {
   public:
-    HttpParser();
+    NdnParser();
     virtual
-    ~HttpParser();
+    ~NdnParser();
     void
-    ReadSocket(Ptr<Socket> socket);
+    OnData(shared_ptr<const Data> data);
     void
     SetApp(DashClient *app);
 

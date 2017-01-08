@@ -1,0 +1,17 @@
+<MPD profile="urn.mpeg.dash:profile:DashOverICN"...>
+  <VideoId>1698001</VideoId>
+  <Period id="0" start="0s">
+    <AdaptationSet id="0" bitstreamSwitching="true" mimeType="video/mp4">
+      <Representation id="0" bandwidth="2000000">
+        <SegmentList duration="2" startid="0" endid="100">
+      </Representation>
+      <Representation id="1" bandwidth="1000000">
+        <SegmentList duration="2" startid="0" endid="100">
+      </Representation>
+      <!---further representations--->
+    </AdaptationSet>
+    <AdaptationSet id="1" bitstreamSwitching="false" mimeType="audio/mp3">
+      <!---reps of adaptation sets--->
+    </AdaptationSet>
+  </Period>
+</MPD>

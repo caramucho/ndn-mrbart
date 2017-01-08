@@ -68,7 +68,21 @@ namespace ns3{
     }
 
     // Private helpers
-
+    // Request Next Segment
+    void
+    DashClient::RequestSegment()
+    {
+      // if (m_seq > m_seqMax + 1) {
+      //   return; // we are totally done
+      // }
+      m_seq = 0;
+      CalcSegMax();
+      m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
+      m_segment_bytes = 0;
+      SetInterestName();
+      m_firstTime = true;
+      ScheduleNextPacket();
+    }
     // void
     // DashClient::RequestSegment()
     // {
@@ -103,42 +117,28 @@ namespace ns3{
     void
     DashClient::SetInterestName()
     {
-      DashName dashname;
-      dashname.SetProducerDomain(m_producerDomain);
-      dashname.SetVideoId(m_videoId);
-      dashname.SetRrepresentation(m_bitRate);
-      dashname.SetAdaptationSet(m_adaptationSetId);
-      dashname.SetPeriod(m_periodId);
-      dashname.SetSegmentId(m_segmentId++);
-      dashname.Update();
-      m_interestName = dashname;
+      m_interestName = DashName();
+      m_interestName.SetProducerDomain(m_producerDomain);
+      m_interestName.SetVideoId(m_videoId);
+      m_interestName.SetRrepresentation(m_bitRate);
+      m_interestName.SetAdaptationSet(m_adaptationSetId);
+      m_interestName.SetPeriod(m_periodId);
+      m_interestName.SetSegmentId(m_segmentId++);
+      m_interestName.Update();
     }
 
     void
     DashClient::SendPacket()
     {
-      // if (!m_active)
-      // return;
+      if (!m_active)
+      return;
 
       NS_LOG_FUNCTION_NOARGS();
-
-
-      if (m_seq > m_seqMax) {
-        return; // we are totally done
-      }
-      if (m_seq == 0) { // request the first packet of the segment
-        CalcSegMax();
-
-        m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
-        m_segment_bytes = 0;
-        SetInterestName();
-      }
+      //
 
       uint32_t seq = m_seq;
       m_seq++;
 
-
-      //
       shared_ptr<Name> nameWithSequence = make_shared<Name>(m_interestName);
       nameWithSequence->appendSequenceNumber(seq);
       //
@@ -155,6 +155,7 @@ namespace ns3{
       WillSendOutInterest(seq);
 
       m_transmittedInterests(interest, this, m_face);
+      // send out interest
       m_appLink->onReceiveInterest(*interest);
 
       ScheduleNextPacket();
@@ -187,7 +188,7 @@ namespace ns3{
       uint32_t seq = data->getName().at(-1).toSequenceNumber();
       // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
       // std::cout <<  "data: " +  dataname.getPrefix(6).toUri() + " received"  << std::endl;
-
+      // m_ndnParser = ;
       m_player.ReceiveFrame(&data);
       m_segment_bytes += m_payloadSize;
       m_totBytes += m_payloadSize;
@@ -206,7 +207,7 @@ namespace ns3{
         NS_FATAL_ERROR("WRONG STATE");
       }
 
-      // If we received the last frame of the segment
+      // If we received the last packet of the segment
       if (seq == m_seqMax)
       {
         m_segmentFetchTime = Simulator::Now() - m_requestTime;
@@ -251,7 +252,9 @@ namespace ns3{
 
          m_lastDt = currDt;
          m_firstTime = true;
-         ScheduleNextPacket();
+        //  ScheduleNextPacket();
+
+        RequestSegment();
       }
 
     }
@@ -452,7 +455,7 @@ namespace ns3{
 
     void
     DashClient::CalcSegMax(){
-      m_bitRate * m_segmentLenth;
+      m_seqMax =  8 * m_bitRate * m_segmentLength.GetSeconds()  / m_payloadSize;
     }
 
   } // Namespace ndn

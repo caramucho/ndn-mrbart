@@ -205,6 +205,7 @@ namespace ns3
     Time m_window; //The window for measuring the average throughput (Time)
     Time m_segmentFetchTime;
 
+    Time m_segmentLength;
     bool m_firstTime;
     uint32_t m_payloadSize;
     uint32_t m_seqMax;
