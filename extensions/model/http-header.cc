@@ -28,6 +28,8 @@ NS_LOG_COMPONENT_DEFINE("HTTPHeader");
 
 namespace ns3
 {
+  namespace ndn
+  {
 
   NS_OBJECT_ENSURE_REGISTERED (HTTPHeader)
   ;
@@ -164,5 +166,5 @@ namespace ns3
     m_segment_id = i.ReadNtohU32();
     return GetSerializedSize();
   }
-
+}
 } // namespace ns3

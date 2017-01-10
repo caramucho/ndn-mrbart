@@ -8,10 +8,8 @@
 namespace ns3 {
   namespace ndn {
 
-    class DashName : public Name{
+    class DashName {
     public:
-      DashName(string producerDomain, int contentId, int periodId, int representationId,  int adaptationSetId);
-      DashName(const char* uri);
       DashName();
       // DashName(const std::string& uri);
       virtual ~DashName();
@@ -24,17 +22,27 @@ namespace ns3 {
 
       // void setRepresentation(int repId);
 
-      std::string
-      createInterestName();
-      void parseName(DashName);
+      Name
+      GetInterestName();
+
+      DashName& parseName(const Name& name);
       void Update();
 
       //setters
+      uint32_t GetVideoId();
+      uint32_t GetRepresentation();
+      uint32_t GetSegmentId();
+      string GetProducerDomain();
+      uint32_t GetAdaptationSetId();
+      uint32_t GetPeriodId();
+
       void SetVideoId(uint32_t videoId);
       void SetRepresentation(uint32_t bitrate);
       void SetSegmentId(uint32_t segmentId);
       void SetProducerDomain(string producerDomain);
-      void SetAdaptationSet(uint32_t adaptationSetId);
+      void SetAdaptationSetId(uint32_t adaptationSetId);
+      void SetPeriodId(uint32_t periodId);
+
 
       // SetRepresentation()
 

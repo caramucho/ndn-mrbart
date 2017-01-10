@@ -9,31 +9,13 @@ namespace ns3 {
 
     // NS_OBJECT_ENSURE_REGISTERED(NamingSchemeModel);
 
-
-    DashName::DashName(string producerDomain, int contentId, int periodId, int representationId, int adaptationSetId) :
-    m_producerDomain(producerDomain),
-    m_contentId(contentId),
-    m_periodId(periodId),
-    m_adaptationSetId(adaptationSetId),
-    m_representationId(representationId)
-    {
-      // std::cout <<  "DashName::DashName(int contentId,... is called"  << std::endl;
-      Update();
-    }
-
-    DashName::DashName(const char* uri)
-    : Name(uri)
-    {
-      // std::cout <<  "DashName::DashName(const char* uri) is called"  << std::endl;
-    }
-
     DashName::DashName() :
-    Name(),
     m_producerDomain(""),
-    m_contentId(-1),
+    m_videoId(-1),
     m_periodId(-1),
     m_adaptationSetId(-1),
-    m_representationId(-1)
+    m_representation(-1),
+    m_segmentId(-1)
     {
     }
 
@@ -41,22 +23,29 @@ namespace ns3 {
     {
     }
 
-    std::string
-    DashName::createInterestName()
+    Name
+    DashName::GetInterestName()
     {
-      string namestr = "/" + m_producerDomain + "/DashOverICN" + "/" + to_string(m_videoId) + "/" +  to_string(m_periodId) + "/" + to_string(m_adaptationSetId) + "/" + to_string(m_representation);
+      string namestr = "/" +
+      m_producerDomain +
+      "/DashOverICN" + "/" +
+      to_string(m_videoId) + "/" +
+      to_string(m_periodId) + "/" +
+      to_string(m_adaptationSetId) + "/" +
+      to_string(m_representation) + "/" +
+      to_string(m_segmentId);
       // std::cout <<  namestr  << std::endl;
 
-      return namestr;
+      return Name(namestr);
     }
 
-    void
-    DashName::parseName(DashName name)
+    DashName&
+    DashName::parseName(const Name& name)
     {
       m_producerDomain = name.getSubName(0,1).toUri().substr(1);
       std::cout <<  name.getSubName(0,1).toUri().substr(1)  << std::endl;
 
-      m_contentId = stoi(name.getSubName(2,1).toUri().substr(1));
+      m_videoId = stoi(name.getSubName(2,1).toUri().substr(1));
       std::cout <<  name.getSubName(2,1).toUri().substr(1)  << std::endl;
 
       m_periodId = stoi(name.getSubName(3,1).toUri().substr(1));
@@ -65,17 +54,21 @@ namespace ns3 {
       m_adaptationSetId = stoi(name.getSubName(4,1).toUri().substr(1));
       std::cout <<  name.getSubName(4,1).toUri().substr(1)  << std::endl;
 
-      m_representationId = stoi(name.getSubName(5,1).toUri().substr(1));
+      m_representation = stoi(name.getSubName(5,1).toUri().substr(1));
       std::cout <<  name.getSubName(5,1).toUri().substr(1)  << std::endl;
 
-      Update();
+      m_segmentId = stoi(name.getSubName(6,1).toUri().substr(1));
+      std::cout <<  name.getSubName(6,1).toUri().substr(1)  << std::endl;
+
+      // Update();
+      return *this;
     }
 
-    void
-    DashName::Update()
-    {
-      *this = DashName(createInterestName().c_str());
-    }
+    // void
+    // DashName::Update()
+    // {
+    //   *this = DashName(createInterestName().c_str());
+    // }
     void
     DashName::SetProducerDomain(string producerDomain)
     {
@@ -83,13 +76,19 @@ namespace ns3 {
     }
 
     void
-    Dashname::SetVideoId(uint32_t videoId)
+    DashName::SetVideoId(uint32_t videoId)
     {
       m_videoId = videoId;
     }
 
     void
-    DashName::SetAdaptationSet(uint32_t adaptationSetId)
+    DashName::SetPeriodId(uint32_t periodId)
+    {
+      m_periodId = periodId;
+    }
+
+    void
+    DashName::SetAdaptationSetId(uint32_t adaptationSetId)
     {
       m_adaptationSetId = adaptationSetId;
     }
@@ -100,10 +99,37 @@ namespace ns3 {
       m_representation = representation;
     }
 
+    void
     DashName::SetSegmentId(uint32_t segmentId)
     {
       m_segmentId = segmentId;
     }
+
+    uint32_t
+    DashName::GetVideoId(){
+      return m_videoId;
+    }
+    uint32_t
+    DashName::GetRepresentation(){
+      return m_representation;
+    }
+    uint32_t
+    DashName::GetSegmentId(){
+      return m_segmentId;
+    }
+    string
+    DashName::GetProducerDomain(){
+      return m_producerDomain;
+    }
+    uint32_t
+    DashName::GetAdaptationSetId(){
+      return m_adaptationSetId;
+    }
+    uint32_t
+    DashName::GetPeriodId(){
+      return m_periodId;
+    }
+
 
 
 

@@ -18,7 +18,7 @@
 * Author: Dimitrios J. Vergados <djvergad@gmail.com>
 */
 
-#include "http-parser.h"
+#include "ndn-parser.h"
 #include "ns3/log.h"
 #include "ns3/address.h"
 #include "ns3/socket.h"
@@ -27,6 +27,7 @@
 // #include "http-header.h"
 #include "mpeg-header.h"
 #include "dash-client.h"
+#include "dash-name.h"
 
 NS_LOG_COMPONENT_DEFINE("NdnParser");
 
@@ -55,15 +56,19 @@ namespace ns3
     void
     NdnParser::OnData(shared_ptr<const Data> data)
     {
-      NS_LOG_FUNCTION(this << socket);
-      Address from;
-      int bytes = socket->RecvFrom(&m_buffer[m_bytes], MPEG_MAX_MESSAGE - m_bytes, 0, from);
+      // NS_LOG_FUNCTION(this << socket);
+      // Address from;
 
+      // int bytes = socket->RecvFrom(&m_buffer[m_bytes], MPEG_MAX_MESSAGE - m_bytes, 0, from);
+      int bytes = data->getContent().size();
+      // memmove(data->getContent().wire(),&m_buffer[m_bytes],bytes);
+      DashName dashname;
+      dashname.parseName(data->getName());
       MPEGHeader mpeg_header;
-      HTTPHeader http_header;
+      // HTTPHeader http_header;
 
-      uint32_t headersize = mpeg_header.GetSerializedSize()
-      + http_header.GetSerializedSize();
+      uint32_t headersize = mpeg_header.GetSerializedSize();
+      // + http_header.GetSerializedSize();
 
       if (bytes > 0)
       {
@@ -97,9 +102,11 @@ namespace ns3
       memmove(m_buffer, &m_buffer[message_size], m_bytes - message_size);
       m_bytes -= message_size;
 
-      m_app->MessageReceived(message);
+      m_app->m_player.ReceiveFrame(&message);
+      m_app->m_segment_bytes += mpeg_header.GetSize();
+      m_app->m_totBytes += mpeg_header.GetSize();
 
-      ReadSocket(socket);
+      // ReadSocket(socket);
     }
-  }// namespace ndn
+  } // namespace ndn
 } // namespace ns3

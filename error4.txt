@@ -1,0 +1,1675 @@
+Waf: Entering directory `/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build'
+[1/6] Compiling extensions/model/dash-client.cc
+[2/6] Compiling extensions/model/dash-name.cpp
+[4/6] Compiling extensions/model/mpeg-player.cc
+[6/6] Compiling extensions/model/ndn-parser.cc
+In file included from ../extensions/model/mpeg-player.cc:22:0:
+/usr/local/include/ns3-dev/ns3/nstime.h:955:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE (Time);
+                              ^
+/usr/local/include/ns3-dev/ns3/nstime.h:956:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Time);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24:0,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/object.h:29,
+                 from /usr/local/include/ns3-dev/ns3/object-factory.h:24,
+                 from /usr/local/include/ns3-dev/ns3/simulator.h:29,
+                 from ../extensions/model/mpeg-player.cc:23:
+/usr/local/include/ns3-dev/ns3/callback.h:1731:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Callback);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/object-base.h:23:0,
+                 from /usr/local/include/ns3-dev/ns3/object.h:29,
+                 from /usr/local/include/ns3-dev/ns3/object-factory.h:24,
+                 from /usr/local/include/ns3-dev/ns3/simulator.h:29,
+                 from ../extensions/model/mpeg-player.cc:23:
+/usr/local/include/ns3-dev/ns3/type-id.h:548:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/simulator.h:29:0,
+                 from ../extensions/model/mpeg-player.cc:23:
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:40: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+                                        ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:16:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/boolean.h:81:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Boolean);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:26:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/double.h:41:50: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (double, Double);
+                                                  ^
+/usr/local/include/ns3-dev/ns3/double.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Double);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:44:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/integer.h:44:52: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (int64_t, Integer);
+                                                    ^
+/usr/local/include/ns3-dev/ns3/integer.h:45:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Integer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:61:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/pointer.h:220:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Pointer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:75:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/string.h:41:55: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (std::string, String);
+                                                       ^
+/usr/local/include/ns3-dev/ns3/string.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (String);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/traced-value.h:25:0,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:87,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/uinteger.h:44:54: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (uint64_t, Uinteger);
+                                                      ^
+/usr/local/include/ns3-dev/ns3/uinteger.h:45:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Uinteger);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/vector.h:116:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/vector.h:117:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:193:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Vector);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER(Name);
+                              ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/address.h:278:34: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Address);
+                                  ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/annotated-topology-reader.hpp:25:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:30,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/topology-reader.h:247:2: warning: extra ‘;’ [-Wpedantic]
+ };
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/nstime.h:25:0,
+                 from ../extensions/model/mpeg-player.cc:22:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:28:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:184:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:32:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/mpeg-player.cc:27:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-weights-reader.hpp:113:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+../extensions/model/mpeg-player.cc: In member function ‘void ns3::MpegPlayer::PlayFrame()’:
+../extensions/model/mpeg-player.cc:118:5: error: ‘HTTPHeader’ was not declared in this scope
+     HTTPHeader http_header;
+     ^
+../extensions/model/mpeg-player.cc:121:27: error: ‘http_header’ was not declared in this scope
+     message->RemoveHeader(http_header);
+                           ^
+../extensions/model/mpeg-player.cc:139:21: error: invalid use of incomplete type ‘class ns3::DashClient’
+         m_dashClient->RequestSegment();
+                     ^
+In file included from ../extensions/model/mpeg-player.cc:26:0:
+../extensions/model/mpeg-player.h:36:9: note: forward declaration of ‘class ns3::DashClient’
+   class DashClient;
+         ^
+
+In file included from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24:0,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/callback.h:1731:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Callback);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/object-base.h:23:0,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/type-id.h:548:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+                                 ^
+In file included from ../extensions/model/mpeg-header.h:25:0,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/nstime.h:955:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE (Time);
+                              ^
+/usr/local/include/ns3-dev/ns3/nstime.h:956:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Time);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/simulator.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:24,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:40: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+                                        ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER(Name);
+                              ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/address.h:278:34: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Address);
+                                  ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-fib-helper.hpp:27:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:31,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/pointer.h:220:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Pointer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/annotated-topology-reader.hpp:25:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:30,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/topology-reader.h:247:2: warning: extra ‘;’ [-Wpedantic]
+ };
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:28:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:184:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:32:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-weights-reader.hpp:113:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:16:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/boolean.h:81:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Boolean);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:26:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/double.h:41:50: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (double, Double);
+                                                  ^
+/usr/local/include/ns3-dev/ns3/double.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Double);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:44:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/integer.h:44:52: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (int64_t, Integer);
+                                                    ^
+/usr/local/include/ns3-dev/ns3/integer.h:45:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Integer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:75:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/string.h:41:55: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (std::string, String);
+                                                       ^
+/usr/local/include/ns3-dev/ns3/string.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (String);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/traced-value.h:25:0,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:87,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/uinteger.h:44:54: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (uint64_t, Uinteger);
+                                                      ^
+/usr/local/include/ns3-dev/ns3/uinteger.h:45:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Uinteger);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/vector.h:116:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/callback.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/chunk.h:24,
+                 from /usr/local/include/ns3-dev/ns3/header.h:24,
+                 from ../extensions/model/mpeg-header.h:24,
+                 from ../extensions/model/ndn-parser.h:25,
+                 from ../extensions/model/ndn-parser.cc:21:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/ndn-parser.cc:29:
+/usr/local/include/ns3-dev/ns3/vector.h:117:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:193:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Vector);
+                                   ^
+../extensions/model/ndn-parser.cc: In member function ‘void ns3::ndn::NdnParser::OnData(std::shared_ptr<const ndn::Data>)’:
+../extensions/model/ndn-parser.cc:64:12: error: ‘class std::shared_ptr<ns3::ndn::DashName>’ has no member named ‘parseName’
+       name.parseName(data->getName());
+            ^
+../extensions/model/ndn-parser.cc:71:7: error: expected ‘,’ or ‘;’ before ‘if’
+       if (bytes > 0)
+       ^
+../extensions/model/ndn-parser.cc:62:11: warning: unused variable ‘bytes’ [-Wunused-variable]
+       int bytes = data->getContent().size();
+           ^
+../extensions/model/ndn-parser.cc:68:16: warning: unused variable ‘headersize’ [-Wunused-variable]
+       uint32_t headersize = mpeg_header.GetSerializedSize()
+                ^
+../extensions/model/ndn-parser.cc:110:1: error: expected ‘}’ at end of input
+ } // namespace ns3
+ ^
+../extensions/model/ndn-parser.cc: At global scope:
+../extensions/model/ndn-parser.cc:110:1: error: expected ‘}’ at end of input
+../extensions/model/ndn-parser.cc:110:1: error: expected ‘}’ at end of input
+
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:16:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/boolean.h:81:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Boolean);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24:0,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/object.h:29,
+                 from /usr/local/include/ns3-dev/ns3/scheduler.h:25,
+                 from /usr/local/include/ns3-dev/ns3/calendar-scheduler.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:19,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/callback.h:1731:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Callback);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/object-base.h:23:0,
+                 from /usr/local/include/ns3-dev/ns3/object.h:29,
+                 from /usr/local/include/ns3-dev/ns3/scheduler.h:25,
+                 from /usr/local/include/ns3-dev/ns3/calendar-scheduler.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:19,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/type-id.h:548:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/simulator-impl.h:26:0,
+                 from /usr/local/include/ns3-dev/ns3/default-simulator-impl.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:24,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/nstime.h:955:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE (Time);
+                              ^
+/usr/local/include/ns3-dev/ns3/nstime.h:956:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Time);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/simulator-impl.h:28:0,
+                 from /usr/local/include/ns3-dev/ns3/default-simulator-impl.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:24,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:40: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+                                        ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:26:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/double.h:41:50: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (double, Double);
+                                                  ^
+/usr/local/include/ns3-dev/ns3/double.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Double);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:44:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/integer.h:44:52: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (int64_t, Integer);
+                                                    ^
+/usr/local/include/ns3-dev/ns3/integer.h:45:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Integer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:61:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/pointer.h:220:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Pointer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:75:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/string.h:41:55: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (std::string, String);
+                                                       ^
+/usr/local/include/ns3-dev/ns3/string.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (String);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/traced-value.h:25:0,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:87,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/uinteger.h:44:54: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (uint64_t, Uinteger);
+                                                      ^
+/usr/local/include/ns3-dev/ns3/uinteger.h:45:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Uinteger);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/vector.h:116:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/vector.h:117:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:193:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Vector);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER(Name);
+                              ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/address.h:278:34: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Address);
+                                  ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/annotated-topology-reader.hpp:25:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:30,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/topology-reader.h:247:2: warning: extra ‘;’ [-Wpedantic]
+ };
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-client.h:24,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:28:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:184:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:32:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-weights-reader.hpp:113:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+../extensions/model/dash-client.cc: In constructor ‘ns3::ndn::DashClient::DashClient()’:
+../extensions/model/dash-client.cc:59:56: error: ‘MAX_NDN_PACKET_SIZE’ is not a member of ‘ns3::ndn’
+     m_rateChanges(0), m_firstTime(true), m_payloadSize(ndn::MAX_NDN_PACKET_SIZE), m_target_dt("35s"), m_bitrateEstimate(0.0), m_segmentId(0),  m_totBytes(0), m_startedReceiving(Seconds(0)), m_sumDt(Seconds(0)), m_lastDt(Seconds(-1)),m_id(m_countObjs++), m_requestTime("0s"), m_segment_bytes(0), m_bitRate(45000), m_window(Seconds(10)), m_segmentFetchTime(Seconds(0))
+                                                        ^
+../extensions/model/dash-client.cc:59:56: note: suggested alternative:
+In file included from /home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/encoding/block.hpp:30:0,
+                 from /home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/name-component.hpp:26,
+                 from /home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/name.hpp:30,
+                 from /home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/interest.hpp:25,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:28,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/encoding/tlv.hpp:39:14: note:   ‘ndn::MAX_NDN_PACKET_SIZE’
+ const size_t MAX_NDN_PACKET_SIZE = 8800;
+              ^
+In file included from ../extensions/model/dash-client.cc:29:0:
+../extensions/model/dash-client.h:215:14: warning: ‘ns3::ndn::DashClient::m_payloadSize’ will be initialized after [-Wreorder]
+     uint32_t m_payloadSize;
+              ^
+../extensions/model/dash-client.h:136:10: warning:   ‘ns3::Time ns3::ndn::DashClient::m_target_dt’ [-Wreorder]
+     Time m_target_dt; // m_target_dt("35s") bufferf stable time
+          ^
+../extensions/model/dash-client.cc:58:5: warning:   when initialized here [-Wreorder]
+     DashClient::DashClient() :
+     ^
+../extensions/model/dash-client.cc: In member function ‘virtual void ns3::ndn::DashClient::StartApplication()’:
+../extensions/model/dash-client.cc:79:22: error: ‘RequestSegment’ was not declared in this scope
+       RequestSegment();
+                      ^
+../extensions/model/dash-client.cc: At global scope:
+../extensions/model/dash-client.cc:84:32: error: no ‘void ns3::ndn::DashClient::RequestSegment()’ member function declared in class ‘ns3::ndn::DashClient’
+     DashClient::RequestSegment()
+                                ^
+../extensions/model/dash-client.cc: In member function ‘void ns3::ndn::DashClient::SetInterestName()’:
+../extensions/model/dash-client.cc:131:22: error: no match for ‘operator=’ (operand types are ‘ndn::Name’ and ‘std::shared_ptr<ns3::ndn::DashName>’)
+       m_interestName = make_shared<DashName>();
+                      ^
+In file included from /home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/interest.hpp:25:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:28,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/ndn-parser.h:26,
+                 from ../extensions/model/dash-client.h:30,
+                 from ../extensions/model/dash-client.cc:29:
+/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/name.hpp:46:7: note: candidate: ndn::Name& ndn::Name::operator=(const ndn::Name&)
+ class Name : public enable_shared_from_this<Name>
+       ^
+/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/name.hpp:46:7: note:   no known conversion for argument 1 from ‘std::shared_ptr<ns3::ndn::DashName>’ to ‘const ndn::Name&’
+/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/name.hpp:46:7: note: candidate: ndn::Name& ndn::Name::operator=(ndn::Name&&)
+/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/ndn-cxx/name.hpp:46:7: note:   no known conversion for argument 1 from ‘std::shared_ptr<ns3::ndn::DashName>’ to ‘ndn::Name&&’
+../extensions/model/dash-client.cc:132:22: error: ‘class ndn::Name’ has no member named ‘SetProducerDomain’
+       m_interestName.SetProducerDomain(m_producerDomain);
+                      ^
+../extensions/model/dash-client.cc:133:22: error: ‘class ndn::Name’ has no member named ‘SetVideoId’
+       m_interestName.SetVideoId(m_videoId);
+                      ^
+../extensions/model/dash-client.cc:134:22: error: ‘class ndn::Name’ has no member named ‘SetRrepresentation’
+       m_interestName.SetRrepresentation(m_bitRate);
+                      ^
+../extensions/model/dash-client.cc:135:22: error: ‘class ndn::Name’ has no member named ‘SetAdaptationSet’
+       m_interestName.SetAdaptationSet(m_adaptationSetId);
+                      ^
+../extensions/model/dash-client.cc:136:22: error: ‘class ndn::Name’ has no member named ‘SetPeriod’
+       m_interestName.SetPeriod(m_periodId);
+                      ^
+../extensions/model/dash-client.cc:137:22: error: ‘class ndn::Name’ has no member named ‘SetSegmentId’
+       m_interestName.SetSegmentId(m_segmentId++);
+                      ^
+../extensions/model/dash-client.cc:138:22: error: ‘class ndn::Name’ has no member named ‘Update’
+       m_interestName.Update();
+                      ^
+../extensions/model/dash-client.cc: In member function ‘void ns3::ndn::DashClient::SendPacket()’:
+../extensions/model/dash-client.cc:150:11: error: ‘seq’ was not declared in this scope
+       if (seq >= m_seqMax){
+           ^
+../extensions/model/dash-client.cc: In member function ‘virtual void ns3::ndn::DashClient::ScheduleNextPacket()’:
+../extensions/model/dash-client.cc:186:58: error: ISO C++ forbids taking the address of an unqualified or parenthesized non-static member function to form a pointer to member function.  Say ‘&ns3::ndn::DashClient::SendPacket’ [-fpermissive]
+         m_sendEvent = Simulator::Schedule(Seconds(0.0), &SendPacket, this);
+                                                          ^
+../extensions/model/dash-client.cc:191:57: error: ISO C++ forbids taking the address of an unqualified or parenthesized non-static member function to form a pointer to member function.  Say ‘&ns3::ndn::DashClient::SendPacket’ [-fpermissive]
+       m_sendEvent = Simulator::Schedule(Seconds(mean), &SendPacket, this);
+                                                         ^
+../extensions/model/dash-client.cc: In member function ‘virtual void ns3::ndn::DashClient::OnData(std::shared_ptr<const ndn::Data>)’:
+../extensions/model/dash-client.cc:201:40: error: conversion from ‘const ndn::Name’ to non-scalar type ‘ns3::ndn::DashName’ requested
+       DashName dataname = data->getName();
+                                        ^
+../extensions/model/dash-client.cc:205:7: error: ‘m_ndnParser’ was not declared in this scope
+       m_ndnParser->Ondata(data);
+       ^
+../extensions/model/dash-client.cc:214:45: error: ‘mpegHeader’ was not declared in this scope
+         m_sumDt += m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
+                                             ^
+../extensions/model/dash-client.cc:236:48: error: ‘mpegHeader’ was not declared in this scope
+         Time currDt = m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
+                                                ^
+../extensions/model/dash-client.cc:260:27: error: ‘RequestSegment’ was not declared in this scope
+            RequestSegment();
+                           ^
+../extensions/model/dash-client.cc:264:58: error: no matching function for call to ‘ns3::MpegPlayer::SchduleBufferWakeup(ns3::Time&, ns3::ndn::DashClient*)’
+            m_player.SchduleBufferWakeup(bufferDelay, this);
+                                                          ^
+In file included from ../extensions/model/dash-client.h:28:0,
+                 from ../extensions/model/dash-client.cc:29:
+../extensions/model/mpeg-player.h:59:5: note: candidate: void ns3::MpegPlayer::SchduleBufferWakeup(ns3::Time, ns3::DashClient*)
+     SchduleBufferWakeup(const Time t, DashClient * client)
+     ^
+../extensions/model/mpeg-player.h:59:5: note:   no known conversion for argument 2 from ‘ns3::ndn::DashClient*’ to ‘ns3::DashClient*’
+../extensions/model/dash-client.cc:240:18: warning: unused variable ‘old’ [-Wunused-variable]
+         uint32_t old = m_bitRate;
+                  ^
+../extensions/model/dash-client.cc: In member function ‘void ns3::ndn::DashClient::GetStats()’:
+../extensions/model/dash-client.cc:288:26: error: ‘class ns3::MpegPlayer’ has no member named ‘m_t’
+       << (1.0 * m_player.m_t  void
+                          ^
+../extensions/model/dash-client.cc:288:31: error: expected ‘)’ before ‘void’
+       << (1.0 * m_player.m_t  void
+                               ^
+../extensions/model/dash-client.cc:289:18: error: ‘otalRate’ was not declared in this scope
+     CalcSegMax();otalRate) / m_player.m_framesPlayed
+                  ^
+
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:16:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/boolean.h:81:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Boolean);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/trace-source-accessor.h:24:0,
+                 from /usr/local/include/ns3-dev/ns3/type-id.h:25,
+                 from /usr/local/include/ns3-dev/ns3/object-base.h:23,
+                 from /usr/local/include/ns3-dev/ns3/object.h:29,
+                 from /usr/local/include/ns3-dev/ns3/scheduler.h:25,
+                 from /usr/local/include/ns3-dev/ns3/calendar-scheduler.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:19,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/callback.h:1731:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Callback);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/type-id.h:548:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/object-base.h:23:0,
+                 from /usr/local/include/ns3-dev/ns3/object.h:29,
+                 from /usr/local/include/ns3-dev/ns3/scheduler.h:25,
+                 from /usr/local/include/ns3-dev/ns3/calendar-scheduler.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:19,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/type-id.h:548:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (TypeId);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/simulator-impl.h:26:0,
+                 from /usr/local/include/ns3-dev/ns3/default-simulator-impl.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:24,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/nstime.h:955:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE (Time);
+                              ^
+/usr/local/include/ns3-dev/ns3/nstime.h:956:33: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Time);
+                                 ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/simulator-impl.h:28:0,
+                 from /usr/local/include/ns3-dev/ns3/default-simulator-impl.h:24,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:24,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/object-factory.h:185:40: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (ObjectFactory);
+                                        ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:26:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/double.h:41:50: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (double, Double);
+                                                  ^
+/usr/local/include/ns3-dev/ns3/double.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Double);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:44:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/integer.h:44:52: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (int64_t, Integer);
+                                                    ^
+/usr/local/include/ns3-dev/ns3/integer.h:45:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Integer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:61:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/pointer.h:220:36: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Pointer);
+                                    ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:75:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/string.h:41:55: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (std::string, String);
+                                                       ^
+/usr/local/include/ns3-dev/ns3/string.h:42:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (String);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/traced-value.h:25:0,
+                 from /usr/local/include/ns3-dev/ns3/core-module.h:87,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/uinteger.h:44:54: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_VALUE_DEFINE_WITH_NAME (uint64_t, Uinteger);
+                                                      ^
+/usr/local/include/ns3-dev/ns3/uinteger.h:45:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Uinteger);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:116:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/vector.h:116:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector3D);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:117:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:95:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/vector.h:117:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Vector2D);
+                                   ^
+/usr/local/include/ns3-dev/ns3/vector.h:193:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_ACCESSOR_DEFINE (Vector);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER(Name);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:23:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ndnSIM/model/ndn-common.hpp:49:30: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER(Name);
+                              ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/address.h:278:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:29:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/address.h:278:34: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Address);
+                                  ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:296:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:30:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ipv4-address.h:297:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv4Mask);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:511:38: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Address);
+                                      ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/net-device.h:31:0,
+                 from /usr/local/include/ns3-dev/ns3/node.h:29,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM/helper/ndn-stack-helper.hpp:27,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:23,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ipv6-address.h:512:37: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (Ipv6Prefix);
+                                     ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/annotated-topology-reader.hpp:25:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:30,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/topology-reader.h:247:2: warning: extra ‘;’ [-Wpedantic]
+ };
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/core-module.h:14:0,
+                 from ../extensions/model/dash-name.h:4,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:378:32: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_VALUE_DEFINE (type);                                        \
+                                ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+/usr/local/include/ns3-dev/ns3/attribute-helper.h:379:35: warning: extra ‘;’ [-Wpedantic]
+   ATTRIBUTE_ACCESSOR_DEFINE (type);                                     \
+                                   ^
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:1: note: in expansion of macro ‘ATTRIBUTE_HELPER_HEADER’
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+ ^
+In file included from /usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:28:0,
+                 from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/data-rate.h:241:35: warning: extra ‘;’ [-Wpedantic]
+ ATTRIBUTE_HELPER_HEADER (DataRate);
+                                   ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:31:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-map-reader.hpp:184:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+In file included from /usr/local/include/ns3-dev/ns3/ndn-all.hpp:32:0,
+                 from /usr/local/include/ns3-dev/ns3/ndnSIM-module.h:10,
+                 from ../extensions/model/dash-name.h:5,
+                 from ../extensions/model/dash-name.cpp:1:
+/usr/local/include/ns3-dev/ns3/ndnSIM/utils/topology/rocketfuel-weights-reader.hpp:113:2: warning: extra ‘;’ [-Wpedantic]
+ }; // end namespace ns3
+  ^
+
+Waf: Leaving directory `/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build'
+Build failed
+ -> task in 'extensions' failed (exit status 1): 
+	{task 139720111972240: cxx mpeg-player.cc -> mpeg-player.cc.1.o}
+['/usr/bin/g++', '-pedantic', '-Wall', '-O2', '-g', '-std=c++11', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-I/usr/local/include/ns3-dev', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/NFD', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/ns3/ndnSIM/NFD', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/core', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/core', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/daemon', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/daemon', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/rib', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/rib', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/ns3/ndnSIM', '-DNDEBUG', '-DNS3_LOG_ENABLE=1', '-DNS3_ASSERT_ENABLE=1', '-DHAVE_NS3_CORE=1', '-DHAVE_NS3_NETWORK=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_POINT_TO_POINT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_APPLICATIONS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MOBILITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NDNSIM=1', '-DHAVE_SQLITE3=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_ANTENNA=1', '-DHAVE_NS3_AODV=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_BRIDGE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_BUILDINGS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CONFIG_STORE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CSMA=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CSMA_LAYOUT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_DSDV=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_DSR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_ENERGY=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_FD_NET_DEVICE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_FLOW_MONITOR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_INTERNET=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_LTE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MESH=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MPI=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NETANIM=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NIX_VECTOR_ROUTING=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_OLSR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_POINT_TO_POINT_LAYOUT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_PROPAGATION=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_SPECTRUM=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_STATS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_TAP_BRIDGE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_TOPOLOGY_READ=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_UAN=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_VIRTUAL_NET_DEVICE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_VISUALIZER=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_WIFI=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_WIMAX=1', '-DHAVE_SQLITE3=1', '../extensions/model/mpeg-player.cc', '-c', '-o', '/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build/extensions/model/mpeg-player.cc.1.o']
+ -> task in 'extensions' failed (exit status 1): 
+	{task 139720111972304: cxx ndn-parser.cc -> ndn-parser.cc.1.o}
+['/usr/bin/g++', '-pedantic', '-Wall', '-O2', '-g', '-std=c++11', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-I/usr/local/include/ns3-dev', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/NFD', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/ns3/ndnSIM/NFD', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/core', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/core', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/daemon', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/daemon', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/rib', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/rib', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/ns3/ndnSIM', '-DNDEBUG', '-DNS3_LOG_ENABLE=1', '-DNS3_ASSERT_ENABLE=1', '-DHAVE_NS3_CORE=1', '-DHAVE_NS3_NETWORK=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_POINT_TO_POINT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_APPLICATIONS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MOBILITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NDNSIM=1', '-DHAVE_SQLITE3=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_ANTENNA=1', '-DHAVE_NS3_AODV=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_BRIDGE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_BUILDINGS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CONFIG_STORE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CSMA=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CSMA_LAYOUT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_DSDV=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_DSR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_ENERGY=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_FD_NET_DEVICE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_FLOW_MONITOR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_INTERNET=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_LTE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MESH=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MPI=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NETANIM=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NIX_VECTOR_ROUTING=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_OLSR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_POINT_TO_POINT_LAYOUT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_PROPAGATION=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_SPECTRUM=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_STATS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_TAP_BRIDGE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_TOPOLOGY_READ=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_UAN=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_VIRTUAL_NET_DEVICE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_VISUALIZER=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_WIFI=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_WIMAX=1', '-DHAVE_SQLITE3=1', '../extensions/model/ndn-parser.cc', '-c', '-o', '/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build/extensions/model/ndn-parser.cc.1.o']
+ -> task in 'extensions' failed (exit status 1): 
+	{task 139720111971472: cxx dash-client.cc -> dash-client.cc.1.o}
+['/usr/bin/g++', '-pedantic', '-Wall', '-O2', '-g', '-std=c++11', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-pthread', '-I/usr/local/include/ns3-dev', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM/NFD', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/ns3/ndnSIM/NFD', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/core', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/core', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/daemon', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/daemon', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/src/ndnSIM/NFD/rib', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/src/ndnSIM/NFD/rib', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/build/ns3/ndnSIM', '-I/home/zhaoliang/Documents/ndnSIM/ns-3/ns3/ndnSIM', '-DNDEBUG', '-DNS3_LOG_ENABLE=1', '-DNS3_ASSERT_ENABLE=1', '-DHAVE_NS3_CORE=1', '-DHAVE_NS3_NETWORK=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_POINT_TO_POINT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_APPLICATIONS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MOBILITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NDNSIM=1', '-DHAVE_SQLITE3=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_ANTENNA=1', '-DHAVE_NS3_AODV=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_BRIDGE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_BUILDINGS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CONFIG_STORE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CSMA=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_CSMA_LAYOUT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_DSDV=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_DSR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_ENERGY=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_FD_NET_DEVICE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_FLOW_MONITOR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_INTERNET=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_LTE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MESH=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_MPI=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NETANIM=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_NIX_VECTOR_ROUTING=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_OLSR=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_POINT_TO_POINT_LAYOUT=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_PROPAGATION=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_SPECTRUM=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_STATS=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_TAP_BRIDGE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_TOPOLOGY_READ=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_UAN=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_VIRTUAL_NET_DEVICE=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_VISUALIZER=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_WIFI=1', '-DHAVE_SQLITE3=1', '-DHAVE_NS3_WIMAX=1', '-DHAVE_SQLITE3=1', '../extensions/model/dash-client.cc', '-c', '-o', '/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build/extensions/model/dash-client.cc.1.o']

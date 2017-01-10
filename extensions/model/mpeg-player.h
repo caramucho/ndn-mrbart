@@ -28,6 +28,8 @@
 
 namespace ns3
 {
+  namespace ndn
+  {
   enum
   {
     MPEG_PLAYER_PAUSED, MPEG_PLAYER_PLAYING, MPEG_PLAYER_NOT_STARTED, MPEG_PLAYER_DONE
@@ -51,7 +53,7 @@ namespace ns3
 
     void
     Start();
-    // get the time since video play started 
+    // get the time since video play started
     Time
     GetRealPlayTime(Time playTime);
 
@@ -81,6 +83,7 @@ namespace ns3
     DashClient * m_dashClient;
 
   };
+}
 } // namespace ns3
 
 #endif /* MPEG_PLAYER_H_ */

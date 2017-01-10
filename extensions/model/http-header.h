@@ -26,6 +26,8 @@
 
 namespace ns3
 {
+  namespace ndn
+  {
   /**
    * \ingroup dash
    * \class HTTPTHeader
@@ -102,7 +104,7 @@ namespace ns3
     uint32_t m_resolution;
     uint32_t m_segment_id;
   };
-
+}
 } // namespace ns3
 
 #endif /* HTTP_TS_HEADER_H */

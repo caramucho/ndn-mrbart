@@ -30,6 +30,8 @@
 NS_LOG_COMPONENT_DEFINE("MpegPlayer");
 namespace ns3
 {
+  namespace ndn
+  {
 
   MpegPlayer::MpegPlayer() :
       m_state(MPEG_PLAYER_NOT_STARTED), m_interrruptions(0), m_totalRate(0), m_minRate(
@@ -153,5 +155,5 @@ namespace ns3
     Simulator::Schedule(MilliSeconds(20), &MpegPlayer::PlayFrame, this);
 
   }
-
+}
 } // namespace ns3

@@ -27,16 +27,20 @@
 // #include "ns3/socket.h"
 #include "mpeg-player.h"
 // #include "ns3/traced-callback.h"
-// #include "http-parser.h"
+#include "ndn-parser.h"
 
 #include <ns3/ndnSIM-module.h>
 #include "ns3/ndnSIM/apps/ndn-consumer.hpp"
 #include "dash-name.h"
-#include "mpeg-player.h"
+
 
 
 namespace ns3
 {
+
+  namespace ndn
+  {
+
 
   /**
    * \defgroup dash Dash
@@ -66,7 +70,7 @@ namespace ns3
   class DashClient : public Consumer
   {
     friend class MpegPlayer;
-    // friend class HttpParser;
+    friend class NdnParser;
   public:
     static TypeId
     GetTypeId(void);
@@ -137,8 +141,8 @@ namespace ns3
      *
      * \param The bitrate of the next segment.
      */
-    // void
-    // RequestSegment();
+    void
+    RequestSegment();
     virtual void
     ScheduleNextPacket();
 
@@ -154,8 +158,8 @@ namespace ns3
 
 
     // // inherited from Application base class.
-    // virtual void
-    // StartApplication(void);    // Called at time specified by Start
+    virtual void
+    StartApplication(void);    // Called at time specified by Start
     // virtual void
     // StopApplication(void);     // Called at time specified by Stop
     // void
@@ -182,7 +186,7 @@ namespace ns3
     }
 
     MpegPlayer m_player;     // The MpegPlayer object
-    // HttpParser m_parser; // An HttpParser object for parsing the incoming stream into http messages
+    NdnParser m_parser; // An HttpParser object for parsing the incoming stream into http messages
     // Ptr<Socket> m_socket;    // Associated socket
     // Address m_peer;          // Peer address
     // bool m_connected;        // True if connected
@@ -215,8 +219,8 @@ namespace ns3
 
 
 
-  };
-
+    };
+  } //namespace ndn
 } // namespace ns3
 
 #endif /* DASH_CLIENT_H */
