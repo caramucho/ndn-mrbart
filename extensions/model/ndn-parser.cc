@@ -54,14 +54,26 @@ namespace ns3
       m_app = app;
     }
     void
+    NdnParser::readContent(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes){
+      for(uint32_t bytesReaded = 0; bytesReaded < bytes; bytesReaded++){
+        uint8_t v;
+        v = *begin;
+        buffer[bytesReaded] = v;
+        begin++;
+      }
+    }
+
+    void
     NdnParser::OnData(shared_ptr<const Data> data)
     {
       // NS_LOG_FUNCTION(this << socket);
       // Address from;
 
       // int bytes = socket->RecvFrom(&m_buffer[m_bytes], MPEG_MAX_MESSAGE - m_bytes, 0, from);
-      int bytes = data->getContent().size();
-      // memmove(data->getContent().wire(),&m_buffer[m_bytes],bytes);
+      uint32_t bytes = data->getContent().value_size();
+      ::ndn::Buffer::const_iterator i = data->getContent().value_begin();
+      readContent(i,&m_buffer[m_bytes],bytes);
+
       DashName dashname;
       dashname.parseName(data->getName());
       MPEGHeader mpeg_header;

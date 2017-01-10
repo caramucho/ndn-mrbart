@@ -44,6 +44,8 @@ namespace ns3
       OnData(shared_ptr<const Data> data);
       void
       SetApp(DashClient *app);
+      void
+      readContent(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes);
 
     private:
       uint8_t m_buffer[MPEG_MAX_MESSAGE];
