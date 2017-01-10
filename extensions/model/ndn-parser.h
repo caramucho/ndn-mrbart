@@ -23,8 +23,9 @@
 
 #include <ns3/ptr.h>
 #include "mpeg-header.h"
+#include "http-header.h"
 #include <ns3/ndnSIM-module.h>
-
+#include "dash-name.h"
 
 namespace ns3
 {
@@ -44,13 +45,22 @@ namespace ns3
       OnData(shared_ptr<const Data> data);
       void
       SetApp(DashClient *app);
-      void
-      readContent(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes);
+
 
     private:
+      void
+      makeHTTPheader(DashName name);
+      void
+      readContent(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes);
+      void
+      readAllFrames();
+      void
+      readFrame(uint32_t message_size);
+
       uint8_t m_buffer[MPEG_MAX_MESSAGE];
       uint32_t m_bytes;
       DashClient *m_app;
+      HTTPHeader http_header;
 
       Time m_lastmeasurement;
 

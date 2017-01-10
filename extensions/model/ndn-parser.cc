@@ -24,10 +24,10 @@
 #include "ns3/socket.h"
 #include "ns3/packet.h"
 #include "ns3/simulator.h"
-// #include "http-header.h"
+
 #include "mpeg-header.h"
 #include "dash-client.h"
-#include "dash-name.h"
+
 
 NS_LOG_COMPONENT_DEFINE("NdnParser");
 
@@ -63,6 +63,63 @@ namespace ns3
       }
     }
 
+
+
+    void
+    NdnParser::makeHTTPheader(DashName name){
+      http_header.SetSeq(1);
+      http_header.SetMessageType(HTTP_REQUEST);
+      http_header.SetVideoId(name.GetVideoId());
+      http_header.SetResolution(name.GetRepresentation());
+      http_header.SetSegmentId(name.GetSegmentId());
+    }
+
+    void
+    NdnParser::readAllFrames(){
+      MPEGHeader mpeg_header;
+      uint32_t headersize = mpeg_header.GetSerializedSize();
+      NS_LOG_INFO("### Buffer space: " << m_bytes << " Queue length " << m_app->GetPlayer().GetQueueSize());
+
+      if (m_bytes < headersize)
+      {
+        return;
+      }
+
+      Packet headerPacket(m_buffer, headersize);
+      headerPacket.RemoveHeader(mpeg_header);
+
+      uint32_t message_size = headersize + mpeg_header.GetSize();
+
+      // if (m_bytes < message_size)
+      // {
+      //   return;
+      // }
+      while (m_bytes >= message_size) {
+        /* code */
+        readFrame(message_size);
+        m_app->m_segment_bytes += mpeg_header.GetSize();
+        m_app->m_totBytes += mpeg_header.GetSize();
+      }
+    }
+
+    void
+    NdnParser::readFrame(uint32_t message_size){
+
+
+      Packet message(m_buffer, message_size);
+      // Add the httpHear again
+      message.AddHeader(http_header);
+      //recalculate headersize and message_size
+      // headersize = mpeg_header.GetSerializedSize()
+      //  + http_header.GetSerializedSize();
+      // message_size = headersize + mpeg_header.GetSize();
+
+      memmove(m_buffer, &m_buffer[message_size], m_bytes - message_size);
+      m_bytes -= message_size;
+
+      m_app->m_player.ReceiveFrame(&message);
+    }
+
     void
     NdnParser::OnData(shared_ptr<const Data> data)
     {
@@ -76,49 +133,22 @@ namespace ns3
 
       DashName dashname;
       dashname.parseName(data->getName());
-      MPEGHeader mpeg_header;
+
+      makeHTTPheader(dashname);
       // HTTPHeader http_header;
-
-      uint32_t headersize = mpeg_header.GetSerializedSize();
       // + http_header.GetSerializedSize();
-
       if (bytes > 0)
       {
         m_bytes += bytes;
 
         if (m_lastmeasurement > Time("0s"))
         {
-          NS_LOG_INFO(Simulator::Now().GetSeconds() << " bytes: " << bytes << " dt: " << (Simulator::Now() - m_lastmeasurement).GetSeconds() << " bitrate: " << (8 * (bytes + headersize)/ (Simulator::Now() - m_lastmeasurement).GetSeconds()));
+          // NS_LOG_INFO(Simulator::Now().GetSeconds() << " bytes: " << bytes << " dt: " << (Simulator::Now() - m_lastmeasurement).GetSeconds() << " bitrate: " << (8 * (bytes + headersize)/ (Simulator::Now() - m_lastmeasurement).GetSeconds()));
         }
         m_lastmeasurement = Simulator::Now();
       }
+      readAllFrames();
 
-      NS_LOG_INFO("### Buffer space: " << m_bytes << " Queue length " << m_app->GetPlayer().GetQueueSize());
-
-      if (m_bytes < headersize)
-      {
-        return;
-      }
-
-      Packet headerPacket(m_buffer, headersize);
-      headerPacket.RemoveHeader(mpeg_header);
-
-      uint32_t message_size = headersize + mpeg_header.GetSize();
-
-      if (m_bytes < message_size)
-      {
-        return;
-      }
-      Packet message(m_buffer, message_size);
-
-      memmove(m_buffer, &m_buffer[message_size], m_bytes - message_size);
-      m_bytes -= message_size;
-
-      m_app->m_player.ReceiveFrame(&message);
-      m_app->m_segment_bytes += mpeg_header.GetSize();
-      m_app->m_totBytes += mpeg_header.GetSize();
-
-      // ReadSocket(socket);
     }
   } // namespace ndn
 } // namespace ns3

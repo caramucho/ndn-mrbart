@@ -59,9 +59,12 @@ main(int argc, char *argv[])
   Block dataBlock(Data1, sizeof(Data1));
   Data d;
   d.wireDecode(dataBlock);
-  d.getContent().value();
+  uint32_t bytes = d.getContent().value_size();
   string str = std::string(reinterpret_cast<const char*>(d.getContent().value()),d.getContent().value_size());
   parser.readContent(d.getContent().value_begin(),buffer,d.getContent().value_size());
+  parser.readContent(d.getContent().value_begin(),&buffer[bytes],d.getContent().value_size());
+
+
   cout <<  buffer  << endl;
 
   return 0;
