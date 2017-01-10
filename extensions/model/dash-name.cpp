@@ -42,23 +42,24 @@ namespace ns3 {
     DashName&
     DashName::parseName(const Name& name)
     {
+      cout << "DashName::parseName initilizing" << endl;
       m_producerDomain = name.getSubName(0,1).toUri().substr(1);
-      std::cout <<  name.getSubName(0,1).toUri().substr(1)  << std::endl;
+      // std::cout <<  name.getSubName(0,1).toUri().substr(1)  << std::endl;
 
       m_videoId = stoi(name.getSubName(2,1).toUri().substr(1));
-      std::cout <<  name.getSubName(2,1).toUri().substr(1)  << std::endl;
+      // std::cout <<  name.getSubName(2,1).toUri().substr(1)  << std::endl;
 
       m_periodId = stoi(name.getSubName(3,1).toUri().substr(1));
-      std::cout <<  name.getSubName(3,1).toUri().substr(1)  << std::endl;
+      // std::cout <<  name.getSubName(3,1).toUri().substr(1)  << std::endl;
 
       m_adaptationSetId = stoi(name.getSubName(4,1).toUri().substr(1));
-      std::cout <<  name.getSubName(4,1).toUri().substr(1)  << std::endl;
+      // std::cout <<  name.getSubName(4,1).toUri().substr(1)  << std::endl;
 
       m_representation = stoi(name.getSubName(5,1).toUri().substr(1));
-      std::cout <<  name.getSubName(5,1).toUri().substr(1)  << std::endl;
+      // std::cout <<  name.getSubName(5,1).toUri().substr(1)  << std::endl;
 
       m_segmentId = stoi(name.getSubName(6,1).toUri().substr(1));
-      std::cout <<  name.getSubName(6,1).toUri().substr(1)  << std::endl;
+      // std::cout <<  name.getSubName(6,1).toUri().substr(1)  << std::endl;
 
       // Update();
       return *this;

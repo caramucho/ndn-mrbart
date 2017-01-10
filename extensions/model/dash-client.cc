@@ -44,7 +44,7 @@ namespace ns3{
     DashClient::GetTypeId(void)
     {
       static TypeId tid =
-      TypeId("ns3::DashClient")
+      TypeId("ns3::ndn::DashClient")
       .SetGroupName("Ndn")
       .SetParent<Consumer>()
       .AddConstructor<DashClient>()
@@ -70,10 +70,17 @@ namespace ns3{
     m_bitRate(45000),
     m_window(Seconds(10)),
     m_segmentFetchTime(Seconds(0)),
+    m_segmentLength("2s"),
     m_firstTime(true),
-    m_payloadSize(::ndn::MAX_NDN_PACKET_SIZE),
-    m_seqMax(0)
+    // m_payloadSize(::ndn::MAX_NDN_PACKET_SIZE),
+    m_payloadSize(1000),
+    m_seqMax(0),
+    m_producerDomain("Caida"),
+    m_videoId(1),
+    m_adaptationSetId(1),
+    m_periodId(1)
     {
+      cout << "DashClient initilizing" << endl;
       NS_LOG_FUNCTION(this);
       // m_parser.SetApp(this); // So the parser knows where to send the received messages
     }
@@ -102,44 +109,17 @@ namespace ns3{
       // if (m_seq > m_seqMax + 1) {
       //   return; // we are totally done
       // }
+      cout << "RequestSegment initilizing" << endl;
       m_seq = 0;
       CalcSegMax();
       m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
       m_segment_bytes = 0;
+      m_segmentId++;
       SetInterestName();
       m_firstTime = true;
       ScheduleNextPacket();
     }
-    // void
-    // DashClient::RequestSegment()
-    // {
-    // NS_LOG_FUNCTION(this);
-    //
-    // if (m_connected == false)
-    //   {
-    //     return;
-    //   }
-    //
-    // Ptr<Packet> packet = Create<Packet>(100);
-    //
-    // HTTPHeader httpHeader;
-    // httpHeader.SetSeq(1);
-    // httpHeader.SetMessageType(HTTP_REQUEST);
-    // httpHeader.SetVideoId(m_videoId);
-    // httpHeader.SetResolution(m_bitRate);
-    // httpHeader.SetSegmentId(m_segmentId++);
-    // packet->AddHeader(httpHeader);
-    //
-    // int res = 0;
-    // if (((unsigned) (res = m_socket->Send(packet))) != packet->GetSize())
-    //   {
-    //     NS_FATAL_ERROR(
-    //         "Oh oh. Couldn't send packet! res=" << res << " size=" << packet->GetSize());
-    //   }
-    //
-    // m_requestTime = Simulator::Now();
-    // m_segment_bytes = 0;
-    // }
+
 
     void
     DashClient::SetInterestName()
@@ -150,7 +130,7 @@ namespace ns3{
       dashname.SetRepresentation(m_bitRate);
       dashname.SetAdaptationSetId(m_adaptationSetId);
       dashname.SetPeriodId(m_periodId);
-      dashname.SetSegmentId(m_segmentId++);
+      dashname.SetSegmentId(m_segmentId);
       m_interestName = dashname.GetInterestName();
     }
 
@@ -158,8 +138,9 @@ namespace ns3{
     void
     DashClient::SendPacket()
     {
-      if (!m_active)
-      return;
+      cout << "SendPacket initilizing" << endl;
+      // if (!m_active)
+      // return;
 
       NS_LOG_FUNCTION_NOARGS();
       //
@@ -180,7 +161,8 @@ namespace ns3{
       interest->setInterestLifetime(interestLifeTime);
 
       // NS_LOG_INFO ("Requesting Interest: \n" << *interest);
-      NS_LOG_INFO("> Interest for " << seq);
+      // NS_LOG_INFO("> Interest for " << seq);
+      cout << Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq << endl;
 
       WillSendOutInterest(seq);
 
@@ -194,7 +176,7 @@ namespace ns3{
     void
     DashClient::ScheduleNextPacket()
     {
-      // cout << "ScheduleNextPacket initilizing" << endl;
+      cout << "ScheduleNextPacket initilizing" << endl;
       double mean = 8.0 * m_payloadSize / m_bitRate;
       // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
 
@@ -202,10 +184,13 @@ namespace ns3{
         m_sendEvent = Simulator::Schedule(Seconds(0.0), &DashClient::SendPacket, this);
         m_firstTime = false;
       }
-      else if (!m_sendEvent.IsRunning())
-
-      m_sendEvent = Simulator::Schedule(Seconds(mean), &DashClient::SendPacket, this);
+      else if (!m_sendEvent.IsRunning()){
+        m_sendEvent = Simulator::Schedule(Seconds(mean), &DashClient::SendPacket, this);
+      }else {
+        cout << "Sending event is busy" << endl;
+      }
     }
+
 
     void
     DashClient::OnData(shared_ptr<const Data> data)
@@ -213,32 +198,14 @@ namespace ns3{
 
       // if (!m_active)
       // return;
+      cout << "OnData initilizing" << endl;
       Consumer::OnData(data);
 
-      DashName dashname;
-      dashname.parseName(data->getName());
-
-      uint32_t seq = data->getName().at(-1).toSequenceNumber();
       // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
       // std::cout <<  "data: " +  dataname.getPrefix(6).toUri() + " received"  << std::endl;
       m_parser.OnData(data);
-      // m_player.ReceiveFrame(&data);
-      // m_segment_bytes += m_payloadSize;
-      // m_totBytes += m_payloadSize;
 
-      // Calculate the buffering time
-      switch (m_player.m_state)
-      {
-      case MPEG_PLAYER_PLAYING:
-        // m_sumDt += m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
-        break;
-      case MPEG_PLAYER_PAUSED:
-        break;
-      case MPEG_PLAYER_DONE:
-        return;
-      default:
-        NS_FATAL_ERROR("WRONG STATE");
-      }
+      uint32_t seq = data->getName().at(-1).toSequenceNumber();
 
       // If we received the last packet of the segment
       if (seq == m_seqMax)
@@ -394,7 +361,9 @@ namespace ns3{
 
     void
     DashClient::CalcSegMax(){
-      m_seqMax =  8 * m_bitRate * m_segmentLength.GetSeconds()  / m_payloadSize;
+      cout << "CalcSegMax initilizing" << endl;
+      m_seqMax =  m_bitRate * m_segmentLength.GetSeconds()  / (m_payloadSize * 8);
+      cout << "segmentLength: "<< m_segmentLength <<"  seqMax: "<< m_seqMax << endl;
     }
 
   } // Namespace ndn

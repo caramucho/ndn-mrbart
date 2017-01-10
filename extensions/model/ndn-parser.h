@@ -48,6 +48,8 @@ namespace ns3
 
 
     private:
+      uint32_t
+      getMessageSize();
       void
       makeHTTPheader(DashName name);
       void
@@ -61,7 +63,7 @@ namespace ns3
       uint32_t m_bytes;
       DashClient *m_app;
       HTTPHeader http_header;
-
+      MPEGHeader mpeg_header;
       Time m_lastmeasurement;
 
     };

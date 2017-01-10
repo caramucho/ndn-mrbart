@@ -213,8 +213,8 @@ namespace ns3
     bool m_firstTime;
     uint32_t m_payloadSize;
     uint32_t m_seqMax;
-    uint32_t m_adaptationSetId;
-    uint32_t m_periodId;
+    uint8_t m_adaptationSetId;
+    uint8_t m_periodId;
     string m_producerDomain;
 
 
