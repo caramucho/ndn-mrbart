@@ -84,7 +84,10 @@ namespace ns3
       }
       Packet headerPacket(m_buffer, headersize);
       headerPacket.RemoveHeader(mpeg_header);
-      cout << "content size:" << mpeg_header.GetSize() << endl;
+      // cout << "content size:" << mpeg_header.GetSize() << endl;
+      if(mpeg_header.GetSize() == 0){
+        return 0;
+      }
       uint32_t message_size = headersize + mpeg_header.GetSize();
       return message_size;
     }
@@ -99,7 +102,8 @@ namespace ns3
       //   return;
       // }
       uint32_t message_size = getMessageSize();
-      cout << "message_size= "<< message_size<< endl;
+      // cout << "message_size= "<< message_size<< endl;
+      // m_app->m_segment_bytes += m_app->m_payloadSize;
       if(message_size == 0){
         return;
       }
@@ -152,11 +156,11 @@ namespace ns3
       // Address from;
 
       // int bytes = socket->RecvFrom(&m_buffer[m_bytes], MPEG_MAX_MESSAGE - m_bytes, 0, from);
-      cout << "NdnParser Ondata initilizing" << endl;
+      // cout << "NdnParser Ondata initilizing" << endl;
       uint32_t bytes = data->getContent().value_size();
       ::ndn::Buffer::const_iterator i = data->getContent().value_begin();
       readContent(i,&m_buffer[m_bytes],bytes);
-      cout << "Bytes: "<< bytes << endl;
+      cout << "Bytes: "<< bytes << " received"<< endl;
       DashName dashname;
       dashname.parseName(data->getName());
 
@@ -174,7 +178,7 @@ namespace ns3
         m_lastmeasurement = Simulator::Now();
       }
       readAllFrames();
-
+      // cout << "End of NdnParser::OnData" << endl;
     }
   } // namespace ndn
 } // namespace ns3

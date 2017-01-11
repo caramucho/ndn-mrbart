@@ -67,13 +67,13 @@ namespace ns3{
     m_id(m_countObjs++),
     m_requestTime("0s"),
     m_segment_bytes(0),
-    m_bitRate(45000),
+    m_bitRate(450000),
     m_window(Seconds(10)),
     m_segmentFetchTime(Seconds(0)),
     m_segmentLength("2s"),
     m_firstTime(true),
     // m_payloadSize(::ndn::MAX_NDN_PACKET_SIZE),
-    m_payloadSize(1000),
+    m_payloadSize(8000),
     m_seqMax(0),
     m_producerDomain("Caida"),
     m_videoId(1),
@@ -109,7 +109,7 @@ namespace ns3{
       // if (m_seq > m_seqMax + 1) {
       //   return; // we are totally done
       // }
-      cout << "RequestSegment initilizing" << endl;
+      // cout << "RequestSegment initilizing" << endl;
       m_seq = 0;
       CalcSegMax();
       m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
@@ -138,13 +138,13 @@ namespace ns3{
     void
     DashClient::SendPacket()
     {
-      cout << "SendPacket initilizing" << endl;
+      // cout << "SendPacket initilizing" << endl;
       // if (!m_active)
       // return;
 
       NS_LOG_FUNCTION_NOARGS();
       //
-      if (m_seq >= m_seqMax){
+      if (m_seq > m_seqMax){
         return;
       }
       uint32_t seq = m_seq;
@@ -176,8 +176,8 @@ namespace ns3{
     void
     DashClient::ScheduleNextPacket()
     {
-      cout << "ScheduleNextPacket initilizing" << endl;
-      double mean = 8.0 * m_payloadSize / m_bitRate;
+      // cout << "ScheduleNextPacket initilizing" << endl;
+      double mean = 0.9 * 8.0 * m_payloadSize / m_bitRate;
       // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
 
       if (m_firstTime) {
@@ -198,7 +198,7 @@ namespace ns3{
 
       // if (!m_active)
       // return;
-      cout << "OnData initilizing" << endl;
+      // cout << "OnData initilizing" << endl;
       Consumer::OnData(data);
 
       // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
@@ -212,8 +212,8 @@ namespace ns3{
       {
         m_segmentFetchTime = Simulator::Now() - m_requestTime;
 
-        NS_LOG_INFO(
-            Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentRate: " << 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
+        // NS_LOG_INFO(
+        cout <<  Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentRate: " << 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << endl;
 
         // Feed the bitrate info to the player
         AddBitRate(Simulator::Now(),
@@ -254,6 +254,7 @@ namespace ns3{
 
         // RequestSegment();
       }
+      // cout << "End of DashClient::OnData" << endl;
 
     }
 
@@ -361,7 +362,7 @@ namespace ns3{
 
     void
     DashClient::CalcSegMax(){
-      cout << "CalcSegMax initilizing" << endl;
+      // cout << "CalcSegMax initilizing" << endl;
       m_seqMax =  m_bitRate * m_segmentLength.GetSeconds()  / (m_payloadSize * 8);
       cout << "segmentLength: "<< m_segmentLength <<"  seqMax: "<< m_seqMax << endl;
     }

@@ -44,13 +44,13 @@ main(int argc, char* argv[])
   //Movie Producer
   Ptr<Node> producerNode = Names::Find<Node>("caida");
   AppHelper producerHelper("ns3::ndn::Producer");
-  producerHelper.SetAttribute("PayloadSize", StringValue("1000"));
+  producerHelper.SetAttribute("PayloadSize", StringValue("8000"));
   ndnGlobalRoutingHelper.AddOrigins("/Caida", producerNode);
 
   producerHelper.SetPrefix("/Caida");
   ApplicationContainer producer = producerHelper.Install(producerNode);
   producer.Start(Seconds(0));
-  producer.Stop(Seconds(20));
+  producer.Stop(Seconds(50));
 
   //Consumer application
   Ptr<Node> consumerNode = Names::Find<Node>("urjc");
@@ -59,12 +59,12 @@ main(int argc, char* argv[])
   // consumerHelper.SetPrefix("/caida/dash/MovieID/Period/AdaptationSet/1080p");
   ApplicationContainer consumer = consumerHelper.Install(consumerNode);
   consumer.Start(Seconds(0));
-  consumer.Stop(Seconds(200));
+  consumer.Stop(Seconds(50));
 
 
   // ndn::GlobalRoutingHelper::CalculateAllPossibleRoutes();
   GlobalRoutingHelper::CalculateRoutes();
-  Simulator::Stop(Seconds(200.0));
+  Simulator::Stop(Seconds(50.0));
   // Simulator::Schedule (Seconds (0.0), PrintTime, Seconds (10.0), "");
 
   // L3RateTracer::InstallAll("/Users/zhaoliang/ndnSIM/my-simulations/results/rate-trace.txt", Seconds(0.5));

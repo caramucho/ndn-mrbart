@@ -42,7 +42,7 @@ namespace ns3 {
     DashName&
     DashName::parseName(const Name& name)
     {
-      cout << "DashName::parseName initilizing" << endl;
+      // cout << "DashName::parseName initilizing" << endl;
       m_producerDomain = name.getSubName(0,1).toUri().substr(1);
       // std::cout <<  name.getSubName(0,1).toUri().substr(1)  << std::endl;
 
