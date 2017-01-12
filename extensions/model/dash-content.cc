@@ -15,18 +15,17 @@ namespace ns3{
 
     }
     Data
-    DashContent::getDataPacket(DashName dashname, uint32_t seq)
+    DashContent::getDataPacket(uint32_t representation, uint32_t seq)
     {
-      uint32_t representation = dashname.GetRepresentation();
+      // uint32_t representation = dashname.GetRepresentation();
 
       auto itr = m_map.find(representation);
       if( itr != m_map.end() ){
         return itr->second[seq];
       }else{
         MakeDataPacket(representation);
-        return getDataPacket(dashname, seq);
+        return getDataPacket(representation, seq);
       }
-
     }
 
     void
@@ -34,6 +33,7 @@ namespace ns3{
 
 
       int avg_packetsize = representation / (50 * 8);
+      std::vector<Data> data_v;
 
       MPEGHeader mpeg_header_tmp;
 
@@ -48,16 +48,12 @@ namespace ns3{
       uint32_t frame_size = std::max(
                         std::min(avg_packetsize, MPEG_MAX_MESSAGE) - (int) (mpeg_header_tmp.GetSerializedSize()) ,
                         1);
-      uint32_t bytes = 0;
+      int bytes = 0;
       for (uint32_t f_id = 0; f_id < MPEG_FRAMES_PER_SEGMENT; f_id++)
         {
           // uint32_t frame_size = (unsigned) frame_size_gen->GetValue();
 
-          // DashName dashname;
-          //
-          // dashname.SetVideoId(m_videoId);
-          // dashname.SetRepresentation(representation);
-          // dashname.SetSegmentId(segment_id);
+
 
           MPEGHeader mpeg_header;
           mpeg_header.SetFrameId(f_id);
@@ -78,9 +74,50 @@ namespace ns3{
           }
 
         }
-        cout << bytes << endl;
-        Data
+        // cout << bytes << endl;
+        uint32_t seq = 0;
+
+        while (bytes > 0) {
+
+          // std::cout << "creating packet"<< seq << '\n';
+          // cout << bytes << endl;
+          Data dataPacket = Data();
+          dataPacket.setContent(&m_buffer[seq * m_payloadSize],m_payloadSize);
+
+          // std::cout << "set content" << '\n';
+          data_v.push_back(dataPacket);
+          // std::cout << "add content" << '\n';
+
+
+          seq++;
+          bytes -= m_payloadSize;
+        }
+
+        // for (size_t i = 0; i < seq; i++) {
+        //   cout << v[i].getContent().value_size() << endl;
+        // }
+
+        m_map[representation] = data_v;
+        //
+        // auto itr = m_map.find(representation);
+        // if( itr != m_map.end() ){
+        //   cout <<  itr->second.size()<< endl;
+        // }
+
       }
+
+
+
+
+      // Name name = Name(dashname.GetInterestName());
+      // DashName dashname;
+      // dashname.SetVideoId(m_videoId);
+      // dashname.SetProducerDomain(m_producerDomain);
+      // dashname.SetPeriodId(m_periodId);
+      // dashname.SetAdaptationSetId(m_adaptationSetId);
+      // dashname.SetRepresentation(representation);
+      // dashname.SetSegmentId(segment_id);
+
 
 
   }

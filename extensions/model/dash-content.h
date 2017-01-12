@@ -16,10 +16,11 @@ namespace ns3{
         public:
           DashContent();
           ~DashContent();
-          Data getDataPacket(DashName dashname, uint32_t seq);
-          void MakeDataPacket(uint32_t representation);
+          Data getDataPacket(uint32_t representation, uint32_t seq);
+
 
         private:
+          void MakeDataPacket(uint32_t representation);
           std::map<uint32_t, std::vector<Data>> m_map;
           uint32_t m_videoId;
           uint32_t m_segmentId;

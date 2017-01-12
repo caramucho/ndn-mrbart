@@ -60,7 +60,7 @@ namespace ns3 {
 
       m_segmentId = stoi(name.getSubName(6,1).toUri().substr(1));
       // std::cout <<  name.getSubName(6,1).toUri().substr(1)  << std::endl;
-
+      
       // Update();
       return *this;
     }
