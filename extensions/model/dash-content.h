@@ -21,6 +21,10 @@ namespace ns3{
 
         private:
           std::map<uint32_t, std::vector<Data>> m_map;
+          uint32_t m_videoId;
+          uint32_t m_segmentId;
+          uint8_t m_buffer[MPEG_MAX_MESSAGE * 50];
+          uint32_t m_payloadSize;
     };
   }
 }

@@ -59,7 +59,7 @@ namespace ns3
       void
       readFrame(uint32_t message_size);
 
-      uint8_t m_buffer[MPEG_MAX_MESSAGE];
+      uint8_t m_buffer[MPEG_MAX_MESSAGE * 50];
       uint32_t m_bytes;
       DashClient *m_app;
       HTTPHeader http_header;

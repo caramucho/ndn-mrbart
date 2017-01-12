@@ -4,6 +4,7 @@
     <AdaptationSet id="0" bitstreamSwitching="true" mimeType="video/mp4">
       <Representation id="0" bandwidth="2000000">
         <SegmentList duration="2" startid="0" endid="100">
+        <Segment id="1" seqMax="14">
       </Representation>
       <Representation id="1" bandwidth="1000000">
         <SegmentList duration="2" startid="0" endid="100">

@@ -177,7 +177,7 @@ namespace ns3{
     DashClient::ScheduleNextPacket()
     {
       // cout << "ScheduleNextPacket initilizing" << endl;
-      double mean = 0.9 * 8.0 * m_payloadSize / m_bitRate;
+      double mean =  8.0 * m_payloadSize / m_bitRate;
       // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
 
       if (m_firstTime) {
@@ -204,7 +204,7 @@ namespace ns3{
       // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
       // std::cout <<  "data: " +  dataname.getPrefix(6).toUri() + " received"  << std::endl;
       m_parser.OnData(data);
-
+      m_segment_bytes += m_payloadSize;
       uint32_t seq = data->getName().at(-1).toSequenceNumber();
 
       // If we received the last packet of the segment
@@ -364,7 +364,7 @@ namespace ns3{
     DashClient::CalcSegMax(){
       // cout << "CalcSegMax initilizing" << endl;
       m_seqMax =  m_bitRate * m_segmentLength.GetSeconds()  / (m_payloadSize * 8);
-      cout << "segmentLength: "<< m_segmentLength <<"  seqMax: "<< m_seqMax << endl;
+      cout << "segmentLength: "<< m_segmentLength.GetSeconds() <<"s  seqMax: "<< m_seqMax << endl;
     }
 
   } // Namespace ndn
