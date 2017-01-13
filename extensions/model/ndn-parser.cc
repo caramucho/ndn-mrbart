@@ -121,6 +121,9 @@ namespace ns3
       default:
         NS_FATAL_ERROR("WRONG STATE");
       }
+      // Time currDt = m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
+      // And tell the player to monitor the buffer level
+      // LogBufferLevel(currDt);
     }
 
     void

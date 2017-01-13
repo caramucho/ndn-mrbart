@@ -67,7 +67,7 @@ namespace ns3{
     m_id(m_countObjs++),
     m_requestTime("0s"),
     m_segment_bytes(0),
-    m_bitRate(1547000),
+    m_bitRate(89000),
     m_window(Seconds(10)),
     m_segmentFetchTime(Seconds(0)),
     m_segmentLength("2s"),
@@ -210,7 +210,7 @@ namespace ns3{
       // If we received the last packet of the segment
       if (seq == m_seqMax)
       {
-        
+
         m_segmentFetchTime = Simulator::Now() - m_requestTime;
 
         // NS_LOG_INFO(
@@ -251,11 +251,11 @@ namespace ns3{
            m_player.SchduleBufferWakeup(bufferDelay, this);
          }
 
+
         //  m_lastDt = currDt;
 
         // RequestSegment();
       }
-      // cout << "End of DashClient::OnData" << endl;
 
     }
 
