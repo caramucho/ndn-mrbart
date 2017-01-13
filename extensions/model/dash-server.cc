@@ -54,17 +54,20 @@ namespace ns3
         .SetGroupName("Ndn")
         .SetParent<Producer>()
         .AddConstructor<DashServer>();
+        // .AddAttribute("DashServerPayloadSize", "payload size for Content packets", UintegerValue(8000),MakeUintegerAccessor(&DashServer::m_payloadSize),MakeUintegerChecker<uint32_t>());
         // .AddAttribute("Local","The Address on which to Bind the rx socket.", AddressValue(), MakeAddressAccessor(&DashServer::m_local), MakeAddressChecker())
         // .AddAttribute("Protocol", "The type id of the protocol to use for the rx socket.", TypeIdValue(UdpSocketFactory::GetTypeId()),MakeTypeIdAccessor(&DashServer::m_tid), MakeTypeIdChecker())
         // .AddTraceSource("Rx", "A packet has been received",MakeTraceSourceAccessor(&DashServer::m_rxTrace));
     return tid;
   }
 
-  DashServer::DashServer()
+  DashServer::DashServer():
+  m_payloadSize(6000)
   {
     NS_LOG_FUNCTION(this);
     // m_socket = 0;
     // m_totalRx = 0;
+    m_dashContent.setPayloadSize(m_payloadSize);
   }
 
   DashServer::~DashServer()

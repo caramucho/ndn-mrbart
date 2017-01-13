@@ -43,10 +43,9 @@ main(int argc, char* argv[])
 
   //Movie Producer
   Ptr<Node> producerNode = Names::Find<Node>("caida");
-  AppHelper producerHelper("ns3::ndn::Producer");
-  producerHelper.SetAttribute("PayloadSize", StringValue("8000"));
+  AppHelper producerHelper("ns3::ndn::DashServer");
+  // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
   ndnGlobalRoutingHelper.AddOrigins("/Caida", producerNode);
-
   producerHelper.SetPrefix("/Caida");
   ApplicationContainer producer = producerHelper.Install(producerNode);
   producer.Start(Seconds(0));

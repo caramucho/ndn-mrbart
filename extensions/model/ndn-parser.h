@@ -53,7 +53,7 @@ namespace ns3
       void
       makeHTTPheader(DashName name);
       void
-      readContent(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes);
+      writeToBuffer(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes);
       void
       readAllFrames();
       void

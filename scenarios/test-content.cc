@@ -16,7 +16,7 @@ int
 main(int argc, char *argv[])
 {
   DashContent dashcontent;
-  Data data = dashcontent.getDataPacket(1000000,0);
-  cout << data.getContent().value_size() << endl;
+  Data data = dashcontent.getDataPacket(100000,0);
+  // cout << data.getContent().value_size() << endl;
 
 }
