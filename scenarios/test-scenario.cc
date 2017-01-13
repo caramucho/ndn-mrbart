@@ -8,6 +8,7 @@
 using namespace ns3;
 using namespace ns3::ndn;
 using namespace std;
+#define SCENARIOTIME 3000
 
 
 // void PrintTime (Time next, const string name)
@@ -49,21 +50,23 @@ main(int argc, char* argv[])
   producerHelper.SetPrefix("/Caida");
   ApplicationContainer producer = producerHelper.Install(producerNode);
   producer.Start(Seconds(0));
-  producer.Stop(Seconds(50));
+  producer.Stop(Seconds(SCENARIOTIME));
 
   //Consumer application
   Ptr<Node> consumerNode = Names::Find<Node>("urjc");
-  AppHelper consumerHelper("ns3::ndn::DashClient");
+  // AppHelper consumerHelper("ns3::ndn::DashClient");
+  AppHelper consumerHelper("ns3::ndn::SftmClient");
+
   consumerHelper.SetAttribute("VideoId", StringValue("1"));
   // consumerHelper.SetPrefix("/caida/dash/MovieID/Period/AdaptationSet/1080p");
   ApplicationContainer consumer = consumerHelper.Install(consumerNode);
   consumer.Start(Seconds(0));
-  consumer.Stop(Seconds(50));
+  consumer.Stop(Seconds(SCENARIOTIME));
 
 
   // ndn::GlobalRoutingHelper::CalculateAllPossibleRoutes();
   GlobalRoutingHelper::CalculateRoutes();
-  Simulator::Stop(Seconds(50.0));
+  Simulator::Stop(Seconds(SCENARIOTIME));
   // Simulator::Schedule (Seconds (0.0), PrintTime, Seconds (10.0), "");
 
   // L3RateTracer::InstallAll("/Users/zhaoliang/ndnSIM/my-simulations/results/rate-trace.txt", Seconds(0.5));
@@ -73,6 +76,14 @@ main(int argc, char* argv[])
 
   Simulator::Run();
   Simulator::Destroy();
+  // uint32_t k;
+  // for (k = 0; k < users; k++)
+  //   {
+  Ptr<DashClient> app = DynamicCast<DashClient>(consumer.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+    // }
+
 
   return 0;
 }

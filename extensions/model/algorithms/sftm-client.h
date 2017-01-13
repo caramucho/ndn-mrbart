@@ -11,6 +11,8 @@
 #include "../dash-client.h"
 namespace ns3
 {
+  namespace ndn{
+
 
   class SftmClient : public DashClient
   {
@@ -30,7 +32,7 @@ namespace ns3
     bool m_rsft_exceeded;
 
   };
-
+}
 } /* namespace ns3 */
 
 #endif /* SFTM_CLIENT_H_ */

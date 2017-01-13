@@ -19,6 +19,8 @@ namespace ns3{
           Data getDataPacket(uint32_t representation, uint32_t seq);
           void
           setPayloadSize(uint32_t PayloadSize);
+          uint32_t
+          GetFrameSize(uint32_t representation);
 
 
         private:

@@ -7,7 +7,7 @@ NS_LOG_COMPONENT_DEFINE("DashContent");
 namespace ns3{
   namespace ndn{
     DashContent::DashContent() :
-    m_payloadSize(7000)
+    m_payloadSize(8000)
     {
     }
     DashContent::~DashContent()
@@ -67,9 +67,6 @@ namespace ns3{
           Ptr<Packet> frame = Create<Packet>(frame_size);
           // frame->AddHeader(http_header);
           frame->AddHeader(mpeg_header);
-          cout << frame->GetSize() << endl;
-          cout << frame->GetSerializedSize() << endl;
-          exit(0);
           // NS_LOG_INFO(
           //     "SENDING PACKET " << f_id << " " << frame->GetSize() << " res=" << http_header.GetResolution() << " size=" << mpeg_header.GetSize() << " avg=" << avg_packetsize);
           if (frame->Serialize(&m_buffer[bytes], (MPEG_MAX_MESSAGE * MPEG_FRAMES_PER_SEGMENT - bytes))) {
@@ -130,6 +127,19 @@ namespace ns3{
       void
       DashContent::setPayloadSize(uint32_t PayloadSize){
         m_payloadSize = PayloadSize;
+      }
+
+      uint32_t
+      DashContent::GetFrameSize(uint32_t representation) {
+        int avg_packetsize = representation / (50 * 8);
+
+        MPEGHeader mpeg_header_tmp;
+
+        uint32_t frame_size = std::max(
+                          std::min(avg_packetsize, MPEG_MAX_MESSAGE) - (int) (mpeg_header_tmp.GetSerializedSize()) ,
+                          1);
+        return frame_size;
+
       }
 
 

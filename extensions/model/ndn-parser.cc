@@ -27,6 +27,7 @@
 
 #include "mpeg-header.h"
 #include "dash-client.h"
+#include "dash-content.h"
 
 
 NS_LOG_COMPONENT_DEFINE("NdnParser");
@@ -53,15 +54,6 @@ namespace ns3
       NS_LOG_FUNCTION(this << app);
       m_app = app;
     }
-    void
-    NdnParser::writeToBuffer(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes){
-      for(uint32_t bytesReaded = 0; bytesReaded < bytes; bytesReaded++){
-        uint8_t v;
-        v = *begin;
-        buffer[bytesReaded] = v;
-        begin++;
-      }
-    }
 
 
 
@@ -73,56 +65,50 @@ namespace ns3
       http_header.SetResolution(name.GetRepresentation());
       http_header.SetSegmentId(name.GetSegmentId());
     }
-
-    uint32_t
-    NdnParser::getMessageSize(){
-      uint32_t headersize = mpeg_header.GetSerializedSize();
-      NS_LOG_INFO("### Buffer space: " << m_bytes << " Queue length " << m_app->GetPlayer().GetQueueSize());
-      if (m_bytes < headersize)
-      {
-        return 0;
+    void
+    NdnParser::makeMPEGheader(uint32_t frame_size){
+      if (m_firstframe) {
+        m_frame_id = 0;
+        m_firstframe = false;
       }
-      Packet headerPacket(m_buffer, headersize);
-      headerPacket.RemoveHeader(mpeg_header);
-      cout << "content size:" << mpeg_header.GetSize() << endl;
-      exit(0);
-      if(mpeg_header.GetSize() == 0){
-        return 0;
-      }
-      uint32_t message_size = headersize + mpeg_header.GetSize();
-      return message_size;
+      mpeg_header.SetFrameId(m_frame_id);
+      mpeg_header.SetPlaybackTime(
+          MilliSeconds(
+              (m_frame_id + (m_segmentId * MPEG_FRAMES_PER_SEGMENT))
+                  * MPEG_TIME_BETWEEN_FRAMES)); //50 fps
+      mpeg_header.SetType('B');
+      mpeg_header.SetSize(frame_size);
+      m_frame_id++;
     }
 
 
+
+
     void
-    NdnParser::readAllFrames(){
-      cout << "NdnParser::readAllFrames initilizing "<< endl;
+    NdnParser::readAllFrames(uint32_t frame_size){
+      uint32_t message_size = frame_size + mpeg_header.GetSerializedSize();
 
-      // if (m_bytes < message_size)
-      // {
-      //   return;
-      // }
-      uint32_t message_size = getMessageSize();
-      cout << "message_size= "<< message_size<< endl;
-      // m_app->m_segment_bytes += m_app->m_payloadSize;
-      if(message_size == 0){
-        return;
+      while (m_bytes >= message_size) {
+        if (m_frame_id == MPEG_FRAMES_PER_SEGMENT) {
+          break;
+        }
+        readFrame(frame_size);
+        m_bytes -= message_size;
+        m_app->m_segment_bytes += frame_size;
+        m_app->m_totBytes += frame_size;
       }
-
-      if (m_bytes < message_size)
-      {
-        return;
-      }
-      readFrame(message_size);
-      m_app->m_segment_bytes += mpeg_header.GetSize();
-      m_app->m_totBytes += mpeg_header.GetSize();
-      readAllFrames();
     }
 
     void
-    NdnParser::readFrame(uint32_t message_size){
-      // Calculate the buffering time
+    NdnParser::readFrame(uint32_t frame_size){
+      Ptr<Packet> frame = Create<Packet>(frame_size);
+      m_frame_id++;
 
+      makeMPEGheader(frame_size);
+
+      frame->AddHeader(http_header);
+      frame->AddHeader(mpeg_header);
+      m_app->m_player.ReceiveFrame(frame);
       switch (m_app->m_player.m_state)
       {
       case MPEG_PLAYER_PLAYING:
@@ -135,61 +121,34 @@ namespace ns3
       default:
         NS_FATAL_ERROR("WRONG STATE");
       }
-
-      Packet message(m_buffer, message_size);
-      // Add the httpHear again
-      message.AddHeader(http_header);
-      //recalculate headersize and message_size
-      // headersize = mpeg_header.GetSerializedSize()
-      //  + http_header.GetSerializedSize();
-      // message_size = headersize + mpeg_header.GetSize();
-
-      memmove(m_buffer, &m_buffer[message_size], m_bytes - message_size);
-      m_bytes -= message_size;
-
-      m_app->m_player.ReceiveFrame(&message);
     }
 
     void
     NdnParser::OnData(shared_ptr<const Data> data)
     {
-      // NS_LOG_FUNCTION(this << socket);
-      // Address from;
-
-      // int bytes = socket->RecvFrom(&m_buffer[m_bytes], MPEG_MAX_MESSAGE - m_bytes, 0, from);
-      // cout << "NdnParser Ondata initilizing" << endl;
       uint32_t bytes = data->getContent().value_size();
-
-      for(auto i = data->getContent().value_begin(); i!= data->getContent().value_end();i++){
-        uint32_t bytesReaded = 0;
-        uint8_t v;
-        v = *i;
-        m_buffer[m_bytes + bytesReaded] = v;
-        bytesReaded ++;
-      }
-
-
-      // writeToBuffer(i,&m_buffer[m_bytes],bytes);
-
       cout << "Bytes: "<< bytes << " received"<< endl;
-      DashName dashname;
-      dashname.parseName(data->getName());
-
-      makeHTTPheader(dashname);
-      // HTTPHeader http_header;
-      // + http_header.GetSerializedSize();
       if (bytes > 0)
       {
         m_bytes += bytes;
-
-        if (m_lastmeasurement > Time("0s"))
-        {
-          // NS_LOG_INFO(Simulator::Now().GetSeconds() << " bytes: " << bytes << " dt: " << (Simulator::Now() - m_lastmeasurement).GetSeconds() << " bitrate: " << (8 * (bytes + headersize)/ (Simulator::Now() - m_lastmeasurement).GetSeconds()));
-        }
-        m_lastmeasurement = Simulator::Now();
       }
-      readAllFrames();
-      // cout << "End of NdnParser::OnData" << endl;
+      uint32_t seq = data->getName().at(-1).toSequenceNumber();
+
+      if (seq == 0) {
+        m_firstframe = true;
+      }
+
+
+
+      DashName dashname;
+      dashname.parseName(data->getName());
+      m_segmentId = dashname.GetSegmentId();
+
+      makeHTTPheader(dashname);
+      DashContent dashcontent;
+      uint32_t frame_size = dashcontent.GetFrameSize(dashname.GetRepresentation());
+      readAllFrames(frame_size);
+
     }
   } // namespace ndn
 } // namespace ns3

@@ -13,13 +13,15 @@ NS_LOG_COMPONENT_DEFINE("SftmClient");
 
 namespace ns3
 {
+  namespace ndn{
+
   NS_OBJECT_ENSURE_REGISTERED(SftmClient);
 
   TypeId
   SftmClient::GetTypeId(void)
   {
     static TypeId tid =
-        TypeId("ns3::SftmClient").SetParent<DashClient>().AddConstructor<
+        TypeId("ns3::ndn::SftmClient").SetParent<DashClient>().AddConstructor<
             SftmClient>();
     return tid;
   }
@@ -143,4 +145,5 @@ namespace ns3
         delay = Seconds(0);
       }
   }
+}
 } /* namespace ns3 */

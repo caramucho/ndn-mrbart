@@ -48,23 +48,23 @@ namespace ns3
 
 
     private:
+      uint32_t
+      getMessageSize();
       void
       makeHTTPheader(DashName name);
       void
-      makeMPEGheader(uint32_t frame_size);
+      writeToBuffer(::ndn::Buffer::const_iterator begin,uint8_t* buffer,uint32_t bytes);
       void
-      readAllFrames(uint32_t frame_size);
+      readAllFrames();
       void
-      readFrame(uint32_t frame_size);
+      readFrame(uint32_t message_size);
 
+      uint8_t m_buffer[MPEG_MAX_MESSAGE * 50];
       uint32_t m_bytes;
       DashClient *m_app;
       HTTPHeader http_header;
       MPEGHeader mpeg_header;
       Time m_lastmeasurement;
-      bool m_firstframe;
-      uint32_t m_frame_id;
-      uint32_t m_segmentId;
 
     };
   } // namespace ndn

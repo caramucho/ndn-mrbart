@@ -62,7 +62,7 @@ namespace ns3
   }
 
   DashServer::DashServer():
-  m_payloadSize(6000)
+  m_payloadSize(8000)
   {
     NS_LOG_FUNCTION(this);
     // m_socket = 0;
