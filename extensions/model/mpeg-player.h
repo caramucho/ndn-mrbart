@@ -23,8 +23,9 @@
 
 #include <queue>
 #include <map>
-#include "ns3/ptr.h"
-#include "ns3/packet.h"
+// #include "dash-client.h"
+#include <ns3/core-module.h>
+#include <ns3/ndnSIM-module.h>
 
 namespace ns3
 {

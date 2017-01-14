@@ -120,6 +120,11 @@ namespace ns3{
       ScheduleNextPacket();
     }
 
+    void
+    DashClient::GetContentPopularity(){
+      std::cout << "GetContentPopularity" << '\n';
+    }
+
 
     void
     DashClient::SetInterestName()
@@ -162,7 +167,7 @@ namespace ns3{
 
       // NS_LOG_INFO ("Requesting Interest: \n" << *interest);
       // NS_LOG_INFO("> Interest for " << seq);
-      cout << Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq << endl;
+      // cout << Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq << endl;
 
       WillSendOutInterest(seq);
 
@@ -187,7 +192,7 @@ namespace ns3{
       else if (!m_sendEvent.IsRunning()){
         m_sendEvent = Simulator::Schedule(Seconds(mean), &DashClient::SendPacket, this);
       }else {
-        cout << "Sending event is busy" << endl;
+        // cout << "Sending event is busy" << endl;
       }
     }
 
@@ -214,7 +219,7 @@ namespace ns3{
         m_segmentFetchTime = Simulator::Now() - m_requestTime;
 
         // NS_LOG_INFO(
-        cout <<  Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << endl;
+        // cout <<  Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << endl;
 
         // Feed the bitrate info to the player
         AddBitRate(Simulator::Now(),
@@ -364,7 +369,7 @@ namespace ns3{
     DashClient::CalcSegMax(){
       // cout << "CalcSegMax initilizing" << endl;
       m_seqMax =  m_bitRate * m_segmentLength.GetSeconds()  / (m_payloadSize * 8);
-      cout << "segmentLength: "<< m_segmentLength.GetSeconds() <<"s  seqMax: "<< m_seqMax << endl;
+      // cout << "segmentLength: "<< m_segmentLength.GetSeconds() <<"s  seqMax: "<< m_seqMax << endl;
     }
 
   } // Namespace ndn

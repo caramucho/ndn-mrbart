@@ -29,13 +29,12 @@
 // #include <map>
 // #include <queue>
 #include <ns3/core-module.h>
-#include "mpeg-player.h"
-#include "ndn-parser.h"
-
 #include <ns3/ndnSIM-module.h>
 #include "ns3/ndnSIM/apps/ndn-producer.hpp"
-#include "dash-name.h"
 #include "dash-content.h"
+#include "dash-name.h"
+#include "mpeg-player.h"
+#include "ndn-parser.h"
 
 namespace ns3
 {

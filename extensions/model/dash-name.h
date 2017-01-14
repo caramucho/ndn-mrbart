@@ -1,9 +1,7 @@
 #ifndef DASH_NAME_H
 #define DASH_NAME_H
-
 #include <ns3/core-module.h>
 #include <ns3/ndnSIM-module.h>
-
 
 namespace ns3 {
   namespace ndn {

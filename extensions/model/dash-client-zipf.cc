@@ -2,6 +2,8 @@
 #include "dash-client-zipf.h"
 
 #include <math.h>
+#define MIN_SEGMENT_ID 1
+#define MAX_SEGMENT_ID 10
 
 NS_LOG_COMPONENT_DEFINE("ndn.DashClientZipf");
 
@@ -43,12 +45,40 @@ DashClientZipf::DashClientZipf()
   , m_q(0.7)
   , m_s(0.7)
   , m_seqRng(CreateObject<UniformRandomVariable>())
+  , m_contentCounts(m_N,0)
 {
+  std::cout << "DashClientZipf called" << '\n';
   // SetNumberOfContents is called by NS-3 object system during the initialization
 }
 
 DashClientZipf::~DashClientZipf()
 {
+}
+void
+DashClientZipf::RequestSegment()
+{
+  // std::cout << "DashClientZipf RequestSegment called" << '\n';
+
+
+  if (m_segmentId == m_segmentIdMax || m_segmentIdMax == 0) {
+
+    m_videoId = GetNextContentId();
+    m_contentCounts[m_videoId-1]++;
+
+    m_segmentId = 0;
+     Ptr<UniformRandomVariable> segmentIdRng = CreateObject<UniformRandomVariable> ();
+    segmentIdRng->SetAttribute ("Min", DoubleValue (MIN_SEGMENT_ID));
+    segmentIdRng->SetAttribute ("Max", DoubleValue (MAX_SEGMENT_ID));
+    m_segmentIdMax = (unsigned)segmentIdRng->GetValue();
+  }
+  DashClient::RequestSegment();
+}
+
+void
+DashClientZipf::GetContentPopularity(){
+  for (auto itr = m_contentCounts.begin(); itr != m_contentCounts.end(); itr++) {
+    std::cout << *itr << " ";
+  }
 }
 
 void

@@ -15,7 +15,11 @@ namespace ns3
 
         DashClientZipf();
         virtual ~DashClientZipf();
-        
+
+        virtual void
+        RequestSegment();
+
+
         uint32_t
         GetNextContentId();
         void
@@ -35,6 +39,9 @@ namespace ns3
         double
         GetS() const;
 
+        void
+        GetContentPopularity();
+
       private:
         uint32_t m_N;               // number of the contents
         double m_q;                 // q in (k+q)^s
@@ -42,6 +49,10 @@ namespace ns3
         std::vector<double> m_Pcum; // cumulative probability
 
         Ptr<UniformRandomVariable> m_seqRng; // RNG
+
+        uint32_t m_segmentIdMax;
+        std::vector<int> m_contentCounts;
+
 
       };
 

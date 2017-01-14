@@ -21,11 +21,14 @@
 #ifndef NDN_PARSER_H_
 #define NDN_PARSER_H_
 
-#include <ns3/ptr.h>
 #include "mpeg-header.h"
 #include "http-header.h"
-#include <ns3/ndnSIM-module.h>
 #include "dash-name.h"
+// #include "dash-client.h"
+// #include "mpeg-player.h"
+// #include "dash-content.h"
+#include <ns3/core-module.h>
+#include <ns3/ndnSIM-module.h>
 
 namespace ns3
 {

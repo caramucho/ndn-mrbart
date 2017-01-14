@@ -19,16 +19,9 @@
 */
 
 #include "ndn-parser.h"
-#include "ns3/log.h"
-#include "ns3/address.h"
-#include "ns3/socket.h"
-#include "ns3/packet.h"
-#include "ns3/simulator.h"
-
 #include "mpeg-header.h"
 #include "dash-client.h"
 #include "dash-content.h"
-
 
 NS_LOG_COMPONENT_DEFINE("NdnParser");
 
@@ -130,7 +123,7 @@ namespace ns3
     NdnParser::OnData(shared_ptr<const Data> data)
     {
       uint32_t bytes = data->getContent().value_size();
-      cout << "Bytes: "<< bytes << " received"<< endl;
+      // cout << "Bytes: "<< bytes << " received"<< endl;
       if (bytes > 0)
       {
         m_bytes += bytes;

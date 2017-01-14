@@ -17,6 +17,8 @@ main(int argc, char *argv[])
   std::vector<int> counts(200,0);
   DashClientZipf dcz;
   dcz.SetNumberOfContents(200);
+  dcz.SetS(1.2);
+  dcz.SetQ(0.9);
   for (size_t i = 0; i < 10000; i++) {
     counts[dcz.GetNextContentId()]++;
   }

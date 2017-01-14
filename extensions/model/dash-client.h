@@ -21,19 +21,13 @@
 #ifndef DASH_CLIENT_H
 #define DASH_CLIENT_H
 
-#include <ns3/core-module.h>
-// #include "ns3/application.h"
-// #include "ns3/ptr.h"
-// #include "ns3/socket.h"
-#include "mpeg-player.h"
-// #include "ns3/traced-callback.h"
-#include "ndn-parser.h"
-
-#include <ns3/ndnSIM-module.h>
 #include "ns3/ndnSIM/apps/ndn-consumer.hpp"
+#include <ns3/core-module.h>
+#include <ns3/ndnSIM-module.h>
+// #include "mpeg-header.h"
+#include "mpeg-player.h"
+#include "ndn-parser.h"
 #include "dash-name.h"
-
-
 
 namespace ns3
 {
@@ -109,6 +103,9 @@ namespace ns3
     void
     SendPacket();
 
+    virtual void
+    GetContentPopularity();
+
   protected:
     // virtual void
     // DoDispose(void);
@@ -136,12 +133,14 @@ namespace ns3
     std::map<Time, double> m_bitrates;
     double m_bitrateEstimate;
     uint32_t m_segmentId;    // The id of the current segment
+    uint32_t m_videoId;      // The Id of the video that is requested
+
     /**
      * \brief Called the next MPEG segment should be requested from the server.
      *
      * \param The bitrate of the next segment.
      */
-    void
+    virtual void
     RequestSegment();
     virtual void
     ScheduleNextPacket();
@@ -195,7 +194,6 @@ namespace ns3
     TypeId m_tid;
     TracedCallback<Ptr<const Packet> > m_txTrace;
 
-    uint32_t m_videoId;      // The Id of the video that is requested
 
 
     Time m_startedReceiving; // Time of reception of the first MPEG frame

@@ -1,11 +1,9 @@
 #ifndef DASH_CONTENT_H
 #define DASH_CONTENT_H
-
 #include <ns3/core-module.h>
 #include <ns3/ndnSIM-module.h>
 #include "mpeg-header.h"
 #include "dash-name.h"
-
 
 namespace ns3{
   namespace ndn{
