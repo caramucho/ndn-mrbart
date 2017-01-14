@@ -4,11 +4,11 @@
 #include <iostream>
 #include "model/dash-client.h"
 // #include "model/ndn-net-device-face.hpp"
+#include "dash-parameters.h"
 
 using namespace ns3;
 using namespace ns3::ndn;
 using namespace std;
-#define SCENARIOTIME 3000
 
 
 // void PrintTime (Time next, const string name)
@@ -21,7 +21,7 @@ int
 main(int argc, char* argv[])
 {
   cout << "scenario13 initilizing" << endl;
-  size_t cacheSize = 100;
+
 
   AnnotatedTopologyReader topologyReader("", 1);
   // topologyReader.SetFileName("src/ndnSIM/examples/topologies/testbed.txt");
@@ -31,7 +31,7 @@ main(int argc, char* argv[])
 
   // Install NDN stack on all nodes
   StackHelper ndnHelper;
-  ndnHelper.setCsSize(cacheSize);
+  ndnHelper.setCsSize(CACHE_SIZE);
   ndnHelper.setPolicy("nfd::cs::lru");
   // ndnHelper.SetOldContentStore("ns3::ndn::cs::Lru", "MaxSize",
   // cacheSize); // ! Attention ! If set to 0, then MaxSize is infinite
@@ -56,10 +56,10 @@ main(int argc, char* argv[])
   //Consumer application
   Ptr<Node> consumerNode = Names::Find<Node>("urjc");
   // AppHelper consumerHelper("ns3::ndn::DashClient");
-  AppHelper consumerHelper("ns3::ndn::DashClientZipf");
+  AppHelper consumerHelper("ns3::ndn::SftmClient");
 
   consumerHelper.SetAttribute("VideoId", StringValue("1"));
-  consumerHelper.SetAttribute("NumberOfContents", StringValue("10"));
+  consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER));
   // consumerHelper.SetPrefix("/caida/dash/MovieID/Period/AdaptationSet/1080p");
 
   ApplicationContainer consumer = consumerHelper.Install(consumerNode);

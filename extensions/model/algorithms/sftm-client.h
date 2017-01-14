@@ -8,13 +8,13 @@
 #ifndef SFTM_CLIENT_H_
 #define SFTM_CLIENT_H_
 
-#include "../dash-client.h"
+#include "../dash-client-zipf.h"
 namespace ns3
 {
   namespace ndn{
 
 
-  class SftmClient : public DashClient
+  class SftmClient : public DashClientZipf
   {
   public:
     static TypeId

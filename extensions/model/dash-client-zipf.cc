@@ -2,8 +2,7 @@
 #include "dash-client-zipf.h"
 
 #include <math.h>
-#define MIN_SEGMENT_ID 1
-#define MAX_SEGMENT_ID 10
+
 
 NS_LOG_COMPONENT_DEFINE("ndn.DashClientZipf");
 

@@ -21,7 +21,7 @@ namespace ns3
   SftmClient::GetTypeId(void)
   {
     static TypeId tid =
-        TypeId("ns3::ndn::SftmClient").SetParent<DashClient>().AddConstructor<
+        TypeId("ns3::ndn::SftmClient").SetParent<DashClientZipf>().AddConstructor<
             SftmClient>();
     return tid;
   }

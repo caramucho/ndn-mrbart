@@ -1,13 +1,13 @@
 
 #include "dash-content.h"
-
+#include "../dash-parameters.h"
 
 NS_LOG_COMPONENT_DEFINE("DashContent");
 
 namespace ns3{
   namespace ndn{
     DashContent::DashContent() :
-    m_payloadSize(8000)
+    m_payloadSize(NDN_PAYLOAD_SIZE)
     {
     }
     DashContent::~DashContent()

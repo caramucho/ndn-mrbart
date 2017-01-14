@@ -2,7 +2,7 @@
 #define DASH_CLIENT_ZIPF_H
 
 #include "dash-client.h"
-
+#include "../dash-parameters.h"
 namespace ns3
 {
 
@@ -41,6 +41,7 @@ namespace ns3
 
         void
         GetContentPopularity();
+
 
       private:
         uint32_t m_N;               // number of the contents

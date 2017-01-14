@@ -34,6 +34,7 @@
 #include "dash-server.h"
 // #include "http-header.h"
 #include "mpeg-header.h"
+#include "../dash-parameters.h"
 
 // #include <ns3/random-variable-stream.h>
 // #include <ns3/tcp-socket.h>
@@ -62,7 +63,7 @@ namespace ns3
   }
 
   DashServer::DashServer():
-  m_payloadSize(8000)
+  m_payloadSize(NDN_PAYLOAD_SIZE)
   {
     NS_LOG_FUNCTION(this);
     // m_socket = 0;
