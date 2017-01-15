@@ -74,6 +74,8 @@ DashClientZipf::RequestSegment()
     segmentIdRng->SetAttribute ("Min", DoubleValue (MIN_SEGMENT_ID));
     segmentIdRng->SetAttribute ("Max", DoubleValue (MAX_SEGMENT_ID));
     m_segmentIdMax = (unsigned)segmentIdRng->GetValue();
+
+    NS_LOG_INFO("Next Content:" << m_producerDomain << " VideoId:" << m_videoId << "Max Segment: " << m_segmentIdMax );
   }
   DashClient::RequestSegment();
 }

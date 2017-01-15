@@ -96,17 +96,12 @@ namespace ns3{
           // std::cout << "set content" << '\n';
           data_v.push_back(dataPacket);
           // std::cout << "add content" << '\n';
-          if (representation == 3840000) {
-            NS_LOG_DEBUG("Remaining bytes " <<  bytes);
-          }
+    
 
 
 
           seq++;
           bytes -= m_payloadSize;
-        }
-        if (representation == 3840000) {
-          exit(0);
         }
 
         // for (size_t i = 0; i < seq; i++) {
