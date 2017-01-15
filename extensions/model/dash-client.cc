@@ -32,7 +32,7 @@
 
 
 
-NS_LOG_COMPONENT_DEFINE("DashClient");
+NS_LOG_COMPONENT_DEFINE("ndn.DashClient");
 
 namespace ns3{
   namespace ndn{
@@ -82,7 +82,6 @@ namespace ns3{
     m_adaptationSetId(1),
     m_periodId(1)
     {
-      cout << "DashClient initilizing" << endl;
       // m_rtt = CreateObject<RttMeanDeviation>();
       NS_LOG_FUNCTION(this);
       m_parser.SetApp(this); // So the parser knows where to send the received messages
@@ -179,7 +178,7 @@ namespace ns3{
 
       // NS_LOG_INFO ("Requesting Interest: \n" << *interest);
       // NS_LOG_INFO("> Interest for " << seq);
-      // cout << Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq << endl;
+      NS_LOG_INFO ( Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq );
 
       WillSendOutInterest(seq);
 
@@ -218,8 +217,6 @@ namespace ns3{
       // cout << "OnData initilizing" << endl;
       // Consumer::OnData(data);
 
-      // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
-      // std::cout <<  "data: " +  data->getName().getPrefix(6).toUri() + " received"  << std::endl;
       m_parser.OnData(data);
       m_segment_bytes += m_payloadSize;
       uint32_t seq = data->getName().at(-1).toSequenceNumber();
@@ -231,7 +228,6 @@ namespace ns3{
         hopCount = *hopCountTag;
       }
       // NS_LOG_DEBUG("Hop count: " << hopCount);
-      // std::cout << "Hop count: " << hopCount << '\n';
 
       SeqTimeoutsContainer::iterator entry = m_seqLastDelay.find(seq);
       if (entry != m_seqLastDelay.end()) {
@@ -261,8 +257,8 @@ namespace ns3{
         // m_segmentFetchTime = Simulator::Now() - m_requestTime;
 
 
-        // NS_LOG_INFO(
-        // cout <<  Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << endl;
+        NS_LOG_INFO(
+         Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
 
         // Feed the bitrate info to the player
         AddBitRate(Simulator::Now(),
@@ -287,7 +283,7 @@ namespace ns3{
 
         if (prevBitrate != m_bitRate)
          {
-           std::cout << "Bitrate Adaptation:    " << prevBitrate <<"->"<<m_bitRate << '\n';
+           NS_LOG_INFO( "Bitrate Adaptation:    " << prevBitrate <<"->"<<m_bitRate );
            m_rateChanges++;
          }
 
@@ -411,9 +407,12 @@ namespace ns3{
 
     void
     DashClient::CalcSegMax(){
-      // cout << "CalcSegMax initilizing" << endl;
       m_seqMax =  m_bitRate * m_segmentLength.GetSeconds()  / (m_payloadSize * 8);
-      // cout << "segmentLength: "<< m_segmentLength.GetSeconds() <<"s  seqMax: "<< m_seqMax << endl;
+      if (((uint32_t)(m_bitRate * m_segmentLength.GetSeconds()) % (m_payloadSize * 8)) == 0 ) {
+        m_seqMax = m_seqMax - 1;
+      }
+
+
     }
 
   } // Namespace ndn

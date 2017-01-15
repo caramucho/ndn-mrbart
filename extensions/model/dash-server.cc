@@ -323,13 +323,11 @@ namespace ns3
     // dataName.append(m_postfix);
     // dataName.appendVersion();
 
-    // Data data = m_dashContent.getDataPacket(representation,seq);
 
     data->setName(dataName);
     data->setFreshnessPeriod(::ndn::time::milliseconds(m_freshness.GetMilliSeconds()));
 
     data->setContent(m_dashContent.getDataPacket(representation,seq).getContent());
-
     Signature signature;
     SignatureInfo signatureInfo(static_cast< ::ndn::tlv::SignatureTypeValue>(255));
 

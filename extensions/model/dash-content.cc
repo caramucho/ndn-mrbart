@@ -17,10 +17,13 @@ namespace ns3{
     Data
     DashContent::getDataPacket(uint32_t representation, uint32_t seq)
     {
+      NS_LOG_FUNCTION_NOARGS();
       // uint32_t representation = dashname.GetRepresentation();
 
       auto itr = m_map.find(representation);
       if( itr != m_map.end() ){
+        NS_LOG_DEBUG("Content found: " << itr->second[seq].getContent().value_size());
+
         return itr->second[seq];
       }else{
         MakeDataPacket(representation);
@@ -31,10 +34,9 @@ namespace ns3{
     void
     DashContent::MakeDataPacket(uint32_t representation){
 
-
+      NS_LOG_FUNCTION_NOARGS();
       int avg_packetsize = representation / (50 * 8);
       std::vector<Data> data_v;
-
       MPEGHeader mpeg_header_tmp;
 
       // Ptr<UniformRandomVariable> frame_size_gen = CreateObject<UniformRandomVariable> ();
@@ -94,10 +96,17 @@ namespace ns3{
           // std::cout << "set content" << '\n';
           data_v.push_back(dataPacket);
           // std::cout << "add content" << '\n';
+          if (representation == 3840000) {
+            NS_LOG_DEBUG("Remaining bytes " <<  bytes);
+          }
+
 
 
           seq++;
           bytes -= m_payloadSize;
+        }
+        if (representation == 3840000) {
+          exit(0);
         }
 
         // for (size_t i = 0; i < seq; i++) {

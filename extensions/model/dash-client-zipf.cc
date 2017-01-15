@@ -48,18 +48,19 @@ DashClientZipf::DashClientZipf()
   , m_seqRng(CreateObject<UniformRandomVariable>())
   , m_contentCounts(CONTENT_NUMBER,0)
 {
-  std::cout << "DashClientZipf called" << '\n';
   // SetNumberOfContents is called by NS-3 object system during the initialization
+  NS_LOG_FUNCTION(this);
 }
 
 DashClientZipf::~DashClientZipf()
 {
+  NS_LOG_FUNCTION(this);
 }
 void
 DashClientZipf::RequestSegment()
 {
-
-
+  NS_LOG_FUNCTION(this);
+  // std::cout << "DashClientZipf::RequestSegment() initialization" << '\n';
   if (m_segmentId == m_segmentIdMax || m_segmentIdMax == 0) {
 
     m_videoId = GetNextContentId();
