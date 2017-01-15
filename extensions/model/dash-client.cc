@@ -63,6 +63,8 @@ namespace ns3{
     m_bitrateEstimate(0.0),
     m_segmentId(0),
     m_videoId(1),
+    m_bitRate(INIT_BITRATE),
+    m_producerDomain("Caida"),
     m_totBytes(0),
     m_startedReceiving(Seconds(0)),
     m_sumDt(Seconds(0)),
@@ -70,7 +72,6 @@ namespace ns3{
     m_id(m_countObjs++),
     m_requestTime("0s"),
     m_segment_bytes(0),
-    m_bitRate(INIT_BITRATE),
     m_window(Seconds(10)),
     m_segmentFetchTime(Seconds(0)),
     m_segmentLength("2s"),
@@ -79,8 +80,7 @@ namespace ns3{
     m_payloadSize(NDN_PAYLOAD_SIZE),
     m_seqMax(0),
     m_adaptationSetId(1),
-    m_periodId(1),
-    m_producerDomain("Caida")
+    m_periodId(1)
     {
       cout << "DashClient initilizing" << endl;
       // m_rtt = CreateObject<RttMeanDeviation>();

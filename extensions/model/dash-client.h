@@ -127,14 +127,6 @@ namespace ns3
     double
     GetSegmentFetchTime();
 
-    std::map<Time, Time> m_bufferState;
-    uint32_t m_rateChanges;
-    Time m_target_dt; // m_target_dt("35s") bufferf stable time
-    std::map<Time, double> m_bitrates;
-    double m_bitrateEstimate;
-    uint32_t m_segmentId;    // The id of the current segment
-    uint32_t m_videoId;      // The Id of the video that is requested
-
     /**
      * \brief Called the next MPEG segment should be requested from the server.
      *
@@ -144,6 +136,19 @@ namespace ns3
     RequestSegment();
     virtual void
     ScheduleNextPacket();
+
+
+    std::map<Time, Time> m_bufferState;
+    uint32_t m_rateChanges;
+    Time m_target_dt; // m_target_dt("35s") bufferf stable time
+    std::map<Time, double> m_bitrates;
+    double m_bitrateEstimate;
+    uint32_t m_segmentId;    // The id of the current segment
+    uint32_t m_videoId;      // The Id of the video that is requested
+    uint32_t m_bitRate;      // The bitrate of the current segment.
+    string m_producerDomain;
+
+
 
     /**
      * \brief Called by the HttpParser when it has received a complete HTTP
@@ -203,7 +208,6 @@ namespace ns3
     int m_id;
     Time m_requestTime;      // Time of sending the last request
     uint32_t m_segment_bytes; // Bytes of the current segment that have been received so far
-    uint32_t m_bitRate;      // The bitrate of the current segment.
     Time m_window; //The window for measuring the average throughput (Time)
     Time m_segmentFetchTime;
 
@@ -213,7 +217,6 @@ namespace ns3
     uint32_t m_seqMax;
     uint8_t m_adaptationSetId;
     uint8_t m_periodId;
-    string m_producerDomain;
 
 
 

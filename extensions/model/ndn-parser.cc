@@ -141,8 +141,8 @@ namespace ns3
       m_segmentId = dashname.GetSegmentId();
 
       makeHTTPheader(dashname);
-      DashContent dashcontent;
-      uint32_t frame_size = dashcontent.GetFrameSize(dashname.GetRepresentation());
+      // DashContent dashcontent;
+      uint32_t frame_size = DashContent::GetFrameSize(dashname.GetRepresentation());
       readAllFrames(frame_size);
 
     }

@@ -44,6 +44,7 @@ main(int argc, char* argv[])
   ndnGlobalRoutingHelper.InstallAll();
 
   //Movie Producer
+  const string producerList[] = {"remap","byu","ua","csu","wu","um","uiuc","mich","verisign","neu","lip6","urjc","orange","systemx","ntnu","basel","padua","bupt","pku","tongji","anyang","kisti","waseda","caida","ucla","uci"};
   Ptr<Node> producerNode = Names::Find<Node>("caida");
   AppHelper producerHelper("ns3::ndn::DashServer");
   // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));

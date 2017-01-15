@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include "../dash-parameters.h"
+#include "dash-content.h"
 
 
 NS_LOG_COMPONENT_DEFINE("ndn.DashClientZipf");
@@ -63,9 +64,11 @@ DashClientZipf::RequestSegment()
   if (m_segmentId == m_segmentIdMax || m_segmentIdMax == 0) {
 
     m_videoId = GetNextContentId();
+    m_producerDomain = DashContent::GetProducerDomain(m_videoId);
     m_contentCounts[m_videoId-1]++;
 
     m_segmentId = 0;
+    m_bitRate = INIT_BITRATE;
      Ptr<UniformRandomVariable> segmentIdRng = CreateObject<UniformRandomVariable> ();
     segmentIdRng->SetAttribute ("Min", DoubleValue (MIN_SEGMENT_ID));
     segmentIdRng->SetAttribute ("Max", DoubleValue (MAX_SEGMENT_ID));
