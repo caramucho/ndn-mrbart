@@ -44,15 +44,22 @@ main(int argc, char* argv[])
   ndnGlobalRoutingHelper.InstallAll();
 
   //Movie Producer
-  const string producerList[] = {"remap","byu","ua","csu","wu","um","uiuc","mich","verisign","neu","lip6","urjc","orange","systemx","ntnu","basel","padua","bupt","pku","tongji","anyang","kisti","waseda","caida","ucla","uci"};
-  Ptr<Node> producerNode = Names::Find<Node>("caida");
-  AppHelper producerHelper("ns3::ndn::DashServer");
-  // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
-  ndnGlobalRoutingHelper.AddOrigins("/Caida", producerNode);
-  producerHelper.SetPrefix("/Caida");
-  ApplicationContainer producer = producerHelper.Install(producerNode);
-  producer.Start(Seconds(0));
-  producer.Stop(Seconds(SCENARIOTIME));
+  const std::vector<string> producerList = {"remap","byu","ua","csu","wu","um","uiuc","mich","verisign","neu","lip6","urjc","orange","systemx","ntnu","basel","padua","bupt","pku","tongji","anyang","kisti","waseda","caida","ucla","uci"};
+  for (auto itr = producerList.begin();  itr != producerList.end(); itr++) {
+    Ptr<Node> producerNode = Names::Find<Node>(*itr);
+    AppHelper producerHelper("ns3::ndn::DashServer");
+    // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
+    string prefix = "/" + *itr;
+    std::cout << prefix << '\n';
+
+    ndnGlobalRoutingHelper.AddOrigins(prefix, producerNode);
+    producerHelper.SetPrefix(prefix);
+    ApplicationContainer producer = producerHelper.Install(producerNode);
+    producer.Start(Seconds(0));
+    producer.Stop(Seconds(SCENARIOTIME));
+  }
+
+
 
   //Consumer application
   Ptr<Node> consumerNode = Names::Find<Node>("urjc");

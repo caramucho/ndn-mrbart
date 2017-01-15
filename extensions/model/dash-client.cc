@@ -112,7 +112,6 @@ namespace ns3{
       // if (m_seq > m_seqMax + 1) {
       //   return; // we are totally done
       // }
-      // cout << "RequestSegment initilizing" << endl;
 
       m_seq = 0;
       CalcSegMax();
@@ -220,7 +219,7 @@ namespace ns3{
       // Consumer::OnData(data);
 
       // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
-      // std::cout <<  "data: " +  dataname.getPrefix(6).toUri() + " received"  << std::endl;
+      // std::cout <<  "data: " +  data->getName().getPrefix(6).toUri() + " received"  << std::endl;
       m_parser.OnData(data);
       m_segment_bytes += m_payloadSize;
       uint32_t seq = data->getName().at(-1).toSequenceNumber();
