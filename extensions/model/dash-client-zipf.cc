@@ -2,6 +2,7 @@
 #include "dash-client-zipf.h"
 
 #include <math.h>
+#include "../dash-parameters.h"
 
 
 NS_LOG_COMPONENT_DEFINE("ndn.DashClientZipf");
@@ -41,10 +42,10 @@ DashClientZipf::GetTypeId(void)
 
 DashClientZipf::DashClientZipf()
   : m_N(100) // needed here to make sure when SetQ/SetS are called, there is a valid value of N
-  , m_q(0.7)
-  , m_s(0.7)
+  , m_q(0.5)
+  , m_s(1.2)
   , m_seqRng(CreateObject<UniformRandomVariable>())
-  , m_contentCounts(m_N,0)
+  , m_contentCounts(CONTENT_NUMBER,0)
 {
   std::cout << "DashClientZipf called" << '\n';
   // SetNumberOfContents is called by NS-3 object system during the initialization

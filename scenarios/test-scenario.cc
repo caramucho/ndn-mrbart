@@ -59,7 +59,7 @@ main(int argc, char* argv[])
   AppHelper consumerHelper("ns3::ndn::SftmClient");
 
   consumerHelper.SetAttribute("VideoId", StringValue("1"));
-  consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER));
+  consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
   // consumerHelper.SetPrefix("/caida/dash/MovieID/Period/AdaptationSet/1080p");
 
   ApplicationContainer consumer = consumerHelper.Install(consumerNode);

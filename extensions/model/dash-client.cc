@@ -28,6 +28,7 @@
 
 #include "dash-client.h"
 #include "../dash-parameters.h"
+#include <ndn-cxx/lp/tags.hpp>
 
 
 
@@ -82,6 +83,7 @@ namespace ns3{
     m_producerDomain("Caida")
     {
       cout << "DashClient initilizing" << endl;
+      // m_rtt = CreateObject<RttMeanDeviation>();
       NS_LOG_FUNCTION(this);
       m_parser.SetApp(this); // So the parser knows where to send the received messages
     }
@@ -111,6 +113,7 @@ namespace ns3{
       //   return; // we are totally done
       // }
       // cout << "RequestSegment initilizing" << endl;
+
       m_seq = 0;
       CalcSegMax();
       m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
@@ -118,6 +121,7 @@ namespace ns3{
       m_segmentId++;
       SetInterestName();
       m_firstTime = true;
+      m_segmentFetchTime = Seconds(0);
       ScheduleNextPacket();
     }
 
@@ -147,13 +151,21 @@ namespace ns3{
       // cout << "SendPacket initilizing" << endl;
       // if (!m_active)
       // return;
-
+      uint32_t seq = std::numeric_limits<uint32_t>::max(); // invalid
       NS_LOG_FUNCTION_NOARGS();
-      //
-      if (m_seq > m_seqMax){
-        return;
+
+      while (m_retxSeqs.size()) {
+        seq = *m_retxSeqs.begin();
+        m_retxSeqs.erase(m_retxSeqs.begin());
+        break;
       }
-      uint32_t seq = m_seq;
+      if (seq == std::numeric_limits<uint32_t>::max()) // No retxs
+      {
+        if (m_seq > m_seqMax){
+          return;
+        }
+      }
+      seq = m_seq;
       m_seq++;
 
       shared_ptr<Name> nameWithSequence = make_shared<Name>(m_interestName);
@@ -205,7 +217,7 @@ namespace ns3{
       // if (!m_active)
       // return;
       // cout << "OnData initilizing" << endl;
-      Consumer::OnData(data);
+      // Consumer::OnData(data);
 
       // std::cout << "seq num " +  to_string(seq) + " received"  << std::endl;
       // std::cout <<  "data: " +  dataname.getPrefix(6).toUri() + " received"  << std::endl;
@@ -213,11 +225,42 @@ namespace ns3{
       m_segment_bytes += m_payloadSize;
       uint32_t seq = data->getName().at(-1).toSequenceNumber();
 
+
+      int hopCount = 0;
+      auto hopCountTag = data->getTag<lp::HopCountTag>();
+      if (hopCountTag != nullptr) { // e.g., packet came from local node's cache
+        hopCount = *hopCountTag;
+      }
+      // NS_LOG_DEBUG("Hop count: " << hopCount);
+      // std::cout << "Hop count: " << hopCount << '\n';
+
+      SeqTimeoutsContainer::iterator entry = m_seqLastDelay.find(seq);
+      if (entry != m_seqLastDelay.end()) {
+        m_lastRetransmittedInterestDataDelay(this, seq, Simulator::Now() - entry->time, hopCount);
+      }
+
+      entry = m_seqFullDelay.find(seq);
+      if (entry != m_seqFullDelay.end()) {
+        m_firstInterestDataDelay(this, seq, Simulator::Now() - entry->time, m_seqRetxCounts[seq], hopCount);
+        // std::cout << "seq: " << seq << " FullDelay:" <<  (Simulator::Now() - entry->time).GetSeconds() << '\n';
+        m_segmentFetchTime += Simulator::Now() - entry->time;
+      }
+
+      m_seqRetxCounts.erase(seq);
+      m_seqFullDelay.erase(seq);
+      m_seqLastDelay.erase(seq);
+
+      m_seqTimeouts.erase(seq);
+      m_retxSeqs.erase(seq);
+
+      m_rtt->AckSeq(SequenceNumber32(seq));
+
       // If we received the last packet of the segment
       if (seq == m_seqMax)
       {
 
-        m_segmentFetchTime = Simulator::Now() - m_requestTime;
+        // m_segmentFetchTime = Simulator::Now() - m_requestTime;
+
 
         // NS_LOG_INFO(
         // cout <<  Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << endl;
