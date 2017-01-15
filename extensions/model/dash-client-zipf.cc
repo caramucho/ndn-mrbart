@@ -63,9 +63,7 @@ DashClientZipf::RequestSegment()
   if (m_segmentId == m_segmentIdMax || m_segmentIdMax == 0) {
 
     m_videoId = GetNextContentId();
-    std::cout << DashContent::GetProducerDomain(m_videoId) << '\n';
     m_producerDomain = DashContent::GetProducerDomain(m_videoId);
-    std::cout << m_producerDomain << '\n';
 
     m_contentCounts[m_videoId-1]++;
 
