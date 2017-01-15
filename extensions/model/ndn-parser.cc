@@ -102,6 +102,11 @@ namespace ns3
       frame->AddHeader(http_header);
       frame->AddHeader(mpeg_header);
       m_app->m_player.ReceiveFrame(frame);
+
+      Time currDt = m_app->m_player.GetRealPlayTime(mpeg_header.GetPlaybackTime());
+      // // And tell the player to monitor the buffer level
+      m_app->LogBufferLevel(currDt);
+
       switch (m_app->m_player.m_state)
       {
       case MPEG_PLAYER_PLAYING:

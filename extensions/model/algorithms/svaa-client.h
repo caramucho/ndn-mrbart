@@ -8,11 +8,11 @@
 #ifndef SVAA_CLIENT_H_
 #define SVAA_CLIENT_H_
 
-#include "../dash-client.h"
+#include "../dash-client-zipf.h"
 namespace ns3
 {
-
-  class SvaaClient : public DashClient
+  namespace ndn{
+  class SvaaClient : public DashClientZipf
   {
   public:
     static TypeId
@@ -31,7 +31,7 @@ namespace ns3
     int m_m_k_2;
     int m_counter;
   };
-
+}
 } /* namespace ns3 */
 
 #endif /* SVAA_CLIENT_H_ */

@@ -269,7 +269,7 @@ namespace ns3{
             8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
 
         // Time currDt = m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
-        // And tell the player to monitor the buffer level
+        // // And tell the player to monitor the buffer level
         // LogBufferLevel(currDt);
 
         // uint32_t old = m_bitRate;

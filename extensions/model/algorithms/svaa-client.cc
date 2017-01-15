@@ -13,13 +13,14 @@ NS_LOG_COMPONENT_DEFINE("SvaaClient");
 
 namespace ns3
 {
+  namespace ndn{
   NS_OBJECT_ENSURE_REGISTERED(SvaaClient);
 
   TypeId
   SvaaClient::GetTypeId(void)
   {
     static TypeId tid =
-        TypeId("ns3::SvaaClient").SetParent<DashClient>().AddConstructor<
+        TypeId("ns3::ndn::SvaaClient").SetParent<DashClientZipf>().AddConstructor<
             SvaaClient>();
     return tid;
   }
@@ -41,9 +42,11 @@ namespace ns3
       Time & delay)
   {
     uint32_t rates[] =
-      { 45000, 89000, 131000, 178000, 221000, 263000, 334000, 396000, 522000,
-          595000, 791000, 1033000, 1245000, 1547000, 2134000, 2484000, 3079000,
-          3527000, 3840000, 4220000 };
+    { 45000, 89000, 131000, 178000, 221000, 263000, 334000, 396000, 522000,
+        595000, 791000, 1033000, 1245000, 1547000, 2134000, 2484000, 3079000 };
+      // { 45000, 89000, 131000, 178000, 221000, 263000, 334000, 396000, 522000,
+      //     595000, 791000, 1033000, 1245000, 1547000, 2134000, 2484000, 3079000,
+      //     3527000, 3840000, 4220000 };
 
     uint32_t rates_size = sizeof(rates) / sizeof(rates[0]);
     double diff = GetBufferDifferential();
@@ -121,5 +124,5 @@ namespace ns3
     return;
 
   }
-
+}
 } /* namespace ns3 */

@@ -50,7 +50,7 @@ main(int argc, char* argv[])
     AppHelper producerHelper("ns3::ndn::DashServer");
     // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
     string prefix = "/" + *itr;
-    std::cout << prefix << '\n';
+    // std::cout << prefix << '\n';
 
     ndnGlobalRoutingHelper.AddOrigins(prefix, producerNode);
     producerHelper.SetPrefix(prefix);
@@ -64,7 +64,7 @@ main(int argc, char* argv[])
   //Consumer application
   Ptr<Node> consumerNode = Names::Find<Node>("urjc");
   // AppHelper consumerHelper("ns3::ndn::DashClient");
-  AppHelper consumerHelper("ns3::ndn::SftmClient");
+  AppHelper consumerHelper("ns3::ndn::SvaaClient");
 
   consumerHelper.SetAttribute("VideoId", StringValue("1"));
   consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
