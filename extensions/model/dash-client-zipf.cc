@@ -152,7 +152,7 @@ DashClientZipf::GetNextContentId()
     p_random = m_seqRng->GetValue();
   }
   // if (p_random == 0)
-  NS_LOG_LOGIC("p_random=" << p_random);
+  // NS_LOG_LOGIC("p_random=" << p_random);
   for (uint32_t i = 1; i <= m_N; i++) {
     p_sum = m_Pcum[i]; // m_Pcum[i] = m_Pcum[i-1] + p[i], p[0] = 0;   e.g.: p_cum[1] = p[1],
                        // p_cum[2] = p[1] + p[2]
@@ -162,7 +162,7 @@ DashClientZipf::GetNextContentId()
     } // if
   }   // for
   // content_index = 1;
-  NS_LOG_DEBUG("RandomNumber=" << content_index);
+  // NS_LOG_DEBUG("RandomNumber=" << content_index);
   return content_index;
 }
 

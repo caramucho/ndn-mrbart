@@ -20,7 +20,6 @@ using namespace std;
 int
 main(int argc, char* argv[])
 {
-  cout << "scenario13 initilizing" << endl;
 
 
   AnnotatedTopologyReader topologyReader("", 1);
@@ -64,7 +63,7 @@ main(int argc, char* argv[])
   //Consumer application
   Ptr<Node> consumerNode = Names::Find<Node>("urjc");
   // AppHelper consumerHelper("ns3::ndn::DashClient");
-  AppHelper consumerHelper("ns3::ndn::SvaaClient");
+  AppHelper consumerHelper(DASH_CLIENT_TYPE);
 
   consumerHelper.SetAttribute("VideoId", StringValue("1"));
   consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
@@ -87,15 +86,26 @@ main(int argc, char* argv[])
   // ndn::AppDelayTracer::InstallAll("app-delays-trace.txt");
 
   Simulator::Run();
+  for (auto itr = producerList.begin();  itr != producerList.end(); itr++) {
+    std::cout << *itr << ": ";
+    Ptr<Node> producerNode = Names::Find<Node>(*itr);
+    auto ndn = producerNode->GetObject<L3Protocol>();
+    double hitrate = ndn->getForwarder()->getCs().getHitrate();
+    std::cout << hitrate << '\n';
+  }
   Simulator::Destroy();
   // uint32_t k;
   // for (k = 0; k < users; k++)
   //   {
+
+
+
   Ptr<DashClient> app = DynamicCast<DashClient>(consumer.Get(0));
   // std::cout << protocols[k % protoNum] << "-Node: " << k;
   app->GetStats();
   app->GetContentPopularity();
     // }
+  //Get Hit rate
 
 
   return 0;
