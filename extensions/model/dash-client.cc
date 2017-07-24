@@ -59,7 +59,7 @@ namespace ns3{
 
     DashClient::DashClient() :
     m_rateChanges(0),
-    m_target_dt("35s"),
+    m_target_dt("3.5s"),
     m_bitrateEstimate(0.0),
     m_segmentId(0),
     m_videoId(1),
@@ -100,7 +100,7 @@ namespace ns3{
 
       // do base stuff
       App::StartApplication();
-
+      // request the first segment
       RequestSegment();
     }
     // Private helpers
@@ -168,7 +168,7 @@ namespace ns3{
 
       shared_ptr<Name> nameWithSequence = make_shared<Name>(m_interestName);
       nameWithSequence->appendSequenceNumber(seq);
-      //
+
 
       shared_ptr<Interest> interest = make_shared<Interest>();
       interest->setNonce(m_rand->GetValue(0, std::numeric_limits<uint32_t>::max()));
@@ -269,7 +269,7 @@ namespace ns3{
         // LogBufferLevel(currDt);
 
         // uint32_t old = m_bitRate;
-        //  double diff = m_lastDt >= 0 ? (currDt - m_lastDt).GetSeconds() : 0;
+        // double diff = m_lastDt >= 0 ? (currDt - m_lastDt).GetSeconds() : 0;
 
         Time bufferDelay;
 

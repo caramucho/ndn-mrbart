@@ -59,7 +59,7 @@ DashClientZipf::~DashClientZipf()
 void
 DashClientZipf::RequestSegment()
 {
-  NS_LOG_FUNCTION(this);
+  // NS_LOG_FUNCTION(this);
   // std::cout << "DashClientZipf::RequestSegment() initialization" << '\n';
   if (m_segmentId == m_segmentIdMax || m_segmentIdMax == 0) {
 

@@ -2,7 +2,7 @@
 #include "ns3/core-module.h"
 #include "ns3/ndnSIM-module.h"
 
-NS_LOG_COMPONENT_DEFINE("ndn.DashName");
+// NS_LOG_COMPONENT_DEFINE("ndn.DashName");
 
 namespace ns3 {
   namespace ndn {
@@ -60,7 +60,7 @@ namespace ns3 {
 
       m_segmentId = stoi(name.getSubName(6,1).toUri().substr(1));
       // std::cout <<  name.getSubName(6,1).toUri().substr(1)  << std::endl;
-      
+
       // Update();
       return *this;
     }

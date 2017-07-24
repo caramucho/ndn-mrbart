@@ -69,10 +69,37 @@ main(int argc, char* argv[])
   consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
   // consumerHelper.SetPrefix("/caida/dash/MovieID/Period/AdaptationSet/1080p");
 
-  ApplicationContainer consumer = consumerHelper.Install(consumerNode);
-  consumer.Start(Seconds(0));
-  consumer.Stop(Seconds(SCENARIOTIME));
+  ApplicationContainer consumer0 = consumerHelper.Install(consumerNode);
+  consumer0.Start(Seconds(0));
+  consumer0.Stop(Seconds(SCENARIOTIME));
 
+  ApplicationContainer consumer1 = consumerHelper.Install(consumerNode);
+  consumer1.Start(Seconds(0));
+  consumer1.Stop(Seconds(SCENARIOTIME));
+
+  ApplicationContainer consumer2 = consumerHelper.Install(consumerNode);
+  consumer2.Start(Seconds(0));
+  consumer2.Stop(Seconds(SCENARIOTIME));
+
+  ApplicationContainer consumer3 = consumerHelper.Install(consumerNode);
+  consumer3.Start(Seconds(0));
+  consumer3.Stop(Seconds(SCENARIOTIME));
+
+  ApplicationContainer consumer4 = consumerHelper.Install(consumerNode);
+  consumer4.Start(Seconds(0));
+  consumer4.Stop(Seconds(SCENARIOTIME));
+
+  ApplicationContainer consumer5 = consumerHelper.Install(consumerNode);
+  consumer5.Start(Seconds(0));
+  consumer5.Stop(Seconds(SCENARIOTIME));
+
+  ApplicationContainer consumer6 = consumerHelper.Install(consumerNode);
+  consumer6.Start(Seconds(0));
+  consumer6.Stop(Seconds(SCENARIOTIME));
+
+  ApplicationContainer consumer7 = consumerHelper.Install(consumerNode);
+  consumer7.Start(Seconds(0));
+  consumer7.Stop(Seconds(SCENARIOTIME));
 
 
   // ndn::GlobalRoutingHelper::CalculateAllPossibleRoutes();
@@ -98,9 +125,43 @@ main(int argc, char* argv[])
   // for (k = 0; k < users; k++)
   //   {
 
+  Ptr<DashClient> app = DynamicCast<DashClient>(consumer0.Get(0));
+ // std::cout << protocols[k % protoNum] << "-Node: " << k;
+ app->GetStats();
+ app->GetContentPopularity();
 
 
-  Ptr<DashClient> app = DynamicCast<DashClient>(consumer.Get(0));
+   app = DynamicCast<DashClient>(consumer1.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+  app->GetContentPopularity();
+
+   app = DynamicCast<DashClient>(consumer2.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+  app->GetContentPopularity();
+
+   app = DynamicCast<DashClient>(consumer3.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+  app->GetContentPopularity();
+
+   app = DynamicCast<DashClient>(consumer4.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+  app->GetContentPopularity();
+
+   app = DynamicCast<DashClient>(consumer5.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+  app->GetContentPopularity();
+
+   app = DynamicCast<DashClient>(consumer6.Get(0));
+  // std::cout << protocols[k % protoNum] << "-Node: " << k;
+  app->GetStats();
+  app->GetContentPopularity();
+
+   app = DynamicCast<DashClient>(consumer7.Get(0));
   // std::cout << protocols[k % protoNum] << "-Node: " << k;
   app->GetStats();
   app->GetContentPopularity();

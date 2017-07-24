@@ -28,6 +28,7 @@ def options(opt):
                    help=('Enable time for the executed command'),
                    action="store_true", default=False, dest='time')
 
+
 MANDATORY_NS3_MODULES = ['core', 'network', 'point-to-point', 'applications', 'mobility', 'ndnSIM']
 OTHER_NS3_MODULES = ['antenna', 'aodv', 'bridge', 'brite', 'buildings', 'click', 'config-store', 'csma', 'csma-layout', 'dsdv', 'dsr', 'emu', 'energy', 'fd-net-device', 'flow-monitor', 'internet', 'lte', 'mesh', 'mpi', 'netanim', 'nix-vector-routing', 'olsr', 'openflow', 'point-to-point-layout', 'propagation', 'spectrum', 'stats', 'tap-bridge', 'topology-read', 'uan', 'virtual-net-device', 'visualizer', 'wifi', 'wimax']
 
@@ -67,9 +68,11 @@ def configure(conf):
         conf.define('NS3_LOG_ENABLE', 1)
         conf.define('NS3_ASSERT_ENABLE', 1)
 
+
+
 def build (bld):
     deps = 'NDN_CXX ' + ' '.join (['ns3_'+dep for dep in MANDATORY_NS3_MODULES + OTHER_NS3_MODULES]).upper ()
-
+    
     common = bld.objects (
         target = "extensions",
         features = ["cxx"],

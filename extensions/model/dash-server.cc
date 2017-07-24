@@ -326,8 +326,8 @@ namespace ns3
 
     data->setName(dataName);
     data->setFreshnessPeriod(::ndn::time::milliseconds(m_freshness.GetMilliSeconds()));
-
     data->setContent(m_dashContent.getDataPacket(representation,seq).getContent());
+    
     Signature signature;
     SignatureInfo signatureInfo(static_cast< ::ndn::tlv::SignatureTypeValue>(255));
 

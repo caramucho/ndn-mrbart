@@ -8,9 +8,9 @@
 #define SCENARIOTIME 10000
 #define CONTENT_NUMBER 26
 #define CONTENT_NUMBER_STR "26"
-#define CACHE_SIZE 1000
-#define MEAN_PARAMETER 0.91
-#define DASH_CLIENT_TYPE "ns3::ndn::SvaaClient"
+#define CACHE_SIZE 10000
+#define MEAN_PARAMETER 1.0
+#define DASH_CLIENT_TYPE "ns3::ndn::RaahsClient"
 
 // uint32_t rates[] =
 // /*  { 13281, 18593, 26030, 36443, 51020, 71428, 100000, 140000, 195999,
