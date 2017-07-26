@@ -6,7 +6,9 @@
 #define MIN_SEGMENT_ID 10
 #define MAX_SEGMENT_ID 100
 #define MEAN_PARAMETER 1.0
-#define DASH_CLIENT_TYPE "ns3::ndn::RaahsClient"
+#define CONTENT_NUMBER 26
+#define ORIGIN_DOMAIN "Prefix"
+
 
 // uint32_t rates[] =
 // /*  { 13281, 18593, 26030, 36443, 51020, 71428, 100000, 140000, 195999,

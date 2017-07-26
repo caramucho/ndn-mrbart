@@ -64,7 +64,7 @@ namespace ns3{
     m_segmentId(0),
     m_videoId(1),
     m_bitRate(INIT_BITRATE),
-    m_producerDomain("Caida"),
+    m_producerDomain(ORIGIN_DOMAIN),
     m_totBytes(0),
     m_startedReceiving(Seconds(0)),
     m_sumDt(Seconds(0)),
@@ -113,7 +113,7 @@ namespace ns3{
       // }
 
       m_seq = 0;
-      CalcSegMax();
+      CalcSeqMax();
       m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
       m_segment_bytes = 0;
       m_segmentId++;
@@ -406,7 +406,7 @@ namespace ns3{
     }
 
     void
-    DashClient::CalcSegMax(){
+    DashClient::CalcSeqMax(){
       m_seqMax =  m_bitRate * m_segmentLength.GetSeconds()  / (m_payloadSize * 8);
       if (((uint32_t)(m_bitRate * m_segmentLength.GetSeconds()) % (m_payloadSize * 8)) == 0 ) {
         m_seqMax = m_seqMax - 1;

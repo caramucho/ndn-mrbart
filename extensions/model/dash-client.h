@@ -182,7 +182,7 @@ namespace ns3
     void
     LogBufferLevel(Time t);
     void
-    CalcSegMax();
+    CalcSeqMax();
     void inline
     SetWindow(Time time)
     {

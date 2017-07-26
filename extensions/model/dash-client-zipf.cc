@@ -45,6 +45,7 @@ DashClientZipf::DashClientZipf()
   : m_N(100) // needed here to make sure when SetQ/SetS are called, there is a valid value of N
   , m_q(0.5)
   , m_s(1.2)
+  , m_segmentIdMax(0)
   , m_seqRng(CreateObject<UniformRandomVariable>())
   , m_contentCounts(CONTENT_NUMBER,0)
 {
@@ -60,11 +61,12 @@ void
 DashClientZipf::RequestSegment()
 {
   // NS_LOG_FUNCTION(this);
-  // std::cout << "DashClientZipf::RequestSegment() initialization" << '\n';
+//  std::cout << "DashClientZipf::RequestSegment() " << "Max Segment: " << m_segmentIdMax << '\n';
+
   if (m_segmentId == m_segmentIdMax || m_segmentIdMax == 0) {
 
     m_videoId = GetNextContentId();
-    m_producerDomain = DashContent::GetProducerDomain(m_videoId);
+//    m_producerDomain = DashContent::GetProducerDomain(m_videoId);
 
     m_contentCounts[m_videoId-1]++;
 
