@@ -23,9 +23,16 @@ using namespace std;
 int
 main(int argc, char* argv[])
 {
+
+    int delay;
+    CommandLine cmd;
+    cmd.AddValue ("delay", "delay of link", delay);
+    cmd.Parse (argc, argv);
+
+
     // setting default parameters for PointToPoint links and channels
     Config::SetDefault("ns3::PointToPointNetDevice::DataRate", StringValue("1Mbps"));
-    Config::SetDefault("ns3::PointToPointChannel::Delay", StringValue("10ms"));
+    Config::SetDefault("ns3::PointToPointChannel::Delay", StringValue(to_string(delay)+"ms"));
     Config::SetDefault("ns3::DropTailQueue::MaxPackets", StringValue("20"));
 
     // Creating nodes
