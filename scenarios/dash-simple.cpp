@@ -25,8 +25,10 @@ main(int argc, char* argv[])
 {
 
     int delay;
+    double mean;
     CommandLine cmd;
     cmd.AddValue ("delay", "delay of link", delay);
+    cmd.AddValue ("mean", "mean interval parameter", mean);
     cmd.Parse (argc, argv);
 
 
@@ -71,6 +73,7 @@ main(int argc, char* argv[])
     consumerHelper.SetPrefix("/Prefix");
     consumerHelper.SetAttribute("VideoId", StringValue("1"));
     consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
+    consumerHelper.SetAttribute("MeanParameter", DoubleValue(mean));
 
 
 //  consumerHelper.SetAttribute("Frequency", StringValue("10")); // 10 interests a second

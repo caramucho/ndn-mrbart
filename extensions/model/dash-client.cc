@@ -52,6 +52,7 @@ namespace ns3{
       .AddConstructor<DashClient>()
       .AddAttribute("VideoId","The Id of the video that is played.", UintegerValue(0),MakeUintegerAccessor(&DashClient::m_videoId),MakeUintegerChecker<uint32_t>(1))
       .AddAttribute("TargetDt", "The target buffering time", TimeValue(Time("35s")),MakeTimeAccessor(&DashClient::m_target_dt), MakeTimeChecker())
+      .AddAttribute("MeanParameter","The mean parameter", DoubleValue(1.0),MakeDoubleAccessor(&DashClient::m_mean_parameter),MakeDoubleChecker<double>())
       .AddAttribute("window", "The window for measuring the average throughput (Time)",TimeValue(Time("10s")), MakeTimeAccessor(&DashClient::m_window),MakeTimeChecker())
       .AddTraceSource("Tx", "A new packet is created and is sent",MakeTraceSourceAccessor(&DashClient::m_txTrace));
       return tid;
@@ -150,7 +151,7 @@ namespace ns3{
       // if (!m_active)
       // return;
       uint32_t seq = std::numeric_limits<uint32_t>::max(); // invalid
-      NS_LOG_FUNCTION_NOARGS();
+//      NS_LOG_FUNCTION_NOARGS();
 
       while (m_retxSeqs.size()) {
         seq = *m_retxSeqs.begin();
@@ -175,10 +176,10 @@ namespace ns3{
       interest->setName(*nameWithSequence);
       time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
       interest->setInterestLifetime(interestLifeTime);
-
-      // NS_LOG_INFO ("Requesting Interest: \n" << *interest);
-      // NS_LOG_INFO("> Interest for " << seq);
-      NS_LOG_INFO ( Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq );
+//
+//        NS_LOG_INFO ("Requesting Interest: \n" << *interest);
+//        NS_LOG_INFO("> Interest for " << seq);
+//        NS_LOG_INFO ( Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq );
 
       WillSendOutInterest(seq);
 
@@ -189,23 +190,24 @@ namespace ns3{
       ScheduleNextPacket();
     }
 
-    void
-    DashClient::ScheduleNextPacket()
-    {
-      // cout << "ScheduleNextPacket initilizing" << endl;
-      double mean =  MEAN_PARAMETER * 8.0 * m_payloadSize / m_bitRate;
-      // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
+      void
+      DashClient::ScheduleNextPacket()
+      {
+          // cout << "ScheduleNextPacket initilizing" << endl;
+//          cout << "mean parameter=" <<m_mean_parameter << endl;
+          double mean =  m_mean_parameter * 8.0 * m_payloadSize / m_bitRate;
+          // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
 
-      if (m_firstTime) {
-        m_sendEvent = Simulator::Schedule(Seconds(0.0), &DashClient::SendPacket, this);
-        m_firstTime = false;
+          if (m_firstTime) {
+              m_sendEvent = Simulator::Schedule(Seconds(0.0), &DashClient::SendPacket, this);
+              m_firstTime = false;
+          }
+          else if (!m_sendEvent.IsRunning()){
+              m_sendEvent = Simulator::Schedule(Seconds(mean), &DashClient::SendPacket, this);
+          }else {
+              // cout << "Sending event is busy" << endl;
+          }
       }
-      else if (!m_sendEvent.IsRunning()){
-        m_sendEvent = Simulator::Schedule(Seconds(mean), &DashClient::SendPacket, this);
-      }else {
-        // cout << "Sending event is busy" << endl;
-      }
-    }
 
 
     void
@@ -251,50 +253,53 @@ namespace ns3{
       m_rtt->AckSeq(SequenceNumber32(seq));
 
       // If we received the last packet of the segment
-      if (seq == m_seqMax)
-      {
+        if (seq == m_seqMax)
+        {
 
-        // m_segmentFetchTime = Simulator::Now() - m_requestTime;
+            // m_segmentFetchTime = Simulator::Now() - m_requestTime;
 
 
-        NS_LOG_INFO(
-         Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
+//        NS_LOG_INFO(
+//         Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
+            cout << Simulator::Now().GetSeconds() << "\t" << m_segmentFetchTime.GetSeconds() << "\t" <<  0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << "\t" << m_bitRate <<endl;
+            // Feed the bitrate info to the player
+            AddBitRate(Simulator::Now(),
+                       8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
 
-        // Feed the bitrate info to the player
-        AddBitRate(Simulator::Now(),
-            8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
+            // Time currDt = m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
+            // // And tell the player to monitor the buffer level
+            // LogBufferLevel(currDt);
 
-        // Time currDt = m_player.GetRealPlayTime(mpegHeader.GetPlaybackTime());
-        // // And tell the player to monitor the buffer level
-        // LogBufferLevel(currDt);
+            // uint32_t old = m_bitRate;
+            // double diff = m_lastDt >= 0 ? (currDt - m_lastDt).GetSeconds() : 0;
 
-        // uint32_t old = m_bitRate;
-        // double diff = m_lastDt >= 0 ? (currDt - m_lastDt).GetSeconds() : 0;
+            Time bufferDelay;
 
-        Time bufferDelay;
+            //m_player.CalcNextSegment(m_bitRate, m_player.GetBufferEstimate(), diff,
+            //m_bitRate, bufferDelay);
 
-        //m_player.CalcNextSegment(m_bitRate, m_player.GetBufferEstimate(), diff,
-        //m_bitRate, bufferDelay);
+            uint32_t prevBitrate = m_bitRate;
 
-        uint32_t prevBitrate = m_bitRate;
+            CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
+            // @Todo calculate next m_seqMax
 
-        CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
-        // @Todo calculate next m_seqMax
+            if (prevBitrate != m_bitRate)
+            {
+                NS_LOG_INFO( "Bitrate Adaptation:    " << prevBitrate <<"->"<<m_bitRate );
+//             cout << Simulator::Now().GetSeconds() << "\t" << prevBitrate << endl;
+//             cout << Simulator::Now().GetSeconds() << "\t" << m_bitRate << endl;
 
-        if (prevBitrate != m_bitRate)
-         {
-           NS_LOG_INFO( "Bitrate Adaptation:    " << prevBitrate <<"->"<<m_bitRate );
-           m_rateChanges++;
-         }
+                m_rateChanges++;
+            }
 
-       if (bufferDelay == Seconds(0))
-         {
-           RequestSegment();
-         }
-       else
-         {
-           m_player.SchduleBufferWakeup(bufferDelay, this);
-         }
+            if (bufferDelay == Seconds(0))
+            {
+                RequestSegment();
+            }
+            else
+            {
+                m_player.SchduleBufferWakeup(bufferDelay, this);
+            }
 
 
         //  m_lastDt = currDt;

@@ -6,7 +6,7 @@
 #define MIN_SEGMENT_ID 10
 #define MAX_SEGMENT_ID 100
 #define MEAN_PARAMETER 1.0
-#define CONTENT_NUMBER 26
+#define CONTENT_NUMBER 3
 #define ORIGIN_DOMAIN "Prefix"
 
 
