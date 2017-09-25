@@ -106,6 +106,9 @@ namespace ns3
             virtual void
             GetContentPopularity();
 
+            static void
+            RegisterProducerDomain(const std::vector<string> producerList);
+
         protected:
             // virtual void
             // DoDispose(void);
@@ -147,6 +150,8 @@ namespace ns3
             uint32_t m_videoId;      // The Id of the video that is requested
             uint32_t m_bitRate;      // The bitrate of the current segment.
             string m_producerDomain;
+
+
 
 
 

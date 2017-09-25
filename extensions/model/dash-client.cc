@@ -28,6 +28,7 @@
 
 #include "dash-client.h"
 #include "../dash-parameters.h"
+#include "dash-content.h"
 #include <ndn-cxx/lp/tags.hpp>
 
 
@@ -418,8 +419,12 @@ namespace ns3{
       if (((uint32_t)(m_bitRate * m_segmentLength.GetSeconds()) % (m_payloadSize * 8)) == 0 ) {
         m_seqMax = m_seqMax - 1;
       }
+    }
 
-
+    void
+    DashClient::RegisterProducerDomain(const std::vector<string> producerList)
+    {
+        DashContent::RegisterProducerDomain(producerList);
     }
 
   } // Namespace ndn

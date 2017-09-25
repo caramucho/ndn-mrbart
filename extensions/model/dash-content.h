@@ -21,7 +21,7 @@ namespace ns3{
           GetFrameSize(uint32_t representation);
           static const string&
           GetProducerDomainByVideoID(uint32_t VideoId);
-          void RegisterProducerDomain(const std::vector<string> producerList);
+          static void RegisterProducerDomain(const std::vector<string> producerList);
 
 
         private:

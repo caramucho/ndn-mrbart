@@ -66,11 +66,14 @@ main(int argc, char* argv[])
     producerHelper.Install(producer1);
     producerHelper.SetPrefix("/Producer2");
     producerHelper.Install(producer2);
+    const std::vector<string> producerList{"/Producer1","/Producer2"};
+    DashClient::RegisterProducerDomain(producerList);
 
 
 
     //Consumer application
     AppHelper consumerHelper(DASH_CLIENT_TYPE);
+
     consumerHelper.SetPrefix("/Prefix");
     consumerHelper.SetAttribute("VideoId", StringValue("1"));
     consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
