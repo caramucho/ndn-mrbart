@@ -146,11 +146,14 @@ namespace ns3{
 
       }
 
-      
+      void
+      DashContent::RegisterProducerDomain(const std::vector<string> producerList){
+        m_producerlist = producerList;
+      }
 
       const string&
       DashContent::GetProducerDomainByVideoID(uint32_t VideoId){
-        const std::vector<string> producerList = {"remap","byu","ua","csu","wu","um","uiuc","mich","verisign","neu","lip6","urjc","orange","systemx","ntnu","basel","padua","bupt","pku","tongji","anyang","kisti","waseda","caida","ucla","uci"};
+        std::vector<string> producerList(m_producerlist);
         if (VideoId < 26) {
           return producerList[VideoId];
         }else{

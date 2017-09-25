@@ -21,6 +21,7 @@ namespace ns3{
           GetFrameSize(uint32_t representation);
           static const string&
           GetProducerDomainByVideoID(uint32_t VideoId);
+          void RegisterProducerDomain(const std::vector<string> producerList);
 
 
         private:
@@ -30,6 +31,7 @@ namespace ns3{
           uint32_t m_segmentId;
           uint8_t m_buffer[MPEG_MAX_MESSAGE * 50];
           uint32_t m_payloadSize;
+          static std::vector<string> m_producerlist;
     };
   }
 }
