@@ -154,11 +154,12 @@ namespace ns3{
       const string&
       DashContent::GetProducerDomainByVideoID(uint32_t VideoId){
         std::vector<string> producerList(m_producerlist);
-        if (VideoId < 26) {
-          return producerList[VideoId];
-        }else{
-          return producerList[VideoId / producerList.size()];
-        }
+//        if (VideoId < producerList.size()) {
+//          return producerList[VideoId];
+//        }else{
+//          return producerList[VideoId % producerList.size()];
+//        }
+        return producerList[VideoId % producerList.size()];
       }
 
 
