@@ -65,7 +65,7 @@ namespace ns3{
     m_segmentId(0),
     m_videoId(1),
     m_bitRate(INIT_BITRATE),
-    m_producerDomain(ORIGIN_DOMAIN),
+//    m_producerDomain(ORIGIN_DOMAIN),
     m_totBytes(0),
     m_startedReceiving(Seconds(0)),
     m_sumDt(Seconds(0)),

@@ -24,8 +24,9 @@ int
 main(int argc, char* argv[])
 {
 
-    int delay;
+    int delay   ;
     double mean;
+
     CommandLine cmd;
     cmd.AddValue ("delay", "delay of link", delay);
     cmd.AddValue ("mean", "mean interval parameter", mean);

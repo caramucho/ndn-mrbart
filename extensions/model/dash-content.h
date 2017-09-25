@@ -20,7 +20,7 @@ namespace ns3{
           static uint32_t
           GetFrameSize(uint32_t representation);
           static const string&
-          GetProducerDomain(uint32_t VideoId);
+          GetProducerDomainByVideoID(uint32_t VideoId);
 
 
         private:
