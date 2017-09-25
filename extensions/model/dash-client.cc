@@ -140,7 +140,9 @@ namespace ns3{
       dashname.SetAdaptationSetId(m_adaptationSetId);
       dashname.SetPeriodId(m_periodId);
       dashname.SetSegmentId(m_segmentId);
-      m_interestName = dashname.GetInterestName();
+      Name interestName = dashname.GetInterestName();
+      m_interestName.clear();
+      m_interestName.append(interestName);
     }
 
 

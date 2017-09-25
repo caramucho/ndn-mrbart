@@ -1,0 +1,281 @@
+[33mcommit b51e1d7dec0f90324f6815efc003ffaea84596b5[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Sep 25 11:48:49 2017 +0900
+
+    add DashContent::RegisterProducerDomain
+
+[33mcommit d256d4c1a060a0ba5c95b1fc257b85112e3eac3d[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Sep 25 11:28:32 2017 +0900
+
+    add scenario dash-congestion#2
+
+[33mcommit cdf98b3459cb4abbe7862e78be954de8185ca504[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Aug 21 18:39:54 2017 +0900
+
+    mean parameter simulation
+
+[33mcommit 00030bc12661ac546429f9194e927e06fc92fa76[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Aug 21 18:38:17 2017 +0900
+
+    modify gitignore
+
+[33mcommit a480cf5cad0868a3601a0356f760e468b182308f[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Aug 21 18:37:45 2017 +0900
+
+    add mean scripts
+
+[33mcommit c749a0f0f480faa8700d63801ea975d453b804dd[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Aug 3 17:48:43 2017 +0900
+
+    modify git ignore
+
+[33mcommit 1f1fbec908912febfd908135400d8382c11502d7[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Aug 3 17:47:49 2017 +0900
+
+    add scripts dir
+
+[33mcommit b3afe7a9245340d523595614e796b8395edfcf3f[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Aug 3 16:21:38 2017 +0900
+
+    add command line args
+
+[33mcommit 754412b02c8af057de031865df6dca27b1ef41d6[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Wed Jul 26 18:27:23 2017 +0900
+
+    add dash-simple scenario
+
+[33mcommit 3984acee81d882451f1b9b73a832bc02fb534d17[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Wed Jul 26 16:52:25 2017 +0900
+
+    add sync clion IDE
+
+[33mcommit 0310d511cd64bf73f5cb98a4f7954f4a04499b94[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Jul 24 15:36:34 2017 +0900
+
+    changes since last commit
+
+[33mcommit b380905a8a95af96d384446e162c2be8c204bfd2[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Mon Jan 16 14:25:04 2017 +0900
+
+    add print cache hitrate
+
+[33mcommit 1ad3751e332ca714c78b7b93df264a8c08ecdfb3[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 21:44:51 2017 +0900
+
+    add adaptation algorithms
+
+[33mcommit 7d5eea68f90e18a775429e76cf33393b53ae5055[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 21:10:41 2017 +0900
+
+    debug bitrate=3840000 error why:DashClient::CalcSegMax() m_seqMax is divisible
+
+[33mcommit 7863b262440ffd505009cdb69278314f3bc71829[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 20:56:05 2017 +0900
+
+    debug bitrate=3840000 error why:DashClient::CalcSegMax() m_seqMax is divisible
+
+[33mcommit 6585e7f8592d5e4fdae0955beb47975aa804aa39[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 19:20:50 2017 +0900
+
+    add svaa client
+
+[33mcommit 446ae04f4fad4ef2c8f6d2eb01df5a046f900855[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 18:28:55 2017 +0900
+
+    debug : content id = 26 error
+
+[33mcommit d194405c472a9b3cbd24014c6d4df1d3c122b2f0[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 18:02:30 2017 +0900
+
+    add multi-producers
+
+[33mcommit 031c87e1fc4021decde07ec760eeac57eb45a801[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 16:59:48 2017 +0900
+
+    add producerlist, change GetFrameSize GetProducerDomain to static
+
+[33mcommit 08aa3b557696d5fdf1a82e0093f9f10d943835c1[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 16:04:40 2017 +0900
+
+    use fulldelay as segment fetch time
+
+[33mcommit 7af19bf618f8cab3ba8f4fb2fbe80ba40ab77374[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 02:42:11 2017 +0900
+
+    add parameters
+
+[33mcommit 667236f6f0e9d8196f48b1d76d02166bd102f9fb[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 15 01:57:11 2017 +0900
+
+    work on cache replacement
+
+[33mcommit 103df5d9b3672ae3f5b22525dbb591788af3c3de[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sat Jan 14 04:01:35 2017 +0900
+
+    add dash client zipf
+
+[33mcommit a7da182fb2913c9988ba6a3d8ca3cbb59ebc4a39[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sat Jan 14 02:49:08 2017 +0900
+
+    app done, try adaptation algorithm
+
+[33mcommit 0128c06d9b73573604ea86da61cd95255d118378[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Fri Jan 13 18:03:43 2017 +0900
+
+    dash content
+
+[33mcommit 96eb03ce18318bbf49810f296a89c88c6466b78e[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Jan 12 16:19:20 2017 +0900
+
+    dash server done
+
+[33mcommit ea98c7d3564183ccf415e12fee57f0ae6ae38d5e[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Jan 12 15:37:26 2017 +0900
+
+    dash content done
+
+[33mcommit 931a29f60e52befd2fe35522d4ee1ea991c3864f[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Jan 12 14:11:41 2017 +0900
+
+    work on dash content
+
+[33mcommit ca9444e47092475de75da2824b3ecd59b6e80034[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Wed Jan 11 18:05:35 2017 +0900
+
+    add dash content
+
+[33mcommit db0a4cf4b73e45dd2cb5a91233cb4c62c25ea73a[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Wed Jan 11 14:18:19 2017 +0900
+
+    add dash server
+
+[33mcommit 34682be75496a9c956da54bebc186692609af1a3[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Tue Jan 10 21:15:07 2017 +0900
+
+    add test-scenario
+
+[33mcommit e45c80c23a61d063317c7c24be18d0f970a81b36[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Tue Jan 10 17:36:28 2017 +0900
+
+    to read all frames in ndn-parser
+
+[33mcommit 6dfcefedb745943cf7f340a2551f95b7fdc81fa3[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Tue Jan 10 16:31:25 2017 +0900
+
+    add readContent to ndn-parser
+
+[33mcommit 6e804c780f348110ccd761e8d24a5656272bac71[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Tue Jan 10 13:46:52 2017 +0900
+
+    review dashname, remove -Wpedanic
+
+[33mcommit 3a6399aba64a24f16a51d92599b79c0f3dc42cea[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Sun Jan 8 17:42:57 2017 +0900
+
+    add ndn parser
+
+[33mcommit 52f22e8bb499b8ca2ae85e07a39d8cc1697afbbf[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Jan 5 16:29:15 2017 +0900
+
+    add dash-name, disable http/mpeg headers
+
+[33mcommit f2c2ba1f89d30901a3fb7526fda6f2d06ce6844d[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Jan 5 14:37:48 2017 +0900
+
+    add scheduleNextPacket to Ondata
+
+[33mcommit e8766337d4e0a46499a9ae40f378895822db91e0[m
+Author: zhaoliang <zl.iafag@gmail.com>
+Date:   Thu Jan 5 13:54:33 2017 +0900
+
+    Add sendPacket and Ondata to dash client
+
+[33mcommit 93f2a70bde778f70a9188423e69d0004c28e9d39[m
+Author: zhaoliang <zhaoliang@zhaoliangs-MacBook-Pro.local>
+Date:   Sat Dec 31 16:19:31 2016 +0900
+
+    add dash player
+
+[33mcommit ee274bf278816a33a3a8e4621b6e0a544943c059[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Thu Feb 26 15:27:20 2015 -0800
+
+    Correct scenario template for ndnSIM 2.0
+
+[33mcommit 789ae87cf2c8c72c755b473c05a06d682e3918f4[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Thu Aug 8 12:09:56 2013 -0700
+
+    Adding most of the NS-3 modules to wscrip, making it semi-universal
+
+[33mcommit 79063c9e9d702642d1d189d58f0146baf21709e0[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Wed Apr 17 20:14:07 2013 -0700
+
+    A couple of tricks to ensure results/ and graphs/pdfs directories are created when the repo is cloned
+
+[33mcommit bd262352d893043574e28800a03bd0a909b5ae8d[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Wed Apr 17 20:12:58 2013 -0700
+
+    README update
+
+[33mcommit f9bd331f9ea342beea5400dc8bbf28afb9b86c92[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Tue Mar 5 18:54:17 2013 -0800
+
+    README: instructing to compile NS-3 in optimized mode
+
+[33mcommit 8e989d2337df2ead17d89ef734549a997a6d3b16[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Wed Mar 6 17:14:52 2013 -0800
+
+    Solving linking problem on Linux (similar to https://www.nsnam.org/bugzilla/show_bug.cgi?id=1292)
+
+[33mcommit 5c66f9b5f88d6f105598111b562b5668c51b45e4[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Mon Feb 18 19:33:23 2013 -0800
+
+    Upgrading wscript and run.py
+
+[33mcommit 5d89bf96842b17c085d4221d274bac5deb4cd561[m
+Author: Alexander Afanasyev <alexander.afanasyev@ucla.edu>
+Date:   Fri Feb 1 12:38:05 2013 -0800
+
+    Template for ndnSIM simulations
