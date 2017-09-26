@@ -106,8 +106,8 @@ namespace ns3
             virtual void
             GetContentPopularity();
 
-            static void
-            RegisterProducerDomain(const std::vector<string> producerList);
+//            static void
+//            RegisterProducerDomain(const std::vector<string> producerList);
 
         protected:
             // virtual void

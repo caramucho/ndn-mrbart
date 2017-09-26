@@ -146,14 +146,16 @@ namespace ns3{
 
       }
 
-      void
-      DashContent::RegisterProducerDomain(const std::vector<string> producerList){
-        m_producerlist = producerList;
-      }
+//      void
+//      DashContent::RegisterProducerDomain(std::vector<string> producerList){
+//          m_producerlist = producerList;
+//
+//      }
 
       const string&
       DashContent::GetProducerDomainByVideoID(uint32_t VideoId){
-        std::vector<string> producerList(m_producerlist);
+          const std::vector<string> producerList{"/Src1","/Src2"};
+//          std::vector<string> producerList(m_producerlist);
 //        if (VideoId < producerList.size()) {
 //          return producerList[VideoId];
 //        }else{

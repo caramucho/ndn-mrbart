@@ -5,7 +5,7 @@
 #include "model/dash-client.h"
 // #include "model/ndn-net-device-face.hpp"
 #include "dash-parameters.h"
-#include "../scenario-parameters.h"
+#include "./scenario-parameters.h"
 
 using namespace ns3;
 using namespace ns3::ndn;

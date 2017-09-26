@@ -114,6 +114,8 @@ namespace ns3{
       //   return; // we are totally done
       // }
 
+      NS_LOG_FUNCTION(this);
+
       m_seq = 0;
       CalcSeqMax();
       m_requestTime = Simulator::Now(); // the time to request the first packet of the segment
@@ -150,11 +152,11 @@ namespace ns3{
     void
     DashClient::SendPacket()
     {
-      // cout << "SendPacket initilizing" << endl;
+       cout << "SendPacket initilizing" << endl;
       // if (!m_active)
       // return;
       uint32_t seq = std::numeric_limits<uint32_t>::max(); // invalid
-//      NS_LOG_FUNCTION_NOARGS();
+      NS_LOG_FUNCTION_NOARGS();
 
       while (m_retxSeqs.size()) {
         seq = *m_retxSeqs.begin();
@@ -180,9 +182,9 @@ namespace ns3{
       time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
       interest->setInterestLifetime(interestLifeTime);
 //
-//        NS_LOG_INFO ("Requesting Interest: \n" << *interest);
-//        NS_LOG_INFO("> Interest for " << seq);
-//        NS_LOG_INFO ( Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq );
+        NS_LOG_INFO ("Requesting Interest: \n" << *interest);
+        NS_LOG_INFO("> Interest for " << seq);
+        NS_LOG_INFO ( Simulator::Now().GetSeconds() <<" sending "<< m_interestName.toUri() << "/"<< seq );
 
       WillSendOutInterest(seq);
 
@@ -195,9 +197,12 @@ namespace ns3{
 
       void
       DashClient::ScheduleNextPacket()
+
       {
-          // cout << "ScheduleNextPacket initilizing" << endl;
-//          cout << "mean parameter=" <<m_mean_parameter << endl;
+          NS_LOG_FUNCTION(this);
+
+//          cout << "ScheduleNextPacket initilizing" << endl;
+//          cout << "mean parameter=" << m_mean_parameter << endl;
           double mean =  m_mean_parameter * 8.0 * m_payloadSize / m_bitRate;
           // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
 
@@ -421,11 +426,11 @@ namespace ns3{
       }
     }
 
-    void
-    DashClient::RegisterProducerDomain(const std::vector<string> producerList)
-    {
-        DashContent::RegisterProducerDomain(producerList);
-    }
+//    void
+//    DashClient::RegisterProducerDomain(const std::vector<string> producerList)
+//    {
+//         DashContent::RegisterProducerDomain(producerList);
+//    }
 
   } // Namespace ndn
 } // Namespace ns3

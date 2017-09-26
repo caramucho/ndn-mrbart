@@ -33,8 +33,9 @@ main(int argc, char* argv[])
     cmd.Parse (argc, argv);
 
     AnnotatedTopologyReader topologyReader("", 25);
-    topologyReader.SetFileName("src/ndnSIM/examples/topologies/topo-6-node.txt");
+    topologyReader.SetFileName("topo/topo-6-node.txt");
     topologyReader.Read();
+    topologyReader.ApplyOspfMetric();
 
 
     // Install NDN stack on all nodes
@@ -43,7 +44,7 @@ main(int argc, char* argv[])
     ndnHelper.setPolicy("nfd::cs::lru");
     // ndnHelper.SetOldContentStore("ns3::ndn::cs::Lru", "MaxSize",
     // cacheSize); // ! Attention ! If set to 0, then MaxSize is infinite
-    ndnHelper.SetDefaultRoutes(true);
+//    ndnHelper.SetDefaultRoutes(true);
 
     ndnHelper.InstallAll();
 
@@ -55,35 +56,56 @@ main(int argc, char* argv[])
     Ptr<Node> consumer1 = Names::Find<Node>("Src1");
     Ptr<Node> consumer2 = Names::Find<Node>("Src2");
 
-    Ptr<Node> producer1 = Names::Find<Node>("Dst1");
-    Ptr<Node> producer2 = Names::Find<Node>("Dst2");
+//    Ptr<Node> producer1 = Names::Find<Node>("Dst1");
+//    Ptr<Node> producer2 = Names::Find<Node>("Dst2");
 
 
     // Producer
-    AppHelper producerHelper("ns3::ndn::DashServer");
-    producerHelper.SetPrefix("/Producer1");
+//    AppHelper producerHelper("ns3::ndn::DashServer");
+//    producerHelper.SetPrefix("/Producer1");
 //    producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
-    producerHelper.Install(producer1);
-    producerHelper.SetPrefix("/Producer2");
-    producerHelper.Install(producer2);
-    const std::vector<string> producerList{"/Producer1","/Producer2"};
-    DashClient::RegisterProducerDomain(producerList);
+//    producerHelper.Install(producer1);
+//    producerHelper.SetPrefix("/Producer2");
+//    producerHelper.Install(producer2);
 
+//    DashClient::RegisterProducerDomain(producerList);
+    const std::vector<string> producerList = {"Src1","Src2"};
 
+    for (auto itr = producerList.begin();  itr != producerList.end(); itr++) {
+        Ptr<Node> producerNode = Names::Find<Node>(*itr);
+        AppHelper producerHelper("ns3::ndn::DashServer");
+        // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
+        string prefix = "/" + *itr;
+//         std::cout << prefix << '\n';
+
+        ndnGlobalRoutingHelper.AddOrigins(prefix, producerNode);
+        producerHelper.SetPrefix(prefix);
+        ApplicationContainer producer = producerHelper.Install(producerNode);
+        producer.Start(Seconds(0));
+        producer.Stop(Seconds(SCENARIOTIME));
+    }
 
     //Consumer application
     AppHelper consumerHelper(DASH_CLIENT_TYPE);
 
-    consumerHelper.SetPrefix("/Prefix");
+//    consumerHelper.SetPrefix("/Prefix");
     consumerHelper.SetAttribute("VideoId", StringValue("1"));
     consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
     consumerHelper.SetAttribute("MeanParameter", DoubleValue(mean));
 
+    ApplicationContainer consumerapp1 = consumerHelper.Install(consumer1);
+    consumerapp1.Start(Seconds(0));
+    consumerapp1.Stop(Seconds(SCENARIOTIME));
+
+    ApplicationContainer  consumerapp2 = consumerHelper.Install(consumer2);
+    consumerapp2.Start(Seconds(0));
+    consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 //  consumerHelper.SetAttribute("Frequency", StringValue("10")); // 10 interests a second
-    consumerHelper.Install(consumer1);                           // first node
-    consumerHelper.Install(consumer2);                           // first node
+//    consumerHelper.Install(consumer1);                           // first node
+//    consumerHelper.Install(consumer2);                           // first node
 
+    GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
 
     // L3RateTracer::InstallAll("/Users/zhaoliang/ndnSIM/my-simulations/results/rate-trace.txt", Seconds(0.5));
