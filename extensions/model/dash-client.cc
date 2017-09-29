@@ -152,7 +152,7 @@ namespace ns3{
     void
     DashClient::SendPacket()
     {
-       cout << "SendPacket initilizing" << endl;
+//       cout << "SendPacket initilizing" << endl;
       // if (!m_active)
       // return;
       uint32_t seq = std::numeric_limits<uint32_t>::max(); // invalid
@@ -221,8 +221,10 @@ namespace ns3{
     void
     DashClient::OnData(shared_ptr<const Data> data)
     {
+        NS_LOG_FUNCTION(this);
 
-      // if (!m_active)
+
+        // if (!m_active)
       // return;
       // cout << "OnData initilizing" << endl;
       // Consumer::OnData(data);

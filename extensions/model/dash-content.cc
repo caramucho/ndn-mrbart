@@ -152,17 +152,21 @@ namespace ns3{
 //
 //      }
 
-      const string&
+      const string
       DashContent::GetProducerDomainByVideoID(uint32_t VideoId){
-          const std::vector<string> producerList{"/Src1","/Src2"};
-//          std::vector<string> producerList(m_producerlist);
-//        if (VideoId < producerList.size()) {
-//          return producerList[VideoId];
-//        }else{
-//          return producerList[VideoId % producerList.size()];
-//        }
-        return producerList[VideoId % producerList.size()];
+//        const std::vector<string> producerList = {"remap","byu","ua","csu","wu","um","uiuc","mich","verisign","neu","lip6","urjc","orange","systemx","ntnu","basel","padua","bupt","pku","tongji","anyang","kisti","waseda","caida","ucla","uci"};
+
+        const std::vector<string> producerList{"Dst1","Dst2"};
+        int i = VideoId % producerList.size();
+        if(i==0){
+            return producerList[0];
+        }
+          else{
+            return producerList[1];
+        }
+//        return "Dst1";
       }
+
 
 
   }

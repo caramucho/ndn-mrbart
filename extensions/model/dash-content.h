@@ -19,7 +19,7 @@ namespace ns3{
           setPayloadSize(uint32_t PayloadSize);
           static uint32_t
           GetFrameSize(uint32_t representation);
-          static const string&
+          static const string
           GetProducerDomainByVideoID(uint32_t VideoId);
 //          static void RegisterProducerDomain(const std::vector<string> producerList);
 
