@@ -51,6 +51,7 @@ namespace ns3{
       .SetGroupName("Ndn")
       .SetParent<Consumer>()
       .AddConstructor<DashClient>()
+      .AddAttribute("ConsumerId","The Id of the Consumer.", UintegerValue(0),MakeUintegerAccessor(&DashClient::m_consumerId),MakeUintegerChecker<uint32_t>(1))
       .AddAttribute("VideoId","The Id of the video that is played.", UintegerValue(0),MakeUintegerAccessor(&DashClient::m_videoId),MakeUintegerChecker<uint32_t>(1))
       .AddAttribute("TargetDt", "The target buffering time", TimeValue(Time("35s")),MakeTimeAccessor(&DashClient::m_target_dt), MakeTimeChecker())
       .AddAttribute("MeanParameter","The mean parameter", DoubleValue(1.0),MakeDoubleAccessor(&DashClient::m_mean_parameter),MakeDoubleChecker<double>())
@@ -271,7 +272,7 @@ namespace ns3{
 
 //        NS_LOG_INFO(
 //         Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
-            cout << Simulator::Now().GetSeconds() << "\t" << m_segmentFetchTime.GetSeconds() << "\t" <<  0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << "\t" << m_bitRate <<endl;
+            cout << m_consumerId << "\t" << Simulator::Now().GetSeconds() << "\t" << m_segmentFetchTime.GetSeconds() << "\t" <<  0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << "\t" << m_bitRate <<endl;
             // Feed the bitrate info to the player
             AddBitRate(Simulator::Now(),
                        8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());

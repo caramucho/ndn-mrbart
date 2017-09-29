@@ -24,12 +24,11 @@ int
 main(int argc, char* argv[])
 {
 
-    int delay   ;
-    double mean;
+    int delay = 10;
+    double mean = 1.0;
 
     CommandLine cmd;
-    cmd.AddValue ("delay", "delay of link", delay);
-    cmd.AddValue ("mean", "mean interval parameter", mean);
+//    cmd.AddValue ("mean", "mean interval parameter", mean);
     cmd.Parse (argc, argv);
 
     AnnotatedTopologyReader topologyReader("", 25);
@@ -44,14 +43,14 @@ main(int argc, char* argv[])
     ndnHelper.setPolicy("nfd::cs::lru");
     // ndnHelper.SetOldContentStore("ns3::ndn::cs::Lru", "MaxSize",
     // cacheSize); // ! Attention ! If set to 0, then MaxSize is infinite
-    ndnHelper.SetDefaultRoutes(true);
+//    ndnHelper.SetDefaultRoutes(true);
 
     ndnHelper.InstallAll();
 
     StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/best-route");
 
-//    GlobalRoutingHelper ndnGlobalRoutingHelper;
-//    ndnGlobalRoutingHelper.InstallAll();
+    GlobalRoutingHelper ndnGlobalRoutingHelper;
+    ndnGlobalRoutingHelper.InstallAll();
 
 
     Ptr<Node> consumer1 = Names::Find<Node>("Src1");
@@ -79,7 +78,7 @@ main(int argc, char* argv[])
         string prefix = "/" + *itr;
 //         std::cout << prefix << '\n';
 
-//        ndnGlobalRoutingHelper.AddOrigins(prefix, producerNode);
+        ndnGlobalRoutingHelper.AddOrigins(prefix, producerNode);
         producerHelper.SetPrefix(prefix);
         ApplicationContainer producer = producerHelper.Install(producerNode);
         producer.Start(Seconds(0));
@@ -93,11 +92,15 @@ main(int argc, char* argv[])
     consumerHelper.SetAttribute("VideoId", StringValue("1"));
     consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
     consumerHelper.SetAttribute("MeanParameter", DoubleValue(mean));
+    consumerHelper.SetAttribute("ConsumerId", StringValue("1"));
+
 
 
     ApplicationContainer  consumerapp1 = consumerHelper.Install(consumer1);
     consumerapp1.Start(Seconds(0));
     consumerapp1.Stop(Seconds(SCENARIOTIME));
+
+    consumerHelper.SetAttribute("ConsumerId", StringValue("2"));
 
     ApplicationContainer  consumerapp2 = consumerHelper.Install(consumer2);
     consumerapp2.Start(Seconds(0));
@@ -120,7 +123,7 @@ main(int argc, char* argv[])
 //    consumerHelper.Install(consumer2);                           // first node
 //
 //
-//    GlobalRoutingHelper::CalculateRoutes();
+    GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
 
     // L3RateTracer::InstallAll("/Users/zhaoliang/ndnSIM/my-simulations/results/rate-trace.txt", Seconds(0.5));

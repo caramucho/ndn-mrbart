@@ -150,6 +150,7 @@ namespace ns3
             uint32_t m_videoId;      // The Id of the video that is requested
             uint32_t m_bitRate;      // The bitrate of the current segment.
             string m_producerDomain;
+            uint32_t m_consumerId;
 
 
 
