@@ -54,8 +54,8 @@ namespace ns3
   Time
   MpegPlayer::GetRealPlayTime(Time playTime)
   {
-    NS_LOG_INFO(
-        " Start: " << m_start_time.GetSeconds() << " Inter: " << m_interruption_time.GetSeconds() << " playtime: " << playTime.GetSeconds() << " now: " << Simulator::Now().GetSeconds() << " actual: " << (m_start_time + m_interruption_time + playTime).GetSeconds());
+//    NS_LOG_INFO(
+//        " Start: " << m_start_time.GetSeconds() << " Inter: " << m_interruption_time.GetSeconds() << " playtime: " << playTime.GetSeconds() << " now: " << Simulator::Now().GetSeconds() << " actual: " << (m_start_time + m_interruption_time + playTime).GetSeconds());
 
     return m_start_time + m_interruption_time
         + (m_state == MPEG_PLAYER_PAUSED ?
@@ -66,22 +66,22 @@ namespace ns3
   void
   MpegPlayer::ReceiveFrame(Ptr<Packet> message)
   {
-    NS_LOG_FUNCTION(this << message);
-    NS_LOG_INFO("Received Frame " << m_state);
+//    NS_LOG_FUNCTION(this << message);
+//    NS_LOG_INFO("Received Frame " << m_state);
 
     Ptr<Packet> msg = message->Copy();
 
     m_queue.push(msg);
     if (m_state == MPEG_PLAYER_PAUSED)
       {
-        NS_LOG_INFO("Play resumed");
+//        NS_LOG_INFO("Play resumed");
         m_state = MPEG_PLAYER_PLAYING;
         m_interruption_time += (Simulator::Now() - m_lastpaused);
         PlayFrame();
       }
     else if (m_state == MPEG_PLAYER_NOT_STARTED)
       {
-        NS_LOG_INFO("Play started");
+//        NS_LOG_INFO("Play started");
         m_state = MPEG_PLAYER_PLAYING;
         m_start_time = Simulator::Now();
         Simulator::Schedule(Simulator::Now(), &MpegPlayer::PlayFrame, this);
@@ -91,7 +91,7 @@ namespace ns3
   void
   MpegPlayer::Start(void)
   {
-    NS_LOG_FUNCTION(this);
+//    NS_LOG_FUNCTION(this);
     m_state = MPEG_PLAYER_PLAYING;
     m_interruption_time = Seconds(0);
 
@@ -100,7 +100,7 @@ namespace ns3
   void
   MpegPlayer::PlayFrame(void)
   {
-    NS_LOG_FUNCTION(this);
+//    NS_LOG_FUNCTION(this);
     if (m_state == MPEG_PLAYER_DONE)
       {
         return;
@@ -143,8 +143,8 @@ namespace ns3
         m_dashClient = NULL;
       }
 
-    NS_LOG_INFO(
-        Simulator::Now().GetSeconds() << " PLAYING FRAME: " << " VidId: " << http_header.GetVideoId() << " SegId: " << http_header.GetSegmentId() << " Res: " << http_header.GetResolution() << " FrameId: " << mpeg_header.GetFrameId() << " PlayTime: " << mpeg_header.GetPlaybackTime().GetSeconds() << " Type: " << (char) mpeg_header.GetType() << " interTime: " << m_interruption_time.GetSeconds() << " queueLength: " << m_queue.size());
+//    NS_LOG_INFO(
+//        Simulator::Now().GetSeconds() << " PLAYING FRAME: " << " VidId: " << http_header.GetVideoId() << " SegId: " << http_header.GetSegmentId() << " Res: " << http_header.GetResolution() << " FrameId: " << mpeg_header.GetFrameId() << " PlayTime: " << mpeg_header.GetPlaybackTime().GetSeconds() << " Type: " << (char) mpeg_header.GetType() << " interTime: " << m_interruption_time.GetSeconds() << " queueLength: " << m_queue.size());
 
     /*   std::cout << " frId: " << mpeg_header.GetFrameId()
      << " playtime: " << mpeg_header.GetPlaybackTime()

@@ -1,0 +1,48 @@
+# topo-10-consumers.txt
+
+#   /------\	                                                /------\
+#   | Src1 |<--+                                            +-->| Dst1 |
+#   \------/    \                                          /    \------/
+#            	 \                                        /
+#                 +-->/------\   "bottleneck"  /------\<-+
+#                     | Rtr1 |<===============>| Rtr2 |
+#                 +-->\------/                 \------/<-+
+#                /                                        \
+#   /------\    /                                          \    /------\
+#   | Src2 |<--+                                            +-->| Dst2 |
+#   \------/                                                    \------/
+# ......
+router
+
+# node  comment     yPos    xPos
+Src1   NA        1       3
+Src2   NA        2       3
+Src3   NA        3       3
+Src4   NA        4       3
+Src5   NA        5       3
+Src6   NA        6       3
+Src7   NA        7       3
+Src8   NA        8       3
+Src9   NA        9       3
+Src10   NA       10       3
+Rtr1   NA        2       5
+Rtr2   NA        2       7
+Dst1   NA        1       9
+Dst2   NA        3       9
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+Src1        Rtr1        100Mbps      1        10ms    20
+Src2        Rtr1        100Mbps      1        10ms    20
+Src3        Rtr1        100Mbps      1        10ms    20
+Src4        Rtr1        100Mbps      1        10ms    20
+Src5        Rtr1        100Mbps      1        10ms    20
+Src6        Rtr1        100Mbps      1        10ms    20
+Src7        Rtr1        100Mbps      1        10ms    20
+Src8        Rtr1        100Mbps      1        10ms    20
+Src9        Rtr1        100Mbps      1        10ms    20
+Src10        Rtr1       100Mbps      1        10ms    20
+Rtr1        Rtr2        0.2Mbps       1        10ms    20
+Dst1        Rtr2        100Mbps      1        10ms    20
+Dst2        Rtr2        100Mbps      1        10ms    20
