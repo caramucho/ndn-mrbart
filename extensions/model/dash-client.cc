@@ -167,6 +167,7 @@ namespace ns3{
       if (seq == std::numeric_limits<uint32_t>::max()) // No retxs
       {
         if (m_seq > m_seqMax){
+//            wait(100);
           return;
         }
       }
@@ -264,6 +265,7 @@ namespace ns3{
       m_rtt->AckSeq(SequenceNumber32(seq));
 
       // If we received the last packet of the segment
+
         if (seq == m_seqMax)
         {
 
@@ -302,9 +304,14 @@ namespace ns3{
 
                 m_rateChanges++;
             }
+            NS_LOG_INFO( "Request next segment" <<  bufferDelay);
+
 
             if (bufferDelay == Seconds(0))
             {
+
+
+                NS_LOG_INFO( "Request next segment" );
                 RequestSegment();
             }
             else

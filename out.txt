@@ -1,0 +1,4 @@
+Waf: Entering directory `/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build'
+[ 8/17] Compiling extensions/model/dash-client.cc
+Waf: Leaving directory `/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/build'
+Interrupted 

@@ -8,7 +8,7 @@
 #define SCENARIOTIME 1000
 #define CONTENT_NUMBER_STR "3"
 #define CACHE_SIZE 1000
-#define DASH_CLIENT_TYPE "ns3::ndn::RaahsClient"
+#define DASH_CLIENT_TYPE "ns3::ndn::AaashClient"
 
 
 

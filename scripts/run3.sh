@@ -4,11 +4,11 @@
 # rm -f out.txt
 # touch out.txt
 # waf --run="test-scenario-multiProducers --mean=0.9 --delay=10"
-DIRECTORY=data/simu3/
+DIRECTORY=data/simu4/
 rm -f out.txt
 touch out.txt
 waf --run="simu3-10consumers" >> out.txt
 if [ ! -d "$DIRECTORY" ]; then
   mkdir "$DIRECTORY"
 fi
-mv out.txt "$DIRECTORY"/1Mbps-bn.txt
+mv out.txt "$DIRECTORY"/10Mbps-bn.txt

@@ -97,9 +97,11 @@ main(int argc, char* argv[])
     consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
     consumerHelper.SetAttribute("MeanParameter", DoubleValue(mean));
 
+    ApplicationContainer consumerapps[10];
     for(int i=0;i<10;i++) {
         consumerHelper.SetAttribute("ConsumerId", StringValue(to_string(i+1)));
         ApplicationContainer consumerapp = consumerHelper.Install(consumers[i]);
+        consumerapps[i] = consumerapp;
         consumerapp.Start(Seconds(0));
         consumerapp.Stop(Seconds(SCENARIOTIME));
     }
@@ -137,7 +139,11 @@ main(int argc, char* argv[])
 
     Simulator::Run();
     Simulator::Destroy();
-
+    for(int i=0;i<10;i++) {
+        Ptr<DashClient> app = DynamicCast<DashClient>(consumerapps[i].Get(0));
+    // std::cout << protocols[k % protoNum] << "-Node: " << k;
+        app->GetStats();
+    }
 
 
     return 0;
