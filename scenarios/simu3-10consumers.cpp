@@ -57,20 +57,6 @@ main(int argc, char* argv[])
     for(int i=0;i<10;i++){
         consumers[i] = Names::Find<Node>("Src" + to_string(i+1));
     }
-//    Ptr<Node> consumer1 = Names::Find<Node>("Src1");
-//    Ptr<Node> consumer2 = Names::Find<Node>("Src2");
-
-//    Ptr<Node> producer1 = Names::Find<Node>("Dst1");
-//    Ptr<Node> producer2 = Names::Find<Node>("Dst2");
-
-
-    // Producer
-//    AppHelper producerHelper("ns3::ndn::DashServer");
-//    producerHelper.SetPrefix("/Producer1");
-//    producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
-//    producerHelper.Install(producer1);
-//    producerHelper.SetPrefix("/Producer2");
-//    producerHelper.Install(producer2);
 
 //    DashClient::RegisterProducerDomain(producerList);
     const std::vector<string> producerList = {"Dst1","Dst2"};
@@ -106,36 +92,9 @@ main(int argc, char* argv[])
         consumerapp.Stop(Seconds(SCENARIOTIME));
     }
 
-//    consumerHelper.SetAttribute("ConsumerId", StringValue("2"));
-//
-//    ApplicationContainer  consumerapp2 = consumerHelper.Install(consumer2);
-//    consumerapp2.Start(Seconds(0));
-//    consumerapp2.Stop(Seconds(SCENARIOTIME));
 
-////    Consumer application
-//    AppHelper consumerHelper2(DASH_CLIENT_TYPE);
-//
-////    consumerHelper.SetPrefix("/Prefix");
-//    consumerHelper2.SetAttribute("VideoId", StringValue("1"));
-//    consumerHelper2.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
-//    consumerHelper2.SetAttribute("MeanParameter", DoubleValue(mean));
-//
-//    ApplicationContainer  consumerapp2 = consumerHelper2.Install(consumer2);
-//    consumerapp2.Start(Seconds(0));
-//    consumerapp2.Stop(Seconds(SCENARIOTIME));
-//
-//  consumerHelper.SetAttribute("Frequency", StringValue("10")); // 10 interests a second
-////    consumerHelper.Install(consumer1);                           // first node
-//    consumerHelper.Install(consumer2);                           // first node
-//
-//
     GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
-
-    // L3RateTracer::InstallAll("/Users/zhaoliang/ndnSIM/my-simulations/results/rate-trace.txt", Seconds(0.5));
-    // CsTracer::InstallAll("/home/zhaoliang/Documents/ndnSIM/ndnSIM-scenario-template/results/cs-trace.txt", Seconds(1));
-    // L2RateTracer::InstallAll("drop-trace.txt", Seconds(0.5));
-    // ndn::AppDelayTracer::InstallAll("app-delays-trace.txt");
 
     Simulator::Run();
     Simulator::Destroy();

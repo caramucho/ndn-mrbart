@@ -77,6 +77,7 @@ namespace ns3{
     m_segment_bytes(0),
     m_window(Seconds(10)),
     m_segmentFetchTime(Seconds(0)),
+    m_segmentDownloadTime(Seconds(0)),
     m_segmentLength("2s"),
     m_firstTime(true),
     // m_payloadSize(::ndn::MAX_NDN_PACKET_SIZE),
@@ -268,13 +269,12 @@ namespace ns3{
 
         if (seq == m_seqMax)
         {
-
-            // m_segmentFetchTime = Simulator::Now() - m_requestTime;
+            m_segmentDownloadTime = Simulator::Now() - m_requestTime;
 
 
 //        NS_LOG_INFO(
 //         Simulator::Now().GetSeconds() << " bytes: " << m_segment_bytes << " segmentTime: " << m_segmentFetchTime.GetSeconds() << " segmentAvgRate: " << 0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
-            cout << m_consumerId << "\t" << Simulator::Now().GetSeconds() << "\t" << m_segmentFetchTime.GetSeconds() << "\t" <<  0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << "\t" << m_bitRate <<endl;
+            cout << m_consumerId << "\t" << Simulator::Now().GetSeconds() << "\t" << m_segmentFetchTime.GetSeconds() << "\t" <<  0.5 * 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds() << "\t" << m_bitRate << "\t" << m_segmentDownloadTime.GetSeconds() << "\t" << endl;
             // Feed the bitrate info to the player
             AddBitRate(Simulator::Now(),
                        8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
@@ -338,13 +338,21 @@ namespace ns3{
     void
     DashClient::GetStats()
     {
-      std::cout << " InterruptionTime: "
-          << m_player.m_interruption_time.GetSeconds() << " interruptions: "
-          << m_player.m_interrruptions << " avgRate: "
-          << (1.0 * m_player.m_totalRate) / m_player.m_framesPlayed
-          << " minRate: " << m_player.m_minRate << " AvgDt: "
-          << m_sumDt.GetSeconds() / m_player.m_framesPlayed << " changes: "
-          << m_rateChanges << std::endl;
+//      std::cout << " InterruptionTime: "
+//          << m_player.m_interruption_time.GetSeconds() << " interruptions: "
+//          << m_player.m_interrruptions << " avgRate: "
+//          << (1.0 * m_player.m_totalRate) / m_player.m_framesPlayed
+//          << " minRate: " << m_player.m_minRate << " AvgDt: "
+//          << m_sumDt.GetSeconds() / m_player.m_framesPlayed << " changes: "
+//          << m_rateChanges << std::endl;
+
+        std::cout << m_consumerId << "\t"
+                  << m_player.m_interruption_time.GetSeconds() << "\t"
+                  << m_player.m_interrruptions << "\t"
+                  << (1.0 * m_player.m_totalRate) / m_player.m_framesPlayed << "\t"
+//                  << m_player.m_minRate
+                  << m_sumDt.GetSeconds()/ m_player.m_framesPlayed << "\t"
+                  << m_rateChanges << std::endl;
 
     }
 

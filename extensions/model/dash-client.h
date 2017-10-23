@@ -216,6 +216,7 @@ namespace ns3
             uint32_t m_segment_bytes; // Bytes of the current segment that have been received so far
             Time m_window; //The window for measuring the average throughput (Time)
             Time m_segmentFetchTime;
+            Time m_segmentDownloadTime;
 
             Time m_segmentLength;
             bool m_firstTime;

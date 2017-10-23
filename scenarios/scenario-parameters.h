@@ -8,8 +8,14 @@
 #define SCENARIOTIME 1000
 #define CONTENT_NUMBER_STR "3"
 #define CACHE_SIZE 1000
-#define DASH_CLIENT_TYPE "ns3::ndn::AaashClient"
+#define DASH_CLIENT_TYPE "ns3::ndn::FdashClient"
 
 
 
 #endif //NDNSIM_DASH_TEST_SCENARIO_PARAMETERS_H_H
+// "ns3::ndn::RaahsClient"
+// "ns3::ndn::SvaaClient"
+// "ns3::ndn::SftmClient"
+// "ns3::ndn::OsmpClient"
+// "ns3::ndn::FdashClient"
+// "ns3::ndn::AaashClient"
