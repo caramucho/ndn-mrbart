@@ -195,6 +195,7 @@ namespace ns3{
       // send out interest
       m_appLink->onReceiveInterest(*interest);
 
+//      cout  << Simulator::Now().GetSeconds() << "\t" <<  seq << endl;
       ScheduleNextPacket();
     }
 

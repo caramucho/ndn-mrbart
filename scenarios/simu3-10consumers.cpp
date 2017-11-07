@@ -98,11 +98,11 @@ main(int argc, char* argv[])
 
     Simulator::Run();
     Simulator::Destroy();
-    for(int i=0;i<10;i++) {
-        Ptr<DashClient> app = DynamicCast<DashClient>(consumerapps[i].Get(0));
-    // std::cout << protocols[k % protoNum] << "-Node: " << k;
-        app->GetStats();
-    }
+//    for(int i=0;i<10;i++) {
+//        Ptr<DashClient> app = DynamicCast<DashClient>(consumerapps[i].Get(0));
+//    // std::cout << protocols[k % protoNum] << "-Node: " << k;
+//        app->GetStats();
+//    }
 
 
     return 0;

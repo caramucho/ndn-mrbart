@@ -43,6 +43,6 @@ Src7        Rtr1        100Mbps      1        10ms    20
 Src8        Rtr1        100Mbps      1        10ms    20
 Src9        Rtr1        100Mbps      1        10ms    20
 Src10        Rtr1       100Mbps      1        10ms    20
-Rtr1        Rtr2        100Mbps       1        10ms    20
+Rtr1        Rtr2        10Mbps       1        10ms    20
 Dst1        Rtr2        100Mbps      1        10ms    20
 Dst2        Rtr2        100Mbps      1        10ms    20
