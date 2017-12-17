@@ -72,21 +72,26 @@ main(int argc, char* argv[])
    ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
   //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
 
-   consumerHelper.SetPrefix("/");
+   consumerHelper.SetPrefix("/Dst1");
     // consumerHelper.SetAttribute("VideoId", StringValue("1"));
     // consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
 
     ns3::ApplicationContainer consumerapps[2];
-    for(int i=0;i<2;i++) {
+    // for(int i=0;i<2;i++) {
         // consumerHelper.SetAttribute("ConsumerId", StringValue(to_string(i+1)));
         // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
         // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
 
-        ApplicationContainer consumerapp = consumerHelper.Install(consumers[i]);
-        consumerapps[i] = consumerapp;
-        consumerapp.Start(Seconds(0));
-        consumerapp.Stop(Seconds(SCENARIOTIME));
-    }
+    //     ApplicationContainer consumerapp = consumerHelper.Install(consumers[i]);
+    //     consumerapps[i] = consumerapp;
+    //     consumerapp.Start(Seconds(0));
+    //     consumerapp.Stop(Seconds(SCENARIOTIME));
+    // }
+
+    ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
+    consumerapps[0] = consumerapp;
+    consumerapp.Start(Seconds(0));
+    consumerapp.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();

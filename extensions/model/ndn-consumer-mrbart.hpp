@@ -47,6 +47,12 @@ protected:
   std::string
   GetRandomize() const;
 
+  void
+  SendPacket();
+
+  virtual void
+  OnData(shared_ptr<const Data> contentObject);
+
 protected:
   double m_frequency; // Frequency of interest packets (in hertz)
   bool m_firstTime;

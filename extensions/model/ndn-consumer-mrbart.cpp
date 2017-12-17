@@ -29,6 +29,9 @@
 #include "ns3/integer.h"
 #include "ns3/double.h"
 
+
+#include <ndn-cxx/lp/tags.hpp>
+
 NS_LOG_COMPONENT_DEFINE("ndn.ConsumerMrbart");
 
 namespace ns3 {
@@ -79,16 +82,16 @@ void
 ConsumerMrbart::ScheduleNextPacket()
 {
   // double mean = 8.0 * m_payloadSize / m_desiredRate.GetBitRate ();
-  std::cout << "next: " << Simulator::Now().ToDouble(Time::S) << "s\n";
+  // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) << "s\n";
 
   if (m_firstTime) {
-    m_sendEvent = Simulator::Schedule(Seconds(0.0), &Consumer::SendPacket, this);
+    m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
     m_firstTime = false;
   }
   else if (!m_sendEvent.IsRunning())
     m_sendEvent = Simulator::Schedule((m_random == 0) ? Seconds(1.0 / m_frequency)
                                                       : Seconds(m_random->GetValue()),
-                                      &Consumer::SendPacket, this);
+                                      &ConsumerMrbart::SendPacket, this);
 }
 
 void
@@ -115,6 +118,99 @@ ConsumerMrbart::GetRandomize() const
 {
   return m_randomType;
 }
+
+void
+ConsumerMrbart::SendPacket()
+{
+  if (!m_active)
+    return;
+
+  NS_LOG_FUNCTION_NOARGS();
+
+  uint32_t seq = std::numeric_limits<uint32_t>::max(); // invalid
+
+  while (m_retxSeqs.size()) {
+    seq = *m_retxSeqs.begin();
+    m_retxSeqs.erase(m_retxSeqs.begin());
+    break;
+  }
+
+  if (seq == std::numeric_limits<uint32_t>::max()) {
+    if (m_seqMax != std::numeric_limits<uint32_t>::max()) {
+      if (m_seq >= m_seqMax) {
+        return; // we are totally done
+      }
+    }
+
+    seq = m_seq++;
+  }
+
+  //
+  shared_ptr<Name> nameWithSequence = make_shared<Name>(m_interestName);
+  nameWithSequence->appendSequenceNumber(seq);
+  //
+
+  // shared_ptr<Interest> interest = make_shared<Interest> ();
+  shared_ptr<Interest> interest = make_shared<Interest>();
+  interest->setNonce(m_rand->GetValue(0, std::numeric_limits<uint32_t>::max()));
+  interest->setName(*nameWithSequence);
+  time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
+  interest->setInterestLifetime(interestLifeTime);
+
+  NS_LOG_INFO ("Requesting Interest: \n" << *interest);
+  // NS_LOG_INFO("> Interest for " << seq);
+
+  WillSendOutInterest(seq);
+
+  m_transmittedInterests(interest, this, m_face);
+  m_appLink->onReceiveInterest(*interest);
+
+  ScheduleNextPacket();
+}
+
+void
+ConsumerMrbart::OnData(shared_ptr<const Data> data)
+{
+  if (!m_active)
+    return;
+
+  App::OnData(data); // tracing inside
+
+  NS_LOG_FUNCTION(this << data);
+
+  // NS_LOG_INFO ("Received content object: " << boost::cref(*data));
+
+  // This could be a problem......
+  uint32_t seq = data->getName().at(-1).toSequenceNumber();
+  NS_LOG_INFO("< DATA for " << seq);
+
+  int hopCount = 0;
+  auto hopCountTag = data->getTag<lp::HopCountTag>();
+  if (hopCountTag != nullptr) { // e.g., packet came from local node's cache
+    hopCount = *hopCountTag;
+  }
+  NS_LOG_DEBUG("Hop count: " << hopCount);
+
+  SeqTimeoutsContainer::iterator entry = m_seqLastDelay.find(seq);
+  if (entry != m_seqLastDelay.end()) {
+    m_lastRetransmittedInterestDataDelay(this, seq, Simulator::Now() - entry->time, hopCount);
+  }
+
+  entry = m_seqFullDelay.find(seq);
+  if (entry != m_seqFullDelay.end()) {
+    m_firstInterestDataDelay(this, seq, Simulator::Now() - entry->time, m_seqRetxCounts[seq], hopCount);
+  }
+
+  m_seqRetxCounts.erase(seq);
+  m_seqFullDelay.erase(seq);
+  m_seqLastDelay.erase(seq);
+
+  m_seqTimeouts.erase(seq);
+  m_retxSeqs.erase(seq);
+
+  m_rtt->AckSeq(SequenceNumber32(seq));
+}
+
 
 } // namespace ndn
 } // namespace ns3
