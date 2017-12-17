@@ -1,7 +1,3 @@
-//
-//
-//
-
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/ndnSIM-module.h"
@@ -9,7 +5,7 @@
 
 #include <iostream>
 // #include "model/ndn-net-device-face.hpp"
-#include "model/dash-client.h"
+#include "model/ndn-consumer-mrbart.hpp"
 #include "dash-parameters.h"
 #include "scenario-parameters.h"
 
@@ -24,15 +20,12 @@ int
 main(int argc, char* argv[])
 {
 
-    int delay = 10;
-    double mean = 1.0;
-
     CommandLine cmd;
 //    cmd.AddValue ("mean", "mean interval parameter", mean);
     cmd.Parse (argc, argv);
 
     AnnotatedTopologyReader topologyReader("", 25);
-    topologyReader.SetFileName("topo/topo-10-consumers.txt");
+    topologyReader.SetFileName("topo/topo-6-node.txt");
     topologyReader.Read();
 //    topologyReader.ApplyOspfMetric();
 
@@ -53,8 +46,8 @@ main(int argc, char* argv[])
     ndnGlobalRoutingHelper.InstallAll();
 
     // Find consumer nodes
-    Ptr<Node> consumers[10];
-    for(int i=0;i<10;i++){
+    Ptr<Node> consumers[2];
+    for(int i=0;i<2;i++){
         consumers[i] = Names::Find<Node>("Src" + to_string(i+1));
     }
 
@@ -63,7 +56,7 @@ main(int argc, char* argv[])
 
     for (auto itr = producerList.begin();  itr != producerList.end(); itr++) {
         Ptr<Node> producerNode = Names::Find<Node>(*itr);
-        AppHelper producerHelper("ns3::ndn::DashServer");
+        AppHelper producerHelper("ns3::ndn::Producer");
         // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
         string prefix = "/" + *itr;
 //         std::cout << prefix << '\n';
@@ -76,16 +69,19 @@ main(int argc, char* argv[])
     }
 
     //Consumer application
-    AppHelper consumerHelper(DASH_CLIENT_TYPE);
+   ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
+  //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
 
-//    consumerHelper.SetPrefix("/Prefix");
-    consumerHelper.SetAttribute("VideoId", StringValue("1"));
-    consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
-    consumerHelper.SetAttribute("MeanParameter", DoubleValue(mean));
+   consumerHelper.SetPrefix("/");
+    // consumerHelper.SetAttribute("VideoId", StringValue("1"));
+    // consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
 
-    ApplicationContainer consumerapps[10];
-    for(int i=0;i<10;i++) {
-        consumerHelper.SetAttribute("ConsumerId", StringValue(to_string(i+1)));
+    ns3::ApplicationContainer consumerapps[2];
+    for(int i=0;i<2;i++) {
+        // consumerHelper.SetAttribute("ConsumerId", StringValue(to_string(i+1)));
+        // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
+        // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
+
         ApplicationContainer consumerapp = consumerHelper.Install(consumers[i]);
         consumerapps[i] = consumerapp;
         consumerapp.Start(Seconds(0));
