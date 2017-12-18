@@ -211,6 +211,39 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   m_rtt->AckSeq(SequenceNumber32(seq));
 }
 
+// void
+// ConsumerMrbart::sendPacketTrain(){
+//   for (Trains::const_iterator i = m_trains.begin(); i != m_trains.end(); i++) {
+//     Simulator::ScheduleWithContext(GetNode()->GetId(), std::get<0>(*i), &ConsumerMrbart::AddBatch,
+//                                    this, std::get<1>(*i));
+//   }
+// }
+
+void
+ConsumerMrbart::sendPacketTrain(uint32_t amount, double frequency)
+{
+  // std::cout << Simulator::Now () << " adding batch of " << amount << "\n";
+  m_frequency  = frequency;
+  m_seqMax += amount;
+  m_rtt->ClearSent(); // this is important, otherwise RTT estimation for the new batch will be
+                      // affected by previous batch history
+  m_initial = true;
+  ScheduleNextPacket();
+}
+
+
+void
+ConsumerMrbart::StartApplication()
+{
+  Consumer::StartApplication();
+
+  // std::cout << "Batches: " << batches << "\n";
+  // sendPacketTrain(100, 100);
+}
+
+
+
+
 
 } // namespace ndn
 } // namespace ns3

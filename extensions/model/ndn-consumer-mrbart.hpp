@@ -53,11 +53,20 @@ protected:
   virtual void
   OnData(shared_ptr<const Data> contentObject);
 
+  void
+  sendPacketTrain(uint32_t amount, double frequency);
+
+
+  void
+  StartApplication();
+
+
 protected:
   double m_frequency; // Frequency of interest packets (in hertz)
   bool m_firstTime;
   Ptr<RandomVariableStream> m_random;
   std::string m_randomType;
+  bool m_initial;
 };
 
 } // namespace ndn
