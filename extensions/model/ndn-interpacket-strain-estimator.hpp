@@ -26,6 +26,13 @@ namespace ndn {
     void
     Measurement(Time measure);
 
+    Ptr<RttEstimator>
+    Copy() const;
+    void
+    Reset();
+    // void
+    // Gain(double g);
+
   private:
     Time m_variance; // Current variance
   }
