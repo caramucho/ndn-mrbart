@@ -5,6 +5,7 @@
 #include <ns3/core-module.h>
 #include <ns3/ndnSIM-module.h>
 #include "ns3/ndnSIM/apps/ndn-consumer.hpp"
+#include "ndn-interpacket-strain-estimator.hpp"
 
 namespace ns3 {
 namespace ndn {
@@ -67,6 +68,8 @@ protected:
   Ptr<RandomVariableStream> m_random;
   std::string m_randomType;
   bool m_initial;
+
+  Ptr<InterpacketStrainEstimator> m_ips;
 };
 
 } // namespace ndn

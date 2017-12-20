@@ -21,6 +21,7 @@ InterpacketStrainEstimator::GetTypeId(void)
   static TypeId tid =
     TypeId("ns3::ndn::InterpacketStrainEstimator")
       // .SetParent<RttEstimator>()
+      .SetParent<Object>()
       .AddConstructor<InterpacketStrainEstimator>();
       // .AddAttribute("Gain", "Gain used in estimating the RTT (smoothed RTT), must be 0 < Gain < 1",
       //               DoubleValue(0.125), MakeDoubleAccessor(&InterpacketStrainEstimator::m_gain),
