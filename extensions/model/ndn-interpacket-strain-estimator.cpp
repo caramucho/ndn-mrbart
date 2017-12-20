@@ -20,7 +20,7 @@ InterpacketStrainEstimator::GetTypeId(void)
 {
   static TypeId tid =
     TypeId("ns3::ndn::InterpacketStrainEstimator")
-      .SetParent<RttEstimator>()
+      // .SetParent<RttEstimator>()
       .AddConstructor<InterpacketStrainEstimator>();
       // .AddAttribute("Gain", "Gain used in estimating the RTT (smoothed RTT), must be 0 < Gain < 1",
       //               DoubleValue(0.125), MakeDoubleAccessor(&InterpacketStrainEstimator::m_gain),
@@ -54,33 +54,16 @@ InterpacketStrainEstimator::GetInstanceTypeId(void) const
 void
 InterpacketStrainEstimator::Measurement(Time m)
 {
-  NS_LOG_FUNCTION(this << m);
-  if (m_nSamples) { // Not first
-    Time err(m - m_currentEstimatedRtt);
-    double gErr = err.ToDouble(Time::S) * m_gain;
-    m_currentEstimatedRtt += Time::FromDouble(gErr, Time::S);
-    Time difference = Abs(err) - m_variance;
-    NS_LOG_DEBUG(
-      "m_variance += " << Time::FromDouble(difference.ToDouble(Time::S) * m_gain2, Time::S));
-    m_variance += Time::FromDouble(difference.ToDouble(Time::S) * m_gain2, Time::S);
-  }
-  else {                       // First sample
-    m_currentEstimatedRtt = m; // Set estimate to current
-    // variance = sample / 2;               // And variance to current / 2
-    // m_variance = m; // try this  why????
-    m_variance = Seconds(m.ToDouble(Time::S) / 2);
-    NS_LOG_DEBUG("(first sample) m_variance += " << m);
-  }
-  m_nSamples++;
-}
-
-
-Ptr<RttEstimator>
-InterpacketStrainEstimator::Copy() const
-{
   NS_LOG_FUNCTION(this);
-  return CopyObject<InterpacketStrainEstimator>(this);
 }
+
+
+// Ptr<RttEstimator>
+// InterpacketStrainEstimator::Copy() const
+// {
+//   NS_LOG_FUNCTION(this);
+//   return CopyObject<InterpacketStrainEstimator>(this);
+// }
 
 void
 InterpacketStrainEstimator::Reset()
@@ -88,7 +71,7 @@ InterpacketStrainEstimator::Reset()
   NS_LOG_FUNCTION(this);
   // Reset to initial state
   m_variance = Seconds(0);
-  RttEstimator::Reset();
+  // RttEstimator::Reset();
 }
 
 void
@@ -96,7 +79,7 @@ InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
 {
   NS_LOG_FUNCTION(this << seq << size);
 
-  RttHistory_t::iterator i;
+  IpsHistory_t::iterator i;
   for (i = m_history.begin(); i != m_history.end(); ++i) {
     if (seq == i->seq) { // Found it
       i->retx = true;
@@ -106,7 +89,7 @@ InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
 
   // Note that a particular sequence has been sent
   if (i == m_history.end())
-    m_history.push_back(RttHistory(seq, size, Simulator::Now()));
+    m_history.push_back(IpsHistory(seq, size, Simulator::Now()));
 }
 
 Time
@@ -120,12 +103,12 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   if (m_history.size() == 0)
     return (m); // No pending history, just exit
 
-  for (RttHistory_t::iterator i = m_history.begin(); i != m_history.end(); ++i) {
+  for (IpsHistory_t::iterator i = m_history.begin(); i != m_history.end(); ++i) {
     if (ackSeq == i->seq) { // Found it
       if (!i->retx) {
         m = Simulator::Now() - i->time; // Elapsed time
         Measurement(m);                 // Log the measurement
-        ResetMultiplier();              // Reset multiplier on valid measurement
+        // ResetMultiplier();              // Reset multiplier on valid measurement
       }
       m_history.erase(i);
       break;
@@ -134,6 +117,26 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
 
   return m;
 }
+
+// IpsHistory methods
+IpsHistory::IpsHistory(SequenceNumber32 s, uint32_t c, Time t)
+  : seq(s)
+  , count(c)
+  , time(t)
+  , retx(false)
+{
+  NS_LOG_FUNCTION(this);
+}
+
+IpsHistory::IpsHistory(const IpsHistory& h)
+  : seq(h.seq)
+  , count(h.count)
+  , time(h.time)
+  , retx(h.retx)
+{
+  NS_LOG_FUNCTION(this);
+}
+
 
 } // namespace ndn
 } // namespace ns3
