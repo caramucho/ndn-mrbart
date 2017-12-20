@@ -84,6 +84,7 @@ InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
   for (i = m_history.begin(); i != m_history.end(); ++i) {
     if (seq == i->seq) { // Found it
       i->retx = true;
+      i->time = Simulator::Now();
       break;
     }
   }
