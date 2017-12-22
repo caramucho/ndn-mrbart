@@ -176,44 +176,11 @@ ConsumerMrbart::SendPacket()
 void
 ConsumerMrbart::OnData(shared_ptr<const Data> data)
 {
-  if (!m_active)
-    return;
+  Consumer::OnData(data);
 
-  App::OnData(data); // tracing inside
-
-  NS_LOG_FUNCTION(this << data);
-
-  // NS_LOG_INFO ("Received content object: " << boost::cref(*data));
-
-  // This could be a problem......
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
-  NS_LOG_INFO("< DATA for " << seq);
-
-  int hopCount = 0;
-  auto hopCountTag = data->getTag<lp::HopCountTag>();
-  if (hopCountTag != nullptr) { // e.g., packet came from local node's cache
-    hopCount = *hopCountTag;
-  }
-  NS_LOG_DEBUG("Hop count: " << hopCount);
-
-  SeqTimeoutsContainer::iterator entry = m_seqLastDelay.find(seq);
-  if (entry != m_seqLastDelay.end()) {
-    m_lastRetransmittedInterestDataDelay(this, seq, Simulator::Now() - entry->time, hopCount);
-  }
-
-  entry = m_seqFullDelay.find(seq);
-  if (entry != m_seqFullDelay.end()) {
-    m_firstInterestDataDelay(this, seq, Simulator::Now() - entry->time, m_seqRetxCounts[seq], hopCount);
-  }
-
-  m_seqRetxCounts.erase(seq);
-  m_seqFullDelay.erase(seq);
-  m_seqLastDelay.erase(seq);
-
-  m_seqTimeouts.erase(seq);
-  m_retxSeqs.erase(seq);
-
-  m_rtt->AckSeq(SequenceNumber32(seq));
+  double ips = m_ips->AckSeq(SequenceNumber32(seq));
+  NS_LOG_INFO("InterPacketStrain " << ips);
 }
 
 // void

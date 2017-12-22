@@ -105,35 +105,49 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   // An ack has been received, calculate rtt and log this measurement
   // Note we use a linear search (O(n)) for this since for the common
   // case the ack'ed packet will be at the head of the list
+  NS_LOG_INFO("Acked seq " << ackSeq);
+
   Time m = Seconds(0.0);
   Time n = Seconds(0.0);
   if (m_history.size() == 0)
+  {
+    NS_LOG_DEBUG("No pending history");
     return -1; // No pending history, just exit
-
+  }
   if (m_previousAckSeq->time == Seconds(0.0))
+  {
+    NS_LOG_DEBUG("Previous AckSeq is 0.0");
+    m_previousAckSeq->seq = ackSeq;
+    m_previousAckSeq->time = Simulator::Now();
     return -1;
+  }
 
   Time DeltaOut = Simulator::Now() - m_previousAckSeq->time;
+  NS_LOG_DEBUG("DeltaOut " << DeltaOut.GetMilliSeconds());
   Time DeltaIn = Seconds(0.0);
   for (IpsHistory_t::iterator i = m_history.begin(); i != m_history.end(); ++i) {
     if (ackSeq == i->seq) { // Found it
       m = i->time;
+      NS_LOG_DEBUG("m " << m.GetMilliSeconds());
     }
     if (m_previousAckSeq->seq == i->seq){
       n = i->time;
+      NS_LOG_DEBUG("n " << n.GetMilliSeconds());
       m_history.erase(i);// erase the previous seq
     }
-    if (m!=Seconds(0.0) && n!=Seconds(0.0)){
+    if (m!=Seconds(0.0)){
       DeltaIn = m - n;
       break;
     }
   }
+  NS_LOG_DEBUG("DeltaIn " << DeltaIn.GetMilliSeconds());
+
   // Update the previous seq
   m_previousAckSeq->seq = ackSeq;
   m_previousAckSeq->time = Simulator::Now();
 
   double retval = (DeltaOut / DeltaIn) - 1.0;
-  if (retval<=-1 || retval == 0){
+  if (retval<=-1){
     return -1;
   }
   return retval;
