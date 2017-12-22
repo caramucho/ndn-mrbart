@@ -32,6 +32,10 @@
 
 #include <ndn-cxx/lp/tags.hpp>
 
+#ifndef NDN_PAYLOAD_SIZE
+#define NDN_PAYLOAD_SIZE 8000
+#endif
+
 NS_LOG_COMPONENT_DEFINE("ndn.ConsumerMrbart");
 
 namespace ns3 {
@@ -242,6 +246,12 @@ ConsumerMrbart::StartApplication()
   // sendPacketTrain(100, 100);
 }
 
+void
+ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
+{
+  Consumer::WillSendOutInterest(sequenceNumber);
+  m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
+}
 
 
 

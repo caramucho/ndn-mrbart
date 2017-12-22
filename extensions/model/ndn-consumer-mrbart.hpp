@@ -57,10 +57,11 @@ protected:
   void
   sendPacketTrain(uint32_t amount, double frequency);
 
-
   void
   StartApplication();
 
+  void
+  WillSendOutInterest(uint32_t sequenceNumber);
 
 protected:
   double m_frequency; // Frequency of interest packets (in hertz)

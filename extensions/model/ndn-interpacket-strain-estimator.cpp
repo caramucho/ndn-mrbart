@@ -81,6 +81,7 @@ InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
 {
   NS_LOG_FUNCTION(this << seq << size);
 
+
   IpsHistory_t::iterator i;
   for (i = m_history.begin(); i != m_history.end(); ++i) {
     if (seq == i->seq) { // Found it
@@ -93,6 +94,8 @@ InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
   // Note that a particular sequence has been sent
   if (i == m_history.end())
     m_history.push_back(IpsHistory(seq, size, Simulator::Now()));
+  // NS_LOG_INFO ("Added IpsHistory  " <<  i->seq  << "   " << i->time.GetMilliSeconds());
+
 }
 
 double
