@@ -35,6 +35,7 @@ InterpacketStrainEstimator::GetTypeId(void)
 InterpacketStrainEstimator::InterpacketStrainEstimator()
 {
   NS_LOG_FUNCTION(this);
+  m_previousAckSeq = CreateObject<IpsHistory>(SequenceNumber32(0),0,Seconds(0.0));
 }
 
 // InterpacketStrainEstimator::InterpacketStrainEstimator(const InterpacketStrainEstimator& c)
@@ -94,7 +95,7 @@ InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
     m_history.push_back(IpsHistory(seq, size, Simulator::Now()));
 }
 
-Time
+double
 InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
 {
   NS_LOG_FUNCTION(this << ackSeq);
@@ -102,22 +103,37 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   // Note we use a linear search (O(n)) for this since for the common
   // case the ack'ed packet will be at the head of the list
   Time m = Seconds(0.0);
+  Time n = Seconds(0.0);
   if (m_history.size() == 0)
-    return (m); // No pending history, just exit
+    return -1; // No pending history, just exit
 
+  if (m_previousAckSeq->time == Seconds(0.0))
+    return -1;
+
+  Time DeltaOut = Simulator::Now() - m_previousAckSeq->time;
+  Time DeltaIn = Seconds(0.0);
   for (IpsHistory_t::iterator i = m_history.begin(); i != m_history.end(); ++i) {
     if (ackSeq == i->seq) { // Found it
-      if (!i->retx) {
-        m = Simulator::Now() - i->time; // Elapsed time
-        Measurement(m);                 // Log the measurement
-        // ResetMultiplier();              // Reset multiplier on valid measurement
-      }
-      m_history.erase(i);
+      m = i->time;
+    }
+    if (m_previousAckSeq->seq == i->seq){
+      n = i->time;
+      m_history.erase(i);// erase the previous seq
+    }
+    if (m!=Seconds(0.0) && n!=Seconds(0.0)){
+      DeltaIn = m - n;
       break;
     }
   }
+  // Update the previous seq
+  m_previousAckSeq->seq = ackSeq;
+  m_previousAckSeq->time = Simulator::Now();
 
-  return m;
+  double retval = (DeltaOut / DeltaIn) - 1.0;
+  if (retval<=-1 || retval == 0){
+    return -1;
+  }
+  return retval;
 }
 
 // IpsHistory methods

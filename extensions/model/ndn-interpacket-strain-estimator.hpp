@@ -6,11 +6,12 @@
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
+#include<memory>
 
 namespace ns3 {
 namespace ndn {
 
-  class IpsHistory {
+  class IpsHistory : public Object{
   public:
     IpsHistory(SequenceNumber32 s, uint32_t c, Time t);
     IpsHistory(const IpsHistory& h); // Copy constructor
@@ -38,7 +39,7 @@ namespace ndn {
     void
     SentSeq(SequenceNumber32 seq, uint32_t size);
 
-    Time
+    double
     AckSeq(SequenceNumber32 ackSeq);
 
     void
@@ -53,7 +54,8 @@ namespace ndn {
 
   private:
     Time m_variance; // Current variance
-    IpsHistory_t m_history;   
+    IpsHistory_t m_history;
+    Ptr<IpsHistory> m_previousAckSeq;
   };
 
 
