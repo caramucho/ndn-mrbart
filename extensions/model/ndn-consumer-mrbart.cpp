@@ -73,6 +73,7 @@ ConsumerMrbart::GetTypeId(void)
 ConsumerMrbart::ConsumerMrbart()
   : m_frequency(1.0)
   , m_firstTime(true)
+  , m_counter(0)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
@@ -162,8 +163,8 @@ ConsumerMrbart::SendPacket()
   time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
   interest->setInterestLifetime(interestLifeTime);
 
-  NS_LOG_INFO ("Requesting Interest: \n" << *interest);
-  // NS_LOG_INFO("> Interest for " << seq);
+  // NS_LOG_INFO ("Requesting Interest: \n" << *interest);
+  NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << seq);
 
   WillSendOutInterest(seq);
 
@@ -180,7 +181,21 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
 
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
+  if (ips == 0){
+    if (m_counter < 8){
+      m_counter += 1;
+    }else{
+      m_frequency *= 1.1;
+      m_counter = 0;
+      NS_LOG_INFO("frequency doubled " << m_frequency);
+    }
+  }
+  else{
+    m_frequency += 0.5;
+    NS_LOG_INFO("frequency " << m_frequency);
+  }
   NS_LOG_INFO("InterPacketStrain " << ips);
+  // cout << m_frequency << " " << ips << endl;
 }
 
 // void

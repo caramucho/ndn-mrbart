@@ -121,7 +121,7 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
     m_previousAckSeq->time = Simulator::Now();
     return -1;
   }
-
+  NS_LOG_DEBUG("Previous AckSeq is " << m_previousAckSeq->seq << " " << m_previousAckSeq->time.GetMilliSeconds());
   Time DeltaOut = Simulator::Now() - m_previousAckSeq->time;
   NS_LOG_DEBUG("DeltaOut " << DeltaOut.GetMilliSeconds());
   Time DeltaIn = Seconds(0.0);
@@ -146,10 +146,12 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   m_previousAckSeq->seq = ackSeq;
   m_previousAckSeq->time = Simulator::Now();
 
-  double retval = (DeltaOut / DeltaIn) - 1.0;
+  double retval = ((double)DeltaOut.GetMilliSeconds() / DeltaIn.GetMilliSeconds()) - 1.0;
+  NS_LOG_DEBUG("ips " << retval);
   if (retval<=-1){
     return -1;
   }
+  std::cout << DeltaIn.GetMilliSeconds() << " " << retval << std::endl;
   return retval;
 }
 

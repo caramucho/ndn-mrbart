@@ -69,6 +69,7 @@ protected:
   Ptr<RandomVariableStream> m_random;
   std::string m_randomType;
   bool m_initial;
+  int m_counter;
 
   Ptr<InterpacketStrainEstimator> m_ips;
 };

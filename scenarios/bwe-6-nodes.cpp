@@ -57,7 +57,7 @@ main(int argc, char* argv[])
     for (auto itr = producerList.begin();  itr != producerList.end(); itr++) {
         Ptr<Node> producerNode = Names::Find<Node>(*itr);
         AppHelper producerHelper("ns3::ndn::Producer");
-        // producerHelper.SetAttribute("DashServerPayloadSize", StringValue("8000"));
+        producerHelper.SetAttribute("PayloadSize", StringValue("8000"));
         string prefix = "/" + *itr;
 //         std::cout << prefix << '\n';
 
@@ -88,6 +88,7 @@ main(int argc, char* argv[])
     //     consumerapp.Stop(Seconds(SCENARIOTIME));
     // }
 
+    // consumerHelper.SetAttribute("Frequency", StringValue("2.0"));
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapps[0] = consumerapp;
     consumerapp.Start(Seconds(0));
