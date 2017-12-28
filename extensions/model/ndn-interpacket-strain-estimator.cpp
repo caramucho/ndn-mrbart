@@ -33,6 +33,7 @@ InterpacketStrainEstimator::GetTypeId(void)
 }
 
 InterpacketStrainEstimator::InterpacketStrainEstimator()
+:m_lastu(0.0)
 {
   NS_LOG_FUNCTION(this);
   m_previousAckSeq = CreateObject<IpsHistory>(SequenceNumber32(0),0,Seconds(0.0));
@@ -142,6 +143,7 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   }
   NS_LOG_DEBUG("DeltaIn " << DeltaIn.GetMilliSeconds());
 
+  m_lastu = Seconds(1.0)/DeltaIn * (8000 * 8);
   // Update the previous seq
   m_previousAckSeq->seq = ackSeq;
   m_previousAckSeq->time = Simulator::Now();
@@ -151,8 +153,14 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   if (retval<=-1){
     return -1;
   }
-  std::cout << DeltaIn.GetMilliSeconds() << " " << retval << std::endl;
+  // std::cout << DeltaIn.GetMilliSeconds() << " " << retval << std::endl;
   return retval;
+}
+
+double
+InterpacketStrainEstimator::GetU()
+{
+  return m_lastu;
 }
 
 // IpsHistory methods
@@ -173,6 +181,7 @@ IpsHistory::IpsHistory(const IpsHistory& h)
 {
   NS_LOG_FUNCTION(this);
 }
+
 
 
 } // namespace ndn

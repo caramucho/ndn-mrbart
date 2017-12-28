@@ -196,7 +196,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     NS_LOG_INFO("frequency " << m_frequency);
   }
   NS_LOG_INFO("InterPacketStrain " << ips);
-  m_kf->Measurement(0.1,ips); 
+  m_kf->Measurement(m_ips->GetU(),ips); 
   // cout << m_frequency << " " << ips << endl;
 }
 

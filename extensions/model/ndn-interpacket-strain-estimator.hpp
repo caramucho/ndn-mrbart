@@ -45,6 +45,9 @@ namespace ndn {
     void
     Measurement(Time measure);
 
+    double
+    GetU();
+
     // Ptr<RttEstimator>
     // Copy() const;
     void
@@ -56,6 +59,7 @@ namespace ndn {
     Time m_variance; // Current variance
     IpsHistory_t m_history;
     Ptr<IpsHistory> m_previousAckSeq;
+    double m_lastu;
   };
 
 
