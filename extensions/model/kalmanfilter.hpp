@@ -34,7 +34,7 @@ namespace ndn {
     Matrix2d m_P;   //估计误差协方差
     Vector2d m_u;   // x(n)=A*x(n-1)+u(n),u(n)~N(0,Q)
     Matrix2d m_Q;   //预测过程噪声偏差的方差
-    double H;   //测量噪声偏差，(系统搭建好以后，通过测量统计实验获得)
+    double m_H;   //测量噪声偏差，(系统搭建好以后，通过测量统计实验获得)
 };
 }
 }

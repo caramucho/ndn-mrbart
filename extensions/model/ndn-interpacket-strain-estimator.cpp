@@ -143,7 +143,7 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   }
   NS_LOG_DEBUG("DeltaIn " << DeltaIn.GetMilliSeconds());
 
-  m_lastu = Seconds(1.0)/DeltaIn * (8000 * 8);
+  m_lastu = Seconds(1.0) / DeltaIn * (0.008 * 8);
   // Update the previous seq
   m_previousAckSeq->seq = ackSeq;
   m_previousAckSeq->time = Simulator::Now();
