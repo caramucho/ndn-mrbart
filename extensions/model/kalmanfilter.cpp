@@ -28,12 +28,11 @@ KalmanFilter::Init_KalmanInfo()
 }
 
 void
-KalmanFilter::Measurement(double u, double ips);
-
+KalmanFilter::Measurement(double u, double ips)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_u << u, 1;
-  cout  << "mu = " << endl << m_u << endl;
+  std::cout  << "mu = " << std::endl << m_u << std::endl;
   // //预测下一时刻的值
   // double predictValue = kalmanInfo->A* kalmanInfo->filterValue;   //x的先验估计由上一个时间点的后验估计值和输入信息给出，此处需要根据基站高度做一个修改
   //

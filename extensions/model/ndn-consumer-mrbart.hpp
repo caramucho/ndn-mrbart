@@ -6,6 +6,7 @@
 #include <ns3/ndnSIM-module.h>
 #include "ns3/ndnSIM/apps/ndn-consumer.hpp"
 #include "ndn-interpacket-strain-estimator.hpp"
+#include "kalmanfilter.hpp"
 
 namespace ns3 {
 namespace ndn {
@@ -72,6 +73,8 @@ protected:
   int m_counter;
 
   Ptr<InterpacketStrainEstimator> m_ips;
+  Ptr<KalmanFilter> m_kf;
+
 };
 
 } // namespace ndn
