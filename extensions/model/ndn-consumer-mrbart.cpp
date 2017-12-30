@@ -196,7 +196,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
       m_initial = false;
       m_kf->Init_KalmanInfo(m_frequency * 0.008 * 8);
       // std::cout << "estimated bw= "<< m_kf->GetEstimatedBandwidth() << '\n';
-      m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
+      // m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
       // std::cout << "frequency=  "<<  m_frequency << '\n';
     }else{
       m_frequency *= 1.1;
