@@ -12,7 +12,7 @@ KalmanFilter::KalmanFilter()
   // , m_counter(0)
 {
   NS_LOG_FUNCTION_NOARGS();
-  m_a << 10.0,-1;
+  // m_a << 10.0,-1;
   m_P << 10.0, 0.0,
          0.0, 0.5;
   m_u << -m_a(0,1)/m_a(0,0),
@@ -24,9 +24,11 @@ KalmanFilter::KalmanFilter()
 
 
 void
-KalmanFilter::Init_KalmanInfo()
+KalmanFilter::Init_KalmanInfo(double C)
 {
   NS_LOG_FUNCTION_NOARGS();
+  m_a << 1/C, -1;
+  std::cout << "initial rate :" << C << '\n';
   // info->A = 1;  //标量卡尔曼
   // info->H = 1;  //
   // info->P = 10;  //后验状态估计值误差的方差的初始值（不要为0问题不大）
@@ -43,7 +45,7 @@ KalmanFilter::Measurement(double u, double ips)
     return;
   }
   m_u << u , 1;
-  std::cout <<"u:" << u << "\t" <<"ips:" << ips << std::endl;
+  // std::cout <<"u:" << u << "\t" <<"ips:" << ips << std::endl;
   double v = ips - m_u.transpose() * m_a;
   std::cout << "v:" << "\t" << v << std::endl;
   double f = m_u.transpose() * m_P * m_u + m_H;
@@ -52,7 +54,7 @@ KalmanFilter::Measurement(double u, double ips)
   Matrix2d ppost = m_P - (m_kalmanGain * f) * m_kalmanGain.transpose() ;
   m_a = apost;
   m_P = ppost + m_Q;
-  std::cout <<"B= " << -m_a(1)/m_a(0) << " u=" << u  << " 1/c=" << 1/m_a(0)<<std::endl;
+  // std::cout <<"B= " << -m_a(1)/m_a(0) << " u=" << u  << " 1/c=" << 1/m_a(0)<<std::endl;
   // //预测下一时刻的值
   // double predictValue = kalmanInfo->A* kalmanInfo->filterValue;   //x的先验估计由上一个时间点的后验估计值和输入信息给出，此处需要根据基站高度做一个修改
   //

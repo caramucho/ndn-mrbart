@@ -74,6 +74,7 @@ ConsumerMrbart::ConsumerMrbart()
   : m_frequency(1.0)
   , m_firstTime(true)
   , m_counter(0)
+  , m_initial(true)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
@@ -88,9 +89,10 @@ ConsumerMrbart::~ConsumerMrbart()
 void
 ConsumerMrbart::ScheduleNextPacket()
 {
+  NS_LOG_FUNCTION_NOARGS();
+
   // double mean = 8.0 * m_payloadSize / m_desiredRate.GetBitRate ();
   // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) << "s\n";
-
   if (m_firstTime) {
     m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
     m_firstTime = false;
@@ -104,20 +106,22 @@ ConsumerMrbart::ScheduleNextPacket()
 void
 ConsumerMrbart::SetRandomize(const std::string& value)
 {
-  if (value == "uniform") {
-    m_random = CreateObject<UniformRandomVariable>();
-    m_random->SetAttribute("Min", DoubleValue(0.0));
-    m_random->SetAttribute("Max", DoubleValue(2 * 1.0 / m_frequency));
-  }
-  else if (value == "exponential") {
-    m_random = CreateObject<ExponentialRandomVariable>();
-    m_random->SetAttribute("Mean", DoubleValue(1.0 / m_frequency));
-    m_random->SetAttribute("Bound", DoubleValue(50 * 1.0 / m_frequency));
-  }
-  else
+  // if (value == "uniform") {
+  //   m_random = CreateObject<UniformRandomVariable>();
+  //   m_random->SetAttribute("Min", DoubleValue(0.0));
+  //   m_random->SetAttribute("Max", DoubleValue(2 * 1.0 / m_frequency));
+  // }
+  // else if (value == "exponential") {
+  //   m_random = CreateObject<ExponentialRandomVariable>();
+  //   m_random->SetAttribute("Mean", DoubleValue(1.0 / m_frequency));
+  //   m_random->SetAttribute("Bound", DoubleValue(50 * 1.0 / m_frequency));
+  // }
+  // else
     m_random = 0;
-
-  m_randomType = value;
+  // m_random = CreateObject<NormalRandomVariable>();
+  // m_random->SetAttribute("Mean", DoubleValue(1.0 / m_frequency));
+  // m_random->SetAttribute ("Variance", DoubleValue (2));
+  // m_randomType = value;
 }
 
 std::string
@@ -178,25 +182,32 @@ ConsumerMrbart::SendPacket()
 void
 ConsumerMrbart::OnData(shared_ptr<const Data> data)
 {
-  Consumer::OnData(data);
+  NS_LOG_FUNCTION_NOARGS();
 
+  Consumer::OnData(data);
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
-  if (ips == 0){
-    if (m_counter < 8){
-      m_counter += 1;
+  // std::cout << "ips=" <<ips << '\n';
+  if (ips == -1) {
+    return;
+  }
+  if (m_initial){
+    if(ips != 0){
+      m_initial = false;
+      m_kf->Init_KalmanInfo(m_frequency * 0.008 * 8);
+      // std::cout << "estimated bw= "<< m_kf->GetEstimatedBandwidth() << '\n';
+      m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
+      // std::cout << "frequency=  "<<  m_frequency << '\n';
     }else{
       m_frequency *= 1.1;
-      m_counter = 0;
-      NS_LOG_INFO("frequency doubled " << m_frequency);
+      NS_LOG_INFO("initial phrase: frequency increased " << m_frequency << " ips=" << ips);
     }
   }
   else{
-    m_frequency += 0.5;
-    NS_LOG_INFO("frequency " << m_frequency);
+    m_kf->Measurement(m_ips->GetU(),ips);
+    m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
+    NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ips << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
   }
-  NS_LOG_INFO("InterPacketStrain " << ips);
-  m_kf->Measurement(m_ips->GetU(),ips);
   // cout << m_frequency << " " << ips << endl;
 }
 
@@ -234,6 +245,7 @@ void
 ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
 {
   Consumer::WillSendOutInterest(sequenceNumber);
+
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 

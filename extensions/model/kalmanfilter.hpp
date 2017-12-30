@@ -19,7 +19,7 @@ namespace ndn {
     * @param R 测量噪声方差 由系统外部测定给定
     */
     void
-    Init_KalmanInfo();
+    Init_KalmanInfo(double C);
 
     void
     Measurement(double u, double ips);
