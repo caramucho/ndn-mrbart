@@ -52,7 +52,7 @@ ConsumerMrbart::GetTypeId(void)
       .SetParent<Consumer>()
       .AddConstructor<ConsumerMrbart>()
 
-      .AddAttribute("Frequency", "Frequency of interest packets", StringValue("1.0"),
+      .AddAttribute("Frequency", "Frequency of interest packets", StringValue("2.0"),
                     MakeDoubleAccessor(&ConsumerMrbart::m_frequency), MakeDoubleChecker<double>())
 
       .AddAttribute("Randomize",
@@ -71,7 +71,7 @@ ConsumerMrbart::GetTypeId(void)
 }
 
 ConsumerMrbart::ConsumerMrbart()
-  : m_frequency(1.0)
+  : m_frequency(2.0)
   , m_firstTime(true)
   , m_counter(0)
   , m_initial(true)
@@ -191,12 +191,14 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
   double ebw;
+  float freqGain = 1.1;
+  float ipsThreshold = 0.3;
   // std::cout << "ips=" <<ips << '\n';
   if (ips == -1) {
     return;
   }
   if (m_initial){
-    if(ips > 0.2){
+    if(ips > ipsThreshold){
       m_initial = false;
       m_kf->Init_KalmanInfo(freqToRate(m_frequency));
       ebw = freqToRate(m_frequency);
@@ -206,7 +208,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
       // std::cout << "frequency=  "<<  m_frequency << '\n';
     }else{
       m_kf->Measurement(m_ips->GetU(),ips);
-      m_frequency *= 1.1;
+      m_frequency *= freqGain;
       ebw = freqToRate(m_frequency);
       NS_LOG_INFO("initial phrase: frequency increased " << m_frequency << " ips=" << ips);
     }
@@ -214,8 +216,8 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   else{
     m_kf->Measurement(m_ips->GetU(),ips);
 
-    if(ips < 0.2){
-      m_frequency =  1.1 * rateToFreq(m_kf->GetEstimatedBandwidth()) ;
+    if(ips < ipsThreshold){
+      m_frequency =  freqGain * rateToFreq(m_kf->GetEstimatedBandwidth()) ;
     }else{
       // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
       m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth()) ;
