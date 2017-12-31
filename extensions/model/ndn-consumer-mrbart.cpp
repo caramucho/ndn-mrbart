@@ -185,8 +185,8 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   NS_LOG_FUNCTION_NOARGS();
 
   Consumer::OnData(data);
-  float gain[8] = {1.25,1.25,1.25,1.25,1,1,1,1};
-  int cycleindex = 0;
+  // float gain[8] = {1.25,0.75,1,1,1,1,1,1};
+  // int cycleindex = 0;
 
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
@@ -195,22 +195,23 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     return;
   }
   if (m_initial){
-    if(ips == 0){
+    if(ips > 0.5){
       m_initial = false;
       m_kf->Init_KalmanInfo(m_frequency * 0.008 * 8);
       // std::cout << "estimated bw= "<< m_kf->GetEstimatedBandwidth() << '\n';
       // m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
       // std::cout << "frequency=  "<<  m_frequency << '\n';
     }else{
-      // m_kf->Measurement(m_ips->GetU(),ips);
+      m_kf->Measurement(m_ips->GetU(),ips);
       m_frequency *= 1.1;
       NS_LOG_INFO("initial phrase: frequency increased " << m_frequency << " ips=" << ips);
     }
   }
   else{
     m_kf->Measurement(m_ips->GetU(),ips);
-    m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
-    cycleindex +=1;
+    // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
+    m_frequency =  m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
+    // cycleindex +=1;
     NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ips << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
   }
   // cout << m_frequency << " " << ips << endl;
