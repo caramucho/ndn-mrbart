@@ -69,14 +69,18 @@ main(int argc, char* argv[])
     }
 
     //Consumer application
-   ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
+    ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
   //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
+    consumerHelper.SetPrefix("/Dst1");
 
-   consumerHelper.SetPrefix("/Dst1");
     // consumerHelper.SetAttribute("VideoId", StringValue("1"));
     // consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
 
     ns3::ApplicationContainer consumerapps[2];
+
+
+
+
     // for(int i=0;i<2;i++) {
         // consumerHelper.SetAttribute("ConsumerId", StringValue(to_string(i+1)));
         // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
@@ -93,6 +97,17 @@ main(int argc, char* argv[])
     consumerapps[0] = consumerapp;
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
+
+    // cross traffic generator
+    //
+    ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
+    consumerHelper2.SetPrefix("/Dst2");
+    consumerHelper2.SetAttribute("Frequency", StringValue("7")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
+
+    ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
+    consumerapps[1] = consumerapp2;
+    consumerapp2.Start(Seconds(0));
+    consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();
