@@ -145,7 +145,7 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   m_previousAckSeq->seq = ackSeq;
   m_previousAckSeq->time = Simulator::Now();
 
-  double retval = ((double)DeltaOut.GetMilliSeconds() / DeltaIn.GetMilliSeconds()) - 1.0;
+  double retval = (DeltaOut.GetNanoSeconds() / (double)DeltaIn.GetNanoSeconds()) - 1.0;
   NS_LOG_DEBUG("ips " << retval);
   if (retval<=-1){
     return -1;
