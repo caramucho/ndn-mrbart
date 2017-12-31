@@ -64,6 +64,12 @@ protected:
   void
   WillSendOutInterest(uint32_t sequenceNumber);
 
+  double
+  freqToRate(double freq);
+
+  double
+  rateToFreq(double rate);
+
 protected:
   double m_frequency; // Frequency of interest packets (in hertz)
   bool m_firstTime;

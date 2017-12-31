@@ -28,7 +28,7 @@ KalmanFilter::Init_KalmanInfo(double C)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_a << 1/C, -1;
-  std::cout << "initial rate :" << C << '\n';
+  // std::cout << "initial rate :" << C << '\n';
   // info->A = 1;  //标量卡尔曼
   // info->H = 1;  //
   // info->P = 10;  //后验状态估计值误差的方差的初始值（不要为0问题不大）
@@ -47,7 +47,7 @@ KalmanFilter::Measurement(double u, double ips)
   m_u << u , 1;
   // std::cout <<"u:" << u << "\t" <<"ips:" << ips << std::endl;
   double v = ips - m_u.transpose() * m_a;
-  std::cout << "v:" << "\t" << v << std::endl;
+  // std::cout << "v:" << "\t" << v << std::endl;
   double f = m_u.transpose() * m_P * m_u + m_H;
   m_kalmanGain = m_P * m_u / f;
   Vector2d apost = m_a + m_kalmanGain * v;
