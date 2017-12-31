@@ -191,7 +191,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
   double ebw;
-  std::cout << "ips=" <<ips << '\n';
+  // std::cout << "ips=" <<ips << '\n';
   if (ips == -1) {
     return;
   }
@@ -213,11 +213,18 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   }
   else{
     m_kf->Measurement(m_ips->GetU(),ips);
-    // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
-    m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth()) ;
-    // cycleindex +=1;
-    NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ips << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
+
+    if(ips < 0.2){
+      m_frequency =  1.1 * rateToFreq(m_kf->GetEstimatedBandwidth()) ;
+    }else{
+      // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
+      m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth()) ;
+      // cycleindex +=1;
+    }
     ebw = m_kf->GetEstimatedBandwidth();
+
+    NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ips << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
+
   }
   cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
 }
