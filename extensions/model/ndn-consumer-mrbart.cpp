@@ -192,7 +192,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
   double ebw;
   float freqGain = 1.1;
-  float ipsThreshold = 0.3;
+  float ipsThreshold = 0.2;
   // std::cout << "ips=" <<ips << '\n';
   if (ips == -1) {
     return;
