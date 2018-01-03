@@ -77,6 +77,7 @@ protected:
   std::string m_randomType;
   bool m_initial;
   int m_counter;
+  std::vector<double> m_ipsvec;
 
   Ptr<InterpacketStrainEstimator> m_ips;
   Ptr<KalmanFilter> m_kf;

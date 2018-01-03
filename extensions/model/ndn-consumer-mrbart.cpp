@@ -133,50 +133,8 @@ ConsumerMrbart::GetRandomize() const
 void
 ConsumerMrbart::SendPacket()
 {
-  if (!m_active)
-    return;
-
   NS_LOG_FUNCTION_NOARGS();
-
-  uint32_t seq = std::numeric_limits<uint32_t>::max(); // invalid
-
-  while (m_retxSeqs.size()) {
-    seq = *m_retxSeqs.begin();
-    m_retxSeqs.erase(m_retxSeqs.begin());
-    break;
-  }
-
-  if (seq == std::numeric_limits<uint32_t>::max()) {
-    if (m_seqMax != std::numeric_limits<uint32_t>::max()) {
-      if (m_seq >= m_seqMax) {
-        return; // we are totally done
-      }
-    }
-
-    seq = m_seq++;
-  }
-
-  //
-  shared_ptr<Name> nameWithSequence = make_shared<Name>(m_interestName);
-  nameWithSequence->appendSequenceNumber(seq);
-  //
-
-  // shared_ptr<Interest> interest = make_shared<Interest> ();
-  shared_ptr<Interest> interest = make_shared<Interest>();
-  interest->setNonce(m_rand->GetValue(0, std::numeric_limits<uint32_t>::max()));
-  interest->setName(*nameWithSequence);
-  time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
-  interest->setInterestLifetime(interestLifeTime);
-
-  // NS_LOG_INFO ("Requesting Interest: \n" << *interest);
-  NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << seq);
-
-  WillSendOutInterest(seq);
-
-  m_transmittedInterests(interest, this, m_face);
-  m_appLink->onReceiveInterest(*interest);
-
-  ScheduleNextPacket();
+  Consumer::SendPacket();
 }
 
 void
@@ -186,19 +144,34 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
 
   Consumer::OnData(data);
   // float gain[8] = {1.25,0.75,1,1,1,1,1,1};
-  // int cycleindex = 0;
+  int cycleindex = 0;
 
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
   double ebw;
   float freqGain = 1.1;
-  float ipsThreshold = 0.2;
-  // std::cout << "ips=" <<ips << '\n';
+  float ipsThreshold = 0.05;
+  int cyclesteps = 8;
+  double ipsavg;
+  double ipsstdev;
   if (ips == -1) {
     return;
   }
+  if(m_counter < cyclesteps){
+    m_ipsvec.push_back(ips);
+    m_counter += 1;
+    return;
+  }else{
+    ipsavg = std::accumulate(m_ipsvec.begin(),m_ipsvec.end(),0.0)/m_ipsvec.size(); // calculate the average of ips
+    double sq_sum = std::inner_product(m_ipsvec.begin(), m_ipsvec.end(), m_ipsvec.begin(), 0.0);
+    ipsstdev = sq_sum / m_ipsvec.size() - ipsavg * ipsavg; // calculate the stdev of ips
+    m_ipsvec.clear();
+    m_counter = 0;
+  }
+
+
   if (m_initial){
-    if(ips > ipsThreshold){
+    if(ipsavg > ipsThreshold){
       m_initial = false;
       m_kf->Init_KalmanInfo(freqToRate(m_frequency));
       ebw = freqToRate(m_frequency);
@@ -207,16 +180,16 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
       // m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
       // std::cout << "frequency=  "<<  m_frequency << '\n';
     }else{
-      m_kf->Measurement(m_ips->GetU(),ips);
+      m_kf->Measurement(m_ips->GetU(),ipsavg);
       m_frequency *= freqGain;
       ebw = freqToRate(m_frequency);
-      NS_LOG_INFO("initial phrase: frequency increased " << m_frequency << " ips=" << ips);
+      NS_LOG_INFO("initial phrase: frequency increased " << m_frequency << " ipsavg=" << ipsavg);
     }
   }
   else{
-    m_kf->Measurement(m_ips->GetU(),ips);
+    m_kf->Measurement(m_ips->GetU(),ipsavg);
 
-    if(ips < ipsThreshold){
+    if(ipsavg < ipsThreshold){
       m_frequency =  freqGain * rateToFreq(m_kf->GetEstimatedBandwidth()) ;
     }else{
       // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
@@ -225,7 +198,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     }
     ebw = m_kf->GetEstimatedBandwidth();
 
-    NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ips << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
+    NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
 
   }
   cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
@@ -265,7 +238,7 @@ void
 ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
 {
   Consumer::WillSendOutInterest(sequenceNumber);
-
+  NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber);
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 
