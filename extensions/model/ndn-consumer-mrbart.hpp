@@ -78,7 +78,8 @@ protected:
   bool m_initial;
   int m_counter;
   std::vector<double> m_ipsvec;
-
+  double m_inflight;
+  Time m_minrtt;
   Ptr<InterpacketStrainEstimator> m_ips;
   Ptr<KalmanFilter> m_kf;
 

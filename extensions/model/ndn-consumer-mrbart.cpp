@@ -52,7 +52,7 @@ ConsumerMrbart::GetTypeId(void)
       .SetParent<Consumer>()
       .AddConstructor<ConsumerMrbart>()
 
-      .AddAttribute("Frequency", "Frequency of interest packets", StringValue("2.0"),
+      .AddAttribute("Frequency", "Frequency of interest packets", StringValue("5.0"),
                     MakeDoubleAccessor(&ConsumerMrbart::m_frequency), MakeDoubleChecker<double>())
 
       .AddAttribute("Randomize",
@@ -71,10 +71,12 @@ ConsumerMrbart::GetTypeId(void)
 }
 
 ConsumerMrbart::ConsumerMrbart()
-  : m_frequency(2.0)
+  : m_frequency(5.0)
   , m_firstTime(true)
   , m_counter(0)
   , m_initial(true)
+  , m_inflight(0.0)
+  , m_minrtt(Seconds(999))
 {
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
@@ -134,7 +136,20 @@ void
 ConsumerMrbart::SendPacket()
 {
   NS_LOG_FUNCTION_NOARGS();
+
+  if(!m_initial){
+    // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
+
+    if(m_inflight >= 1.1 * m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds()){
+      // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
+
+      ScheduleNextPacket();
+      return;
+    }
+  }
+  m_inflight += 0.008;
   Consumer::SendPacket();
+
 }
 
 void
@@ -144,13 +159,17 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
 
   Consumer::OnData(data);
   // float gain[8] = {1.25,0.75,1,1,1,1,1,1};
+  m_inflight -= 0.008;
+  if(m_rtt->GetCurrentEstimate() < m_minrtt){
+    m_minrtt = m_rtt->GetCurrentEstimate();
+  }
   int cycleindex = 0;
 
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   double ips = m_ips->AckSeq(SequenceNumber32(seq));
   double ebw;
-  float freqGain = 1.1;
-  float ipsThreshold = 0.05;
+  float freqGain = 1.3;
+  float ipsThreshold = 0.2;
   int cyclesteps = 8;
   double ipsavg;
   double ipsstdev;
