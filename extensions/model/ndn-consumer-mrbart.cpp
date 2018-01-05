@@ -140,7 +140,7 @@ ConsumerMrbart::SendPacket()
   if(!m_initial){
     // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
 
-    if(m_inflight >= 1.1 * m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds()){
+    if(m_inflight >= m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds()){
       // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
 
       ScheduleNextPacket();

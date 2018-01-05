@@ -102,7 +102,7 @@ main(int argc, char* argv[])
     //
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
-    consumerHelper2.SetAttribute("Frequency", StringValue("3")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
+    consumerHelper2.SetAttribute("Frequency", StringValue("7")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
     consumerapps[1] = consumerapp2;
