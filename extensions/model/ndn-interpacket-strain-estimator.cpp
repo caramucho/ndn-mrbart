@@ -140,7 +140,8 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   }
   NS_LOG_DEBUG("DeltaIn " << DeltaIn.GetMilliSeconds());
 
-  m_lastu = Seconds(1.0) / DeltaIn * (0.008 * 8);
+  m_lastu = Seconds(1.0).GetSeconds() / DeltaIn.GetSeconds() * (0.008 * 8);
+
   // Update the previous seq
   m_previousAckSeq->seq = ackSeq;
   m_previousAckSeq->time = Simulator::Now();
@@ -157,7 +158,12 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
 double
 InterpacketStrainEstimator::GetU()
 {
-  return m_lastu;
+  if (m_lastu != 0){
+    return m_lastu * 8.0; //u is the average of 8 interests
+  }else{
+    // std::cout << "m_lastu == 0" << '\n';
+    return 0;
+  }
 }
 
 // IpsHistory methods

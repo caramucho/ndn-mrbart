@@ -166,7 +166,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   int cycleindex = 0;
 
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
-  double ips = m_ips->AckSeq(SequenceNumber32(seq));
+  double ips = 0;
   double ebw;
   float freqGain = 1.3;
   float ipsThreshold = 0.2;
@@ -177,16 +177,19 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     return;
   }
   if(m_counter < cyclesteps){
-    m_ipsvec.push_back(ips);
+    // m_ipsvec.push_back(ips);
     m_counter += 1;
     return;
   }else{
-    ipsavg = std::accumulate(m_ipsvec.begin(),m_ipsvec.end(),0.0)/m_ipsvec.size(); // calculate the average of ips
-    double sq_sum = std::inner_product(m_ipsvec.begin(), m_ipsvec.end(), m_ipsvec.begin(), 0.0);
-    ipsstdev = sq_sum / m_ipsvec.size() - ipsavg * ipsavg; // calculate the stdev of ips
-    m_ipsvec.clear();
+    ipsavg = m_ips->AckSeq(SequenceNumber32(seq));
+  //   ipsavg = std::accumulate(m_ipsvec.begin(),m_ipsvec.end(),0.0)/m_ipsvec.size(); // calculate the average of ips
+  //   double sq_sum = std::inner_product(m_ipsvec.begin(), m_ipsvec.end(), m_ipsvec.begin(), 0.0);
+  //   ipsstdev = sq_sum / m_ipsvec.size() - ipsavg * ipsavg; // calculate the stdev of ips
+  //   m_ipsvec.clear();
     m_counter = 0;
   }
+
+  // cout << Simulator::Now ().GetSeconds() << "\tips = " <<  ipsavg <<"\tu = "<<m_ips->GetU()<< endl;
 
 
   if (m_initial){
