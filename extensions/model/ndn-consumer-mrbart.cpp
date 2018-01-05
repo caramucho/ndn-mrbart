@@ -52,7 +52,7 @@ ConsumerMrbart::GetTypeId(void)
       .SetParent<Consumer>()
       .AddConstructor<ConsumerMrbart>()
 
-      .AddAttribute("Frequency", "Frequency of interest packets", StringValue("5.0"),
+      .AddAttribute("Frequency", "Frequency of interest packets", StringValue("1.0"),
                     MakeDoubleAccessor(&ConsumerMrbart::m_frequency), MakeDoubleChecker<double>())
 
       .AddAttribute("Randomize",
@@ -71,7 +71,7 @@ ConsumerMrbart::GetTypeId(void)
 }
 
 ConsumerMrbart::ConsumerMrbart()
-  : m_frequency(5.0)
+  : m_frequency(1.0)
   , m_firstTime(true)
   , m_counter(0)
   , m_initial(true)
