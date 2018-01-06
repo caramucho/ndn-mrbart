@@ -83,6 +83,7 @@ ConsumerMrbart::ConsumerMrbart()
   m_seqMax = std::numeric_limits<uint32_t>::max();
   m_ips = CreateObject<InterpacketStrainEstimator>();
   m_kf = CreateObject<KalmanFilter>();
+  m_phase = CreateObject<Phases>();
 }
 
 ConsumerMrbart::~ConsumerMrbart()
@@ -141,7 +142,7 @@ ConsumerMrbart::SendPacket()
   if(!m_initial){
     // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
 
-    if(m_inflight >= m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds()){
+    if(m_inflight >= 0.1 * m_minrtt.GetSeconds()){
       // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
 
       ScheduleNextPacket();
@@ -159,7 +160,6 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   NS_LOG_FUNCTION_NOARGS();
 
   Consumer::OnData(data);
-  // float gain[8] = {1.25,0.75,1,1,1,1,1,1};
   m_inflight -= 0.008;
   if(m_rtt->GetCurrentEstimate() < m_minrtt){
     m_minrtt = m_rtt->GetCurrentEstimate();
@@ -178,75 +178,22 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     return;
   }
   if(m_counter < cyclesteps){
-    // m_ipsvec.push_back(ips);
     m_counter += 1;
     return;
   }else{
-    ipsavg = m_ips->AckSeq(SequenceNumber32(seq));
-  //   ipsavg = std::accumulate(m_ipsvec.begin(),m_ipsvec.end(),0.0)/m_ipsvec.size(); // calculate the average of ips
-  //   double sq_sum = std::inner_product(m_ipsvec.begin(), m_ipsvec.end(), m_ipsvec.begin(), 0.0);
-  //   ipsstdev = sq_sum / m_ipsvec.size() - ipsavg * ipsavg; // calculate the stdev of ips
-  //   m_ipsvec.clear();
+    ips = m_ips->AckSeq(SequenceNumber32(seq));
     m_counter = 0;
   }
+  m_phase->Measurement(ips,m_ips->GetU());
+  m_phase->PhaseSwitch();
+  m_phase->CalculateNextFreq();
+  m_frequency = m_phase->GetFreq();
 
-  // cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU() <<"\t"<<  ipsavg << endl;
-  // cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU()<< endl;;
+  NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
+  cout << Simulator::Now ().GetSeconds() << "\t" <<  freqToRate(m_frequency) << endl;
 
-
-  if (m_initial){
-    if(ipsavg > ipsThreshold){
-      m_initial = false;
-      m_kf->Init_KalmanInfo(freqToRate(m_frequency));
-      ebw = freqToRate(m_frequency);
-
-      // std::cout << "estimated bw= "<< m_kf->GetEstimatedBandwidth() << '\n';
-      // m_frequency = m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
-      // std::cout << "frequency=  "<<  m_frequency << '\n';
-    }else{
-      m_kf->Measurement(m_ips->GetU(),ipsavg);
-      m_frequency *= freqGain;
-      ebw = freqToRate(m_frequency);
-      NS_LOG_INFO("initial phrase: frequency increased " << m_frequency << " ipsavg=" << ipsavg);
-    }
-  }
-  else{
-    if (ipsavg == 0 && !m_probe){
-        m_ips0counter += 1;
-        if (m_ips0counter > 4){
-          m_probe = true;
-          m_ips0counter = 0;
-        }
-    }
-    if(m_probe){
-      m_frequency *= freqGain;
-      ebw = freqToRate(m_frequency);
-      if(ipsavg > ipsThreshold){
-        m_probe = false;
-        ebw = freqToRate(m_frequency);
-        m_kf->Init_KalmanInfo(freqToRate(m_frequency));
-        m_kf->Measurement(m_ips->GetU(),ipsavg);
-
-      }
-      cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
-      return;
-    }
-    m_kf->Measurement(m_ips->GetU(),ipsavg);
-
-    if(ipsavg < 0.1){
-      m_frequency =  freqGain * rateToFreq(m_kf->GetEstimatedBandwidth()) ;
-    }else{
-      // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
-      m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth()) ;
-      // cycleindex +=1;
-    }
-    ebw = m_kf->GetEstimatedBandwidth();
-
-    NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
-
-  }
-  cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
 }
+
 
 // void
 // ConsumerMrbart::sendPacketTrain(){

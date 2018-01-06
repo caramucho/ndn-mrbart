@@ -5,7 +5,7 @@
 #include "ns3/nstime.h"
 #include "ns3/object.h"
 #define IPSTHRESHOLD 0.2
-#define FREQGAIN 1.1
+#define FREQGAIN 1.2
 
 namespace ns3 {
 namespace ndn {
@@ -29,8 +29,23 @@ namespace ndn {
     void
     Measurement(double ips, double U);
 
-    double
+    void
     CalculateNextFreq();
+
+    void
+    PhaseSwitch();
+
+    double
+    freqToRate(double freq);
+
+    double
+    rateToFreq(double rate);
+
+    double
+    GetFreq();
+
+    double
+    GetEstimatedBandwidth();
 
   private:
     int m_currentPhase;

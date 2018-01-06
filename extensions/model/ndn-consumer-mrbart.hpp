@@ -7,6 +7,7 @@
 #include "ns3/ndnSIM/apps/ndn-consumer.hpp"
 #include "ndn-interpacket-strain-estimator.hpp"
 #include "kalmanfilter.hpp"
+#include "phases.hpp"
 
 namespace ns3 {
 namespace ndn {
@@ -84,6 +85,7 @@ protected:
   Time m_minrtt;
   Ptr<InterpacketStrainEstimator> m_ips;
   Ptr<KalmanFilter> m_kf;
+  Ptr<Phases> m_phase;
 
 };
 

@@ -71,6 +71,7 @@ Phases::PhaseSwitch(){
    {
      if(m_ips > IPSTHRESHOLD)
      m_currentPhase = MAIN_PHASE;
+     m_kf->Init_KalmanInfo(freqToRate(m_frequency));
      break;
    }
  }
@@ -87,8 +88,8 @@ Phases::CalculateNextFreq(){
     }
     case MAIN_PHASE:
     {
-      m_kf->Measurement(m_ips->GetU(),ipsavg);
-      if(ipsavg < IPSTHRESHOLD){
+      m_kf->Measurement(m_u,m_ips);
+      if(m_ips < IPSTHRESHOLD){
         m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
       }else{
         m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
@@ -101,6 +102,37 @@ Phases::CalculateNextFreq(){
       break;
     }
   }
+}
+
+double
+Phases::GetFreq(){
+  return m_frequency;
+}
+
+double
+Phases::GetEstimatedBandwidth(){
+  double bw;
+  switch(m_currentPhase)
+  {
+    case INITAL_PHASE:
+    {
+      bw = freqToRate(m_frequency);
+      break;
+
+    }
+    case MAIN_PHASE:
+    {
+      bw = m_kf->GetEstimatedBandwidth();
+      break;
+    }
+    case PROBE_PHASE:
+    {
+      bw = freqToRate(m_frequency);
+      break;
+
+    }
+  }
+  return bw;
 }
 
 double
