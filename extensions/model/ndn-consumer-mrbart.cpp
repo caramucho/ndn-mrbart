@@ -189,7 +189,8 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     m_counter = 0;
   }
 
-  // cout << Simulator::Now ().GetSeconds() << "\tips = " <<  ipsavg <<"\tu = "<<m_ips->GetU()<< endl;
+  cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU() <<"\t"<<  ipsavg << endl;
+  // cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU()<< endl;;
 
 
   if (m_initial){
@@ -223,7 +224,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
 
   }
-  cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
+  // cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
 }
 
 // void
