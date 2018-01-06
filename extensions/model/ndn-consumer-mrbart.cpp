@@ -210,6 +210,9 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     }
   }
   else{
+    if (ipsavg == 0){
+      
+    }
     m_kf->Measurement(m_ips->GetU(),ipsavg);
 
     if(ipsavg < ipsThreshold){
