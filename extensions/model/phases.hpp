@@ -1,10 +1,11 @@
 #ifndef PHASES_H
 #define PHASES_H
-
+#include "kalmanfilter.hpp"
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
-
+#define IPSTHRESHOLD 0.2
+#define FREQGAIN 1.1
 
 namespace ns3 {
 namespace ndn {
@@ -13,9 +14,9 @@ namespace ndn {
   {
   public:
     enum phases {
-	     INITAL_PHASE,	/* ramp up sending rate rapidly to fill pipe */
-       MAIN_PHASE,	/* drain any queue created during startup */
-       PROBE_PHASE,	/* discover, share bw: pace around estimated bw */
+	     INITAL_PHASE,
+       MAIN_PHASE,
+       PROBE_PHASE
     };
     static TypeId
     GetTypeId(void);
@@ -26,13 +27,18 @@ namespace ndn {
     GetInstanceTypeId(void) const;
 
     void
-    PhaseSwitching(double ips, double U);
+    Measurement(double ips, double U);
 
     double
-    CalculateFreq();
+    CalculateNextFreq();
 
   private:
-    int currentPhase;
+    int m_currentPhase;
+    double m_ips;
+    double m_u;
+    int m_ipsCounter;
+    double m_frequency;
+    Ptr<KalmanFilter> m_kf;
   };
 
 

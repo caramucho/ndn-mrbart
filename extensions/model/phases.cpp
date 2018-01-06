@@ -24,8 +24,13 @@ Phases::GetTypeId(void)
 }
 
 Phases::Phases()
+  : m_currentPhase(INITAL_PHASE)
+  , m_ipsCounter(0)
+  , m_frequency(1.0)
+
 {
   NS_LOG_FUNCTION(this);
+  m_kf = CreateObject<KalmanFilter>();
 }
 
 TypeId
@@ -33,8 +38,80 @@ Phases::GetInstanceTypeId(void) const
 {
   return GetTypeId();
 }
+void
+Phases::Measurement(double ips, double U){
+  m_ips = ips;
+  m_u = U;
+}
 
+void
+Phases::PhaseSwitch(){
+  switch(m_currentPhase)
+  {
+    case INITAL_PHASE:
+   {
+     if(m_ips > IPSTHRESHOLD){
+       m_currentPhase = MAIN_PHASE;
+       m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+     }
+     break;
+   }
+   case MAIN_PHASE:
+   {
+     if(m_ips == 0){
+       m_ipsCounter += 1;
+     }
+     if(m_ipsCounter > 4){
+       m_currentPhase = PROBE_PHASE;
+       m_ipsCounter = 0;
+     }
+     break;
+   }
+   case PROBE_PHASE:
+   {
+     if(m_ips > IPSTHRESHOLD)
+     m_currentPhase = MAIN_PHASE;
+     break;
+   }
+ }
+}
 
+void
+Phases::CalculateNextFreq(){
+  switch(m_currentPhase)
+  {
+    case INITAL_PHASE:
+    {
+      m_frequency *= FREQGAIN;
+      break;
+    }
+    case MAIN_PHASE:
+    {
+      m_kf->Measurement(m_ips->GetU(),ipsavg);
+      if(ipsavg < IPSTHRESHOLD){
+        m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
+      }else{
+        m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
+      }
+      break;
+    }
+    case PROBE_PHASE:
+    {
+      m_frequency *= FREQGAIN;
+      break;
+    }
+  }
+}
+
+double
+Phases::freqToRate(double freq){
+  return freq * 8 * 0.008;
+}
+
+double
+Phases::rateToFreq(double rate){
+  return rate / (8*0.008);
+}
 
 } // namespace ndn
 } // namespace ns3
