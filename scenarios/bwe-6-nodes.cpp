@@ -107,7 +107,7 @@ main(int argc, char* argv[])
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
     consumerapps[1] = consumerapp2;
     consumerapp2.Start(Seconds(0));
-    consumerapp2.Stop(Seconds(SCENARIOTIME/2));
+    consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();

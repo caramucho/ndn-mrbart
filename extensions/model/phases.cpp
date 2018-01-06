@@ -46,6 +46,7 @@ Phases::Measurement(double ips, double U){
 
 void
 Phases::PhaseSwitch(){
+  // std::cout << m_currentPhase << '\n';
   switch(m_currentPhase)
   {
     case INITAL_PHASE:
@@ -69,9 +70,10 @@ Phases::PhaseSwitch(){
    }
    case PROBE_PHASE:
    {
-     if(m_ips > IPSTHRESHOLD)
-     m_currentPhase = MAIN_PHASE;
-     m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+     if(m_ips > IPSTHRESHOLD){
+       m_currentPhase = MAIN_PHASE;
+       m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+     }
      break;
    }
  }

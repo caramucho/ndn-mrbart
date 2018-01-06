@@ -139,15 +139,21 @@ ConsumerMrbart::SendPacket()
 {
   NS_LOG_FUNCTION_NOARGS();
 
-  if(!m_initial){
-    // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
+  // if(!m_initial){
+  //   // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
+  //
+  //   if(m_inflight >= m_phase->GetEstimatedBandwidth() * m_minrtt.GetSeconds()){
+  //     // std::cout << "BDP=" << m_phase->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
+  //
+  //     ScheduleNextPacket();
+  //     return;
+  //   }
+  // }
+  if(m_inflight >= m_phase->GetEstimatedBandwidth() * m_minrtt.GetSeconds()){
+    // std::cout << "BDP=" << m_phase->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
 
-    if(m_inflight >= 0.1 * m_minrtt.GetSeconds()){
-      // std::cout << "BDP=" << m_kf->GetEstimatedBandwidth() * m_minrtt.GetSeconds() <<"inflight= " <<m_inflight<<'\n';
-
-      ScheduleNextPacket();
-      return;
-    }
+    ScheduleNextPacket();
+    return;
   }
   m_inflight += 0.008;
   Consumer::SendPacket();
@@ -190,7 +196,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   m_frequency = m_phase->GetFreq();
 
   NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
-  cout << Simulator::Now ().GetSeconds() << "\t" <<  freqToRate(m_frequency) << endl;
+  cout << Simulator::Now ().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
 }
 
