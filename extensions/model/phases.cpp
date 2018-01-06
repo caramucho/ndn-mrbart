@@ -10,8 +10,6 @@ NS_LOG_COMPONENT_DEFINE("ndn.phases");
 namespace ns3 {
 namespace ndn {
 
-//---------------------------------------------------------------------------------
-// A modified version of Mean-Deviation Estimator optimized for NDN packet delivery
 
 NS_OBJECT_ENSURE_REGISTERED(Phases);
 
@@ -20,7 +18,6 @@ Phases::GetTypeId(void)
 {
   static TypeId tid =
     TypeId("ns3::ndn::Phases")
-      // .SetParent<RttEstimator>()
       .SetParent<Object>()
       .AddConstructor<Phases>();
   return tid;

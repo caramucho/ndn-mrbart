@@ -77,6 +77,7 @@ ConsumerMrbart::ConsumerMrbart()
   , m_initial(true)
   , m_inflight(0.0)
   , m_minrtt(Seconds(999))
+  , m_ips0counter(0)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
@@ -189,7 +190,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     m_counter = 0;
   }
 
-  cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU() <<"\t"<<  ipsavg << endl;
+  // cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU() <<"\t"<<  ipsavg << endl;
   // cout << Simulator::Now ().GetSeconds() <<"\t" << m_ips->GetU()<< endl;;
 
 
@@ -210,12 +211,29 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     }
   }
   else{
-    if (ipsavg == 0){
-      
+    if (ipsavg == 0 && !m_probe){
+        m_ips0counter += 1;
+        if (m_ips0counter > 4){
+          m_probe = true;
+          m_ips0counter = 0;
+        }
+    }
+    if(m_probe){
+      m_frequency *= freqGain;
+      ebw = freqToRate(m_frequency);
+      if(ipsavg > ipsThreshold){
+        m_probe = false;
+        ebw = freqToRate(m_frequency);
+        m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+        m_kf->Measurement(m_ips->GetU(),ipsavg);
+
+      }
+      cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
+      return;
     }
     m_kf->Measurement(m_ips->GetU(),ipsavg);
 
-    if(ipsavg < ipsThreshold){
+    if(ipsavg < 0.1){
       m_frequency =  freqGain * rateToFreq(m_kf->GetEstimatedBandwidth()) ;
     }else{
       // m_frequency = gain[cycleindex%8] * m_kf->GetEstimatedBandwidth() / (8.0 * 0.008);
@@ -227,7 +245,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
 
   }
-  // cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
+  cout << Simulator::Now ().GetSeconds() << "\t" <<  ebw << endl;
 }
 
 // void
