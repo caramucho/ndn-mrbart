@@ -27,6 +27,7 @@ main(int argc, char* argv[])
     AnnotatedTopologyReader topologyReader("", 25);
     topologyReader.SetFileName("topo/topo-6-node.txt");
     topologyReader.Read();
+    // topologyReader.ApplySettings();
 //    topologyReader.ApplyOspfMetric();
 
 
@@ -98,21 +99,28 @@ main(int argc, char* argv[])
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
 
+    consumerHelper.SetPrefix("/Dst2");
+    ApplicationContainer consumerapp2 = consumerHelper.Install(consumers[1]);
+    consumerapps[1] = consumerapp2;
+    consumerapp2.Start(Seconds(SCENARIOTIME/2));
+    consumerapp2.Stop(Seconds(SCENARIOTIME));
+
     // cross traffic generator
     //
-    ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
-    consumerHelper2.SetPrefix("/Dst2");
-    consumerHelper2.SetAttribute("Frequency", StringValue("7")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
-
-    ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    consumerapps[1] = consumerapp2;
-    consumerapp2.Start(Seconds(0));
-    consumerapp2.Stop(Seconds(SCENARIOTIME));
+    // ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
+    // consumerHelper2.SetPrefix("/Dst2");
+    // consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
+    //
+    // ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
+    // consumerapps[1] = consumerapp2;
+    // consumerapp2.Start(Seconds(0));
+    // consumerapp2.Stop(Seconds(SCENARIOTIME/2));
 
 
     GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
 
+    L3RateTracer::Install(Names::Find<Node>("Rtr1"), "data/Rtr1-1s-2apps.txt", Seconds(1.0));
     Simulator::Run();
     Simulator::Destroy();
 //    for(int i=0;i<10;i++) {
