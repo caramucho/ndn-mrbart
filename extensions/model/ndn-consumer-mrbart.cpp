@@ -77,7 +77,6 @@ ConsumerMrbart::ConsumerMrbart()
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
   m_ips = CreateObject<InterpacketStrainEstimator>();
-  m_kf = CreateObject<KalmanFilter>();
   m_phase = CreateObject<Phases>();
 }
 
