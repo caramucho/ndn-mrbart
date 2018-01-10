@@ -35,6 +35,7 @@
 #ifndef NDN_PAYLOAD_SIZE
 #define NDN_PAYLOAD_SIZE 8000
 #endif
+#define IPSCYCLE 8
 
 NS_LOG_COMPONENT_DEFINE("ndn.ConsumerMrbart");
 
@@ -99,7 +100,11 @@ ConsumerMrbart::ScheduleNextPacket()
   // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) << "s\n";
   if (m_firstTime) {
     m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
+    m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this); //
     m_firstTime = false;
+  }
+  else if(!m_ppReceived){
+    return;
   }
   else if (!m_sendEvent.IsRunning())
     m_sendEvent = Simulator::Schedule((m_random == 0) ? Seconds(1.0 / m_frequency)
@@ -170,26 +175,19 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   if(m_rtt->GetCurrentEstimate() < m_minrtt){
     m_minrtt = m_rtt->GetCurrentEstimate();
   }
-  int cycleindex = 0;
-
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   std::cout << Simulator::Now().GetMilliSeconds() << " Data for " << seq << '\n';
   double ips = 0;
-  double ebw;
-  float freqGain = 1.3;
-  float ipsThreshold = 0.2;
-  int cyclesteps = 8;
-  double ipsavg;
-  double ipsstdev;
-  if (ips == -1) {
-    return;
-  }
-  if(m_counter < cyclesteps){
+
+  if(m_counter < IPSCYCLE){
     m_counter += 1;
     return;
   }else{
     ips = m_ips->AckSeq(SequenceNumber32(seq));
     m_counter = 0;
+  }
+  if (ips == -1) {
+    return;
   }
   m_phase->Measurement(ips,m_ips->GetU());
   m_phase->PhaseSwitch();
