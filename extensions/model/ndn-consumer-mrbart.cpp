@@ -173,6 +173,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   int cycleindex = 0;
 
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
+  std::cout << Simulator::Now().GetMilliSeconds() << " Data for " << seq << '\n';
   double ips = 0;
   double ebw;
   float freqGain = 1.3;
@@ -196,7 +197,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   m_frequency = m_phase->GetFreq();
 
   NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
-  cout << Simulator::Now ().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+  // cout << Simulator::Now ().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
 }
 
@@ -236,6 +237,7 @@ ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
 {
   Consumer::WillSendOutInterest(sequenceNumber);
   NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber);
+  std::cout << Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber << '\n';
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 

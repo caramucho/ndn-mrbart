@@ -27,6 +27,7 @@ main(int argc, char* argv[])
     AnnotatedTopologyReader topologyReader("", 25);
     topologyReader.SetFileName("topo/topo-6-node.txt");
     topologyReader.Read();
+
     // topologyReader.ApplySettings();
 //    topologyReader.ApplyOspfMetric();
 

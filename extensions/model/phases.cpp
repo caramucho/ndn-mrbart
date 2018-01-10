@@ -46,6 +46,9 @@ Phases::Measurement(double ips, double U){
 
 void
 Phases::PhaseSwitch(){
+  NS_LOG_FUNCTION(this);
+  NS_LOG_INFO("Current phase " << m_currentPhase << " freq " << m_frequency);
+
   // std::cout << m_currentPhase << '\n';
   switch(m_currentPhase)
   {
@@ -93,6 +96,8 @@ Phases::CalculateNextFreq(){
       m_kf->Measurement(m_u,m_ips);
       if(m_ips < IPSTHRESHOLD){
         m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
+        // m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
+
       }else{
         m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
       }

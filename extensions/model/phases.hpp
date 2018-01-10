@@ -4,7 +4,7 @@
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
-#define IPSTHRESHOLD 0.2
+#define IPSTHRESHOLD 0.1
 #define FREQGAIN 1.2
 
 namespace ns3 {
