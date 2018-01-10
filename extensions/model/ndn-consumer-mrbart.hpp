@@ -40,8 +40,6 @@ protected:
    * @brief Set type of frequency randomization
    * @param value Either 'none', 'uniform', or 'exponential'
    */
-  void
-  SetRandomize(const std::string& value);
 
   /**
    * @brief Get type of frequency randomization
@@ -74,8 +72,6 @@ protected:
 protected:
   double m_frequency; // Frequency of interest packets (in hertz)
   bool m_firstTime;
-  Ptr<RandomVariableStream> m_random;
-  std::string m_randomType;
   bool m_initial;
   int m_counter;
   int m_ips0counter;

@@ -56,12 +56,6 @@ ConsumerMrbart::GetTypeId(void)
       .AddAttribute("Frequency", "Frequency of interest packets", StringValue("1.0"),
                     MakeDoubleAccessor(&ConsumerMrbart::m_frequency), MakeDoubleChecker<double>())
 
-      .AddAttribute("Randomize",
-                    "Type of send time randomization: none (default), uniform, exponential",
-                    StringValue("none"),
-                    MakeStringAccessor(&ConsumerMrbart::SetRandomize, &ConsumerMrbart::GetRandomize),
-                    MakeStringChecker())
-
       .AddAttribute("MaxSeq", "Maximum sequence number to request",
                     IntegerValue(std::numeric_limits<uint32_t>::max()),
                     MakeIntegerAccessor(&ConsumerMrbart::m_seqMax), MakeIntegerChecker<uint32_t>())
@@ -107,36 +101,7 @@ ConsumerMrbart::ScheduleNextPacket()
   //   return;
   // }
   else if (!m_sendEvent.IsRunning())
-    m_sendEvent = Simulator::Schedule((m_random == 0) ? Seconds(1.0 / m_frequency)
-                                                      : Seconds(m_random->GetValue()),
-                                      &ConsumerMrbart::SendPacket, this);
-}
-
-void
-ConsumerMrbart::SetRandomize(const std::string& value)
-{
-  // if (value == "uniform") {
-  //   m_random = CreateObject<UniformRandomVariable>();
-  //   m_random->SetAttribute("Min", DoubleValue(0.0));
-  //   m_random->SetAttribute("Max", DoubleValue(2 * 1.0 / m_frequency));
-  // }
-  // else if (value == "exponential") {
-  //   m_random = CreateObject<ExponentialRandomVariable>();
-  //   m_random->SetAttribute("Mean", DoubleValue(1.0 / m_frequency));
-  //   m_random->SetAttribute("Bound", DoubleValue(50 * 1.0 / m_frequency));
-  // }
-  // else
-    m_random = 0;
-  // m_random = CreateObject<NormalRandomVariable>();
-  // m_random->SetAttribute("Mean", DoubleValue(1.0 / m_frequency));
-  // m_random->SetAttribute ("Variance", DoubleValue (2));
-  // m_randomType = value;
-}
-
-std::string
-ConsumerMrbart::GetRandomize() const
-{
-  return m_randomType;
+    m_sendEvent = Simulator::Schedule(Seconds(1.0 / m_frequency), &ConsumerMrbart::SendPacket, this);
 }
 
 void
