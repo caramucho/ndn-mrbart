@@ -77,7 +77,6 @@ protected:
   Ptr<RandomVariableStream> m_random;
   std::string m_randomType;
   bool m_initial;
-  bool m_probe;
   int m_counter;
   int m_ips0counter;
   std::vector<double> m_ipsvec;

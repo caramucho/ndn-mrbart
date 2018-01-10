@@ -74,11 +74,11 @@ ConsumerMrbart::GetTypeId(void)
 ConsumerMrbart::ConsumerMrbart()
   : m_frequency(1.0)
   , m_firstTime(true)
-  , m_counter(0)
   , m_initial(true)
+  , m_counter(0)
+  , m_ips0counter(0)
   , m_inflight(0.0)
   , m_minrtt(Seconds(999))
-  , m_ips0counter(0)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
@@ -103,9 +103,9 @@ ConsumerMrbart::ScheduleNextPacket()
     m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this); //
     m_firstTime = false;
   }
-  else if(!m_ppReceived){
-    return;
-  }
+  // else if(!m_ppReceived){
+  //   return;
+  // }
   else if (!m_sendEvent.IsRunning())
     m_sendEvent = Simulator::Schedule((m_random == 0) ? Seconds(1.0 / m_frequency)
                                                       : Seconds(m_random->GetValue()),
@@ -194,8 +194,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   m_phase->CalculateNextFreq();
   m_frequency = m_phase->GetFreq();
 
-  NS_LOG_INFO("main phrase: frequency " << m_frequency << " InterPacketStrain " << ipsavg << "estimated bw= "<< m_kf->GetEstimatedBandwidth());
-  // cout << Simulator::Now ().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+  cout << Simulator::Now ().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
 }
 
