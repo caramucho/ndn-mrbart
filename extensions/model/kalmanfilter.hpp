@@ -29,12 +29,13 @@ namespace ndn {
 
   private:
     // Vector2d m_filterValue;  //k-1时刻的滤波值，即是k-1时刻的值
-    Vector2d m_kalmanGain;   //   Kalman增益
+    Matrix2d m_kalmanGain;   //   Kalman增益
     Vector2d m_a;   // z(n)=H*x(n)+w(n),w(n)~N(0,R)
     Matrix2d m_P;   //估计误差协方差
-    Vector2d m_u;   // x(n)=A*x(n-1)+u(n),u(n)~N(0,Q)
+    Matrix2d m_u;   // x(n)=A*x(n-1)+u(n),u(n)~N(0,Q)
     Matrix2d m_Q;   //预测过程噪声偏差的方差
-    double m_H;   //测量噪声偏差，(系统搭建好以后，通过测量统计实验获得)
+    Matrix2d m_H;   //测量噪声偏差，(系统搭建好以后，通过测量统计实验获得)
+    std::deque<std::tuple<double,double>> m_measures;
 };
 }
 }
