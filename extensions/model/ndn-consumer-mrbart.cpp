@@ -213,7 +213,7 @@ ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
 {
   Consumer::WillSendOutInterest(sequenceNumber);
   NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber);
-  // std::cout << Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber << '\n';
+  std::cout << Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber << '\n';
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 

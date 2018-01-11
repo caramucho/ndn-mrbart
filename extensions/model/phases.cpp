@@ -84,6 +84,8 @@ Phases::PhaseSwitch(){
      if(m_ipsCounter > 4){
        m_currentPhase = PROBE_PHASE;
        m_ipsCounter = 0;
+      //  m_currentPhase = INITIAL_PHASE_1;
+       Reset();
      }
      break;
    }
@@ -203,7 +205,7 @@ Phases::Reset() {
   m_first = true;
   m_initialized = false;
   m_ppSent = 0;
-  m_pptime = Seconds(0)
+  m_pptime = Seconds(0);
 }
 
 
