@@ -66,6 +66,9 @@ namespace ndn {
     int
     ppSent();
 
+    void
+    Reset();
+
 
   private:
     int m_currentPhase;

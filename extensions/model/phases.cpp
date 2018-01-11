@@ -198,6 +198,14 @@ Phases::SendPP(){
   m_ppSent += 1;
 }
 
+void
+Phases::Reset() {
+  m_first = true;
+  m_initialized = false;
+  m_ppSent = 0;
+  m_pptime = Seconds(0)
+}
+
 
 } // namespace ndn
 } // namespace ns3
