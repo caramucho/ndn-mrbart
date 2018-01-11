@@ -91,16 +91,24 @@ ConsumerMrbart::ScheduleNextPacket()
 
   // double mean = 8.0 * m_payloadSize / m_desiredRate.GetBitRate ();
   // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) << "s\n";
-  if (m_firstTime) {
-    m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
-    m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this); //
-    m_firstTime = false;
-  }
-  // else if(!m_ppReceived){
-  //   return;
-  // }
-  else if (!m_sendEvent.IsRunning())
-    m_sendEvent = Simulator::Schedule(Seconds(1.0 / m_frequency), &ConsumerMrbart::SendPacket, this);
+  if (m_phase->GetCurrentPhase() == INITIAL_PHASE_1){
+    if(m_phase->ppSent() < 2){
+      m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
+      m_phase->SendPP();
+    }
+  }else{
+    // if (m_firstTime) {
+    //   m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
+    //   m_firstTime = false;
+    // }
+    // else if(!m_ppReceived){
+    //   return;
+    // }
+    // else
+      if (!m_sendEvent.IsRunning()){
+        m_sendEvent = Simulator::Schedule(Seconds(1.0 / m_frequency), &ConsumerMrbart::SendPacket, this);
+      }
+    }
 }
 
 void
@@ -134,31 +142,38 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
 {
   NS_LOG_FUNCTION_NOARGS();
 
-  Consumer::OnData(data);
+  double ips = 0;
   m_inflight -= 0.008;
+  uint32_t seq = data->getName().at(-1).toSequenceNumber();
+  // std::cout << Simulator::Now().GetMilliSeconds() << " Data for " << seq << '\n';
+
+  Consumer::OnData(data);
+  //Update the minrtt
   if(m_rtt->GetCurrentEstimate() < m_minrtt){
     m_minrtt = m_rtt->GetCurrentEstimate();
   }
-  uint32_t seq = data->getName().at(-1).toSequenceNumber();
-  std::cout << Simulator::Now().GetMilliSeconds() << " Data for " << seq << '\n';
-  double ips = 0;
-
+  // Ack the arrival of the initializing packet pair
+  // if (m_phase->GetCurrentPhase() == INITIAL_PHASE && !m_phase->isInitialized()){
+  //   m_phase->AckPP();
+  // }else{
+    // Calculate the ips
   if(m_counter < IPSCYCLE){
     m_counter += 1;
-    return;
   }else{
     ips = m_ips->AckSeq(SequenceNumber32(seq));
     m_counter = 0;
   }
-  if (ips == -1) {
-    return;
-  }
-  m_phase->Measurement(ips,m_ips->GetU());
-  m_phase->PhaseSwitch();
-  m_phase->CalculateNextFreq();
-  m_frequency = m_phase->GetFreq();
+  if ((ips != -1 && m_counter == 0) || (m_phase->GetCurrentPhase() == INITIAL_PHASE_1)) {
+    m_phase->Measurement(ips,m_ips->GetU());
+    m_phase->CalculateNextFreq();
+    m_frequency = m_phase->GetFreq();
+    if(m_phase->GetCurrentPhase() == INITIAL_PHASE_1 && m_phase->isInitialized()){
+      m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
+    }
+    m_phase->PhaseSwitch();
+    cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
-  cout << Simulator::Now ().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+  }
 
 }
 
@@ -198,7 +213,7 @@ ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
 {
   Consumer::WillSendOutInterest(sequenceNumber);
   NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber);
-  std::cout << Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber << '\n';
+  // std::cout << Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber << '\n';
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 

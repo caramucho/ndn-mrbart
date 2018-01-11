@@ -24,10 +24,13 @@ Phases::GetTypeId(void)
 }
 
 Phases::Phases()
-  : m_currentPhase(INITAL_PHASE)
+  : m_currentPhase(INITIAL_PHASE_1)
   , m_ipsCounter(0)
   , m_frequency(1.0)
-
+  , m_first(true)
+  , m_initialized(false)
+  , m_ppSent(0)
+  , m_pptime(Seconds(0))
 {
   NS_LOG_FUNCTION(this);
   m_kf = CreateObject<KalmanFilter>();
@@ -40,8 +43,12 @@ Phases::GetInstanceTypeId(void) const
 }
 void
 Phases::Measurement(double ips, double U){
-  m_ips = ips;
-  m_u = U;
+  if (m_currentPhase == INITIAL_PHASE_1){
+    AckPP();
+  }else{
+    m_ips = ips;
+    m_u = U;
+  }
 }
 
 void
@@ -52,11 +59,20 @@ Phases::PhaseSwitch(){
   // std::cout << m_currentPhase << '\n';
   switch(m_currentPhase)
   {
-    case INITAL_PHASE:
+    case INITIAL_PHASE_1:
+   {
+     if(m_initialized){
+       m_currentPhase = MAIN_PHASE;
+        m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+
+     }
+     break;
+   }
+    case INITIAL_PHASE_2:
    {
      if(m_ips > IPSTHRESHOLD){
        m_currentPhase = MAIN_PHASE;
-       m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+      //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
      }
      break;
    }
@@ -86,7 +102,11 @@ void
 Phases::CalculateNextFreq(){
   switch(m_currentPhase)
   {
-    case INITAL_PHASE:
+    case INITIAL_PHASE_1:{
+      m_frequency = rateToFreq((double)(NDN_PAYLOAD_SIZE * 8 / (1000 * 1000 * m_pptime.GetSeconds())));
+      break;
+    }
+    case INITIAL_PHASE_2:
     {
       m_frequency *= FREQGAIN;
       break;
@@ -121,22 +141,15 @@ Phases::GetEstimatedBandwidth(){
   double bw;
   switch(m_currentPhase)
   {
-    case INITAL_PHASE:
-    {
-      bw = freqToRate(m_frequency);
-      break;
-
-    }
     case MAIN_PHASE:
     {
       bw = m_kf->GetEstimatedBandwidth();
       break;
     }
-    case PROBE_PHASE:
+    default:
     {
       bw = freqToRate(m_frequency);
       break;
-
     }
   }
   return bw;
@@ -151,6 +164,40 @@ double
 Phases::rateToFreq(double rate){
   return rate / (8*0.008);
 }
+
+int
+Phases::GetCurrentPhase(){
+  return m_currentPhase;
+}
+
+void
+Phases::AckPP() {
+  std::cout << "Ack pp called" << '\n';
+  if(m_first){
+    m_pptime = Simulator::Now();
+    m_first = false;
+  }else{
+    if(m_pptime != Seconds(0.0)){
+      m_pptime = Simulator::Now() - m_pptime;
+      m_initialized = true;
+    }
+  }
+}
+
+bool
+Phases::isInitialized(){
+  return m_initialized;
+}
+
+int
+Phases::ppSent(){
+  return m_ppSent;
+}
+void
+Phases::SendPP(){
+  m_ppSent += 1;
+}
+
 
 } // namespace ndn
 } // namespace ns3
