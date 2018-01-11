@@ -6,4 +6,4 @@ build/
 *.pyc
 data/
 graphs/
-
+scripts/.ipynb_checkpoints/
