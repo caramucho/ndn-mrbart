@@ -174,7 +174,6 @@ Phases::GetCurrentPhase(){
 
 void
 Phases::AckPP() {
-  std::cout << "Ack pp called" << '\n';
   if(m_first){
     m_pptime = Simulator::Now();
     m_first = false;

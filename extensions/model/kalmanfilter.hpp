@@ -1,6 +1,7 @@
 #ifndef KALMANFILTER_H
 #define KALMANFILTER_H
-
+#include <deque>
+#include <tuple>
 #include <ns3/core-module.h>
 #include <Eigen/Dense>
 using namespace Eigen;
@@ -35,6 +36,7 @@ namespace ndn {
     Matrix2d m_u;   // x(n)=A*x(n-1)+u(n),u(n)~N(0,Q)
     Matrix2d m_Q;   //预测过程噪声偏差的方差
     Matrix2d m_H;   //测量噪声偏差，(系统搭建好以后，通过测量统计实验获得)
+    int m_index;
     std::deque<std::tuple<double,double>> m_measures;
 };
 }
