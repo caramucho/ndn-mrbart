@@ -35,7 +35,6 @@
 #ifndef NDN_PAYLOAD_SIZE
 #define NDN_PAYLOAD_SIZE 8000
 #endif
-#define IPSCYCLE 8
 
 NS_LOG_COMPONENT_DEFINE("ndn.ConsumerMrbart");
 
@@ -171,7 +170,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
       m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
     }
     m_phase->PhaseSwitch();
-    // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
   }
 

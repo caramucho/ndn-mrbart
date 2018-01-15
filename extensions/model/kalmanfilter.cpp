@@ -59,7 +59,7 @@ KalmanFilter::Measurement(double u, double ips)
       ipsvec.row(index) << std::get<1>(*i);
     }
     m_measures.clear();
-    std::cout << "a  " << m_a << '\n';
+    // std::cout << "a  " << m_a << '\n';
 
     m_index = 0;
     Vector2d v = ipsvec - m_u * m_a;

@@ -4,8 +4,8 @@
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
-#define IPSTHRESHOLD 0.05
-#define FREQGAIN 1.1
+#define IPSTHRESHOLD 0.1
+#define FREQGAIN 1.2
 #define NDN_PAYLOAD_SIZE 8000
 
 namespace ns3 {

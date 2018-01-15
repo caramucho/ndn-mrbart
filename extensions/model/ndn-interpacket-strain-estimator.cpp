@@ -159,7 +159,7 @@ double
 InterpacketStrainEstimator::GetU()
 {
   if (m_lastu != 0){
-    return m_lastu * 8.0; //u is the average of 8 interests
+    return m_lastu * IPSCYCLE; //u is the average of 8 interests
   }else{
     // std::cout << "m_lastu == 0" << '\n';
     return 0;

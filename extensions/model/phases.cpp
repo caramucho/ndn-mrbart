@@ -93,7 +93,7 @@ Phases::PhaseSwitch(){
    {
      if(m_ips > IPSTHRESHOLD){
        m_currentPhase = MAIN_PHASE;
-       m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+      //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
      }
      break;
    }
