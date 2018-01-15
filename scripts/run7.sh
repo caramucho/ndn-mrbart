@@ -7,4 +7,4 @@ waf --run="bwe-6-nodes" >> out.txt
 if [ ! -d "$DIRECTORY" ]; then
   mkdir "$DIRECTORY"
 fi
-mv out.txt "$DIRECTORY"/abw-1mbpsbn-0.5mbpsct.txt
+mv out.txt "$DIRECTORY"/uips-sample.txt

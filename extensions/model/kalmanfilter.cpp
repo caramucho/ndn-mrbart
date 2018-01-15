@@ -46,10 +46,12 @@ void
 KalmanFilter::Measurement(double u, double ips)
 {
   NS_LOG_FUNCTION_NOARGS();
-  if (u < 0.00001 || ips == -1 || ips < 0.00001){
+  if (u < 0.00001 || ips == -1 || ips < IPSTHRESHOLD){
     return;
   }
   std::cout <<"u "<< u << " ips " <<ips<< '\n';
+  // std::cout << u << "\t" << ips<< '\n';
+
   m_measures.push_back(std::make_tuple(u,ips));
   Vector2d ipsvec;
   if (m_measures.size() == 2){

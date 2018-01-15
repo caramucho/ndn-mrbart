@@ -5,6 +5,7 @@
 #include <ns3/core-module.h>
 #include <Eigen/Dense>
 using namespace Eigen;
+#define IPSTHRESHOLD 0.05
 namespace ns3 {
 namespace ndn {
 

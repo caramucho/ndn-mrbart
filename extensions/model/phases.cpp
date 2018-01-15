@@ -26,6 +26,7 @@ Phases::GetTypeId(void)
 Phases::Phases()
   : m_currentPhase(INITIAL_PHASE_1)
   , m_ipsCounter(0)
+  , m_probestep(0)
   , m_frequency(1.0)
   , m_first(true)
   , m_initialized(false)
@@ -78,12 +79,13 @@ Phases::PhaseSwitch(){
    }
    case MAIN_PHASE:
    {
-     if(m_ips == 0){
+     if(m_ips < IPSTHRESHOLD){
        m_ipsCounter += 1;
      }
      if(m_ipsCounter > 4){
        m_currentPhase = PROBE_PHASE;
        m_ipsCounter = 0;
+       m_probeInitial = m_frequency;
       //  m_currentPhase = INITIAL_PHASE_1;
        Reset();
      }
@@ -91,11 +93,23 @@ Phases::PhaseSwitch(){
    }
    case PROBE_PHASE:
    {
+    //  if(m_ips > IPSTHRESHOLD){
+    //    m_currentPhase = MAIN_PHASE;
+    //   //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+    //  }
+     m_probestep += 1;
      if(m_ips > IPSTHRESHOLD){
-       m_currentPhase = MAIN_PHASE;
-      //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+       m_ipsCounter += 1;
      }
-     break;
+     if(m_ipsCounter > 4){
+       m_currentPhase = MAIN_PHASE;
+       m_ipsCounter = 0;
+       m_probestep = 0;
+      //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
+      //  m_currentPhase = INITIAL_PHASE_1;
+       Reset();
+       break;
+     }
    }
  }
 }
@@ -117,8 +131,8 @@ Phases::CalculateNextFreq(){
     {
       m_kf->Measurement(m_u,m_ips);
       if(m_ips < IPSTHRESHOLD){
-        m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
-        // m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
+        // m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
+        m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
 
       }else{
         m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
@@ -127,7 +141,12 @@ Phases::CalculateNextFreq(){
     }
     case PROBE_PHASE:
     {
-      m_frequency *= FREQGAIN;
+      m_kf->Measurement(m_u,m_ips);
+      // std::cout << "gain: " << m_frequency / m_probeInitial  <<'\n';
+      m_frequency = m_probeInitial + (1 + (FREQGAIN-1) * (m_probestep/8.0));
+      // m_frequency = std::max(m_frequency * (1 + (FREQGAIN-1) * (m_ipsCounter/4.0)) , rateToFreq(m_kf->GetEstimatedBandwidth()));
+      // m_frequency *= FREQGAIN;
+
       break;
     }
   }
