@@ -177,6 +177,11 @@ Phases::GetEstimatedBandwidth(){
       bw = m_kf->GetEstimatedBandwidth();
       break;
     }
+    case PROBE_PHASE:
+    {
+      bw = m_kf->GetEstimatedBandwidth();
+      break;
+    }
     default:
     {
       bw = freqToRate(m_frequency);
