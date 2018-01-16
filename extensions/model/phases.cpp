@@ -32,6 +32,7 @@ Phases::Phases()
   , m_initialized(false)
   , m_ppSent(0)
   , m_pptime(Seconds(0))
+  , m_previousSmallIps(false)
 {
   NS_LOG_FUNCTION(this);
   m_kf = CreateObject<KalmanFilter>();
@@ -80,8 +81,16 @@ Phases::PhaseSwitch(){
    case MAIN_PHASE:
    {
      if(m_ips < IPSTHRESHOLD){
-       m_ipsCounter += 1;
+       if(m_previousSmallIps){
+         m_ipsCounter += 1;
+       }else{
+         m_previousSmallIps = true;
+       }
+     }else{
+       m_ipsCounter = 0;
+       m_previousSmallIps = false;
      }
+
      if(m_ipsCounter > 4){
        m_currentPhase = PROBE_PHASE;
        m_ipsCounter = 0;
@@ -90,7 +99,8 @@ Phases::PhaseSwitch(){
        Reset();
      }
      break;
-   }
+
+  }
    case PROBE_PHASE:
    {
     //  if(m_ips > IPSTHRESHOLD){
@@ -143,7 +153,7 @@ Phases::CalculateNextFreq(){
     {
       m_kf->Measurement(m_u,m_ips);
       // std::cout << "gain: " << m_frequency / m_probeInitial  <<'\n';
-      m_frequency = m_probeInitial + (1 + (FREQGAIN-1) * (m_probestep/8.0));
+      m_frequency = m_probeInitial + (1 + (FREQGAIN-1) * (m_probestep/4.0));
       // m_frequency = std::max(m_frequency * (1 + (FREQGAIN-1) * (m_ipsCounter/4.0)) , rateToFreq(m_kf->GetEstimatedBandwidth()));
       // m_frequency *= FREQGAIN;
 

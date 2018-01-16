@@ -4,7 +4,7 @@
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
-#define FREQGAIN 1.2
+#define FREQGAIN 1.5
 #define NDN_PAYLOAD_SIZE 8000
 
 namespace ns3 {
@@ -77,6 +77,7 @@ namespace ndn {
     int m_probestep;
     double m_probeInitial;
     double m_frequency;
+    bool m_previousSmallIps;
     Ptr<KalmanFilter> m_kf;
     bool m_first;
     bool m_initialized;
