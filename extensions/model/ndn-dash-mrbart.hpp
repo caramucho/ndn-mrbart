@@ -19,15 +19,27 @@ namespace ndn {
     virtual ~DashMrbart();
 
   protected:
+    void
+    SendPacket();
+
+    void
+    CalculateNextBitrate();
+
     /**
      * \brief Constructs the Interest packet and sends it using a callback to the underlying NDN
      * protocol
      */
-    // virtual void
-    // ScheduleNextPacket();
 
     void
     OnData(shared_ptr<const Data> contentObject);
+
+    uint32_t m_bitRate;
+    uint32_t m_nextSegmentSeqMax;
+    uint32_t m_segmentID;
+    uint32_t m_SegmentSeqMax;
+    // uint32_t m_segmentDownloadedSize;
+    Time m_SegmentFetchStart;
+
 };
 
 } // namespace ndn

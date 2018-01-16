@@ -48,7 +48,7 @@ protected:
   std::string
   GetRandomize() const;
 
-  void
+  virtual void
   SendPacket();
 
   virtual void

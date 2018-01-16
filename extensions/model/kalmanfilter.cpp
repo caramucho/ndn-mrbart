@@ -33,7 +33,7 @@ KalmanFilter::Init_KalmanInfo(double C)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_a << 1/C, -1;
-  std::cout << "initial rate :" << C << '\n';
+  // std::cout << "initial rate :" << C << '\n';
   // info->A = 1;  //标量卡尔曼
   // info->H = 1;  //
   // info->P = 10;  //后验状态估计值误差的方差的初始值（不要为0问题不大）
@@ -49,7 +49,7 @@ KalmanFilter::Measurement(double u, double ips)
   if (u < 0.00001 || ips == -1 || ips < IPSTHRESHOLD){
     return;
   }
-  std::cout <<"u "<< u << " ips " <<ips<< '\n';
+  // std::cout <<"u "<< u << " ips " <<ips<< '\n';
   // std::cout << u << "\t" << ips<< '\n';
 
   m_measures.push_back(std::make_tuple(u,ips));
