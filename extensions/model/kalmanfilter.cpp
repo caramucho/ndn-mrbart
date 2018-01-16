@@ -1,7 +1,7 @@
 #include "kalmanfilter.hpp"
 #include "ns3/log.h"
 #include <deque>
-#define MSIZE 2
+#define WINDOW 3
 
 
 NS_LOG_COMPONENT_DEFINE("ndn.kalmanFilter");
@@ -45,16 +45,21 @@ KalmanFilter::Init_KalmanInfo(double C)
 void
 KalmanFilter::Measurement(double u, double ips)
 {
+  // std::cout <<"u "<< u << "\t" << " ips " <<ips<< '\n';
+
   NS_LOG_FUNCTION_NOARGS();
   if (u < 0.00001 || ips == -1 || ips < IPSTHRESHOLD){
+    m_measures.clear();
     return;
   }
-  // std::cout <<"u "<< u << " ips " <<ips<< '\n';
+  m_measures.push_back(std::make_tuple(u,ips));
+
+  // std::cout <<"u "<< u << "\t" << " ips " <<ips<< '\n';
   // std::cout << u << "\t" << ips<< '\n';
 
-  m_measures.push_back(std::make_tuple(u,ips));
   Vector2d ipsvec;
   if (m_measures.size() == 2){
+    std::cout << "KalmanFilter Update" << '\n';
     for (auto i = m_measures.begin(); i != m_measures.end(); ++i){
       size_t index = std::distance(m_measures.begin(), i);
       m_u.row(index) << std::get<0>(*i), 1;
@@ -74,6 +79,7 @@ KalmanFilter::Measurement(double u, double ips)
     m_P = ppost + m_Q;
   }
 }
+
 
 
 double
