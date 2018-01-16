@@ -5,9 +5,10 @@
 
 #include <iostream>
 // #include "model/ndn-net-device-face.hpp"
-#include "model/ndn-consumer-mrbart.hpp"
+// #include "model/ndn-consumer-mrbart.hpp"
 #include "dash-parameters.h"
 #include "scenario-parameters.h"
+#include "model/ndn-dash-mrbart.hpp"
 
 
 using namespace ns3;
@@ -71,7 +72,8 @@ main(int argc, char* argv[])
     }
 
     //Consumer application
-    ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
+    ns3::ndn::AppHelper consumerHelper("ns3::ndn::DashMrbart");
+    // ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
   //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
     consumerHelper.SetPrefix("/Dst1");
 
