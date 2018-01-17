@@ -87,7 +87,7 @@ ConsumerMrbart::ScheduleNextPacket()
 
   // double mean = 8.0 * m_payloadSize / m_desiredRate.GetBitRate ();
   // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) << "s\n";
-  if (m_phase->GetCurrentPhase() == INITIAL_PHASE_1){
+  if (m_phase->GetCurrentPhase() == INITIAL_PHASE){
     if(m_phase->ppSent() < 2){
       m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
       m_phase->SendPP();
@@ -159,11 +159,11 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     ips = m_ips->AckSeq(SequenceNumber32(seq));
     m_counter = 0;
   }
-  if ((ips != -1 && m_counter == 0) || (m_phase->GetCurrentPhase() == INITIAL_PHASE_1)) {
+  if ((ips != -1 && m_counter == 0) || (m_phase->GetCurrentPhase() == INITIAL_PHASE)) {
     m_phase->Measurement(ips,m_ips->GetU());
     m_phase->CalculateNextFreq();
     m_frequency = m_phase->GetFreq();
-    if(m_phase->GetCurrentPhase() == INITIAL_PHASE_1 && m_phase->isInitialized()){
+    if(m_phase->GetCurrentPhase() == INITIAL_PHASE && m_phase->isInitialized()){
       m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
     }
     m_phase->PhaseSwitch();

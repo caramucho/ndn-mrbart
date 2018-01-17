@@ -24,7 +24,7 @@ Phases::GetTypeId(void)
 }
 
 Phases::Phases()
-  : m_currentPhase(INITIAL_PHASE_1)
+  : m_currentPhase(INITIAL_PHASE)
   , m_ipsCounter(0)
   , m_probestep(0)
   , m_frequency(1.0)
@@ -45,7 +45,7 @@ Phases::GetInstanceTypeId(void) const
 }
 void
 Phases::Measurement(double ips, double U){
-  if (m_currentPhase == INITIAL_PHASE_1){
+  if (m_currentPhase == INITIAL_PHASE){
     AckPP();
   }else{
     m_ips = ips;
@@ -61,20 +61,12 @@ Phases::PhaseSwitch(){
   // std::cout << m_currentPhase << '\n';
   switch(m_currentPhase)
   {
-    case INITIAL_PHASE_1:
+    case INITIAL_PHASE:
    {
      if(m_initialized){
        m_currentPhase = MAIN_PHASE;
         m_kf->Init_KalmanInfo(freqToRate(m_frequency));
 
-     }
-     break;
-   }
-    case INITIAL_PHASE_2:
-   {
-     if(m_ips > IPSTHRESHOLD){
-       m_currentPhase = MAIN_PHASE;
-      //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
      }
      break;
    }
@@ -95,7 +87,7 @@ Phases::PhaseSwitch(){
        m_currentPhase = PROBE_PHASE;
        m_ipsCounter = 0;
        m_probeInitial = m_frequency;
-      //  m_currentPhase = INITIAL_PHASE_1;
+      //  m_currentPhase = INITIAL_PHASE;
        Reset();
      }
      break;
@@ -116,7 +108,7 @@ Phases::PhaseSwitch(){
        m_ipsCounter = 0;
        m_probestep = 0;
       //  m_kf->Init_KalmanInfo(freqToRate(m_frequency));
-      //  m_currentPhase = INITIAL_PHASE_1;
+      //  m_currentPhase = INITIAL_PHASE;
        Reset();
        break;
      }
@@ -128,25 +120,22 @@ void
 Phases::CalculateNextFreq(){
   switch(m_currentPhase)
   {
-    case INITIAL_PHASE_1:{
+    case INITIAL_PHASE:{
       m_frequency = rateToFreq((double)(DATA_PACKET_SIZE * 8 / (1000 * 1000 * m_pptime.GetSeconds())));
-      break;
-    }
-    case INITIAL_PHASE_2:
-    {
-      m_frequency *= FREQGAIN;
       break;
     }
     case MAIN_PHASE:
     {
       m_kf->Measurement(m_u,m_ips);
-      if(m_ips < IPSTHRESHOLD){
-        // m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
-        m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
+      m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
 
-      }else{
-        m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
-      }
+      // if(m_ips < IPSTHRESHOLD){
+      //   // m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
+      //   m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
+      //
+      // }else{
+      //   m_frequency =  rateToFreq(m_kf->GetEstimatedBandwidth());
+      // }
       break;
     }
     case PROBE_PHASE:
@@ -196,7 +185,7 @@ Phases::freqToRate(double freq){
   return freq * 8 * DATA_PACKET_SIZE / 1000000.0;
 }
 
-double 
+double
 Phases::rateToFreq(double rate){
   return rate / (8 * DATA_PACKET_SIZE / 1000000.0);
 }

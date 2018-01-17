@@ -10,8 +10,7 @@ namespace ns3 {
 namespace ndn {
 
   enum phases {
-     INITIAL_PHASE_1,
-     INITIAL_PHASE_2,
+     INITIAL_PHASE,
      MAIN_PHASE,
      PROBE_PHASE
   };
