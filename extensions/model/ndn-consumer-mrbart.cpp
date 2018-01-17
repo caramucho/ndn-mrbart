@@ -167,8 +167,8 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
       m_sendEvent = Simulator::Schedule(Seconds(0.0), &ConsumerMrbart::SendPacket, this);
     }
     m_phase->PhaseSwitch();
-    cout << "phase"<<m_phase->GetCurrentPhase() << " "<< Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
-    // cout << "phase"<<m_phase->GetCurrentPhase() << " "<< Simulator::Now().GetSeconds() << "\t" <<  freqToRate(m_frequency) << endl;
+    // cout << "phase"<<m_phase->GetCurrentPhase() << " "<< Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
   }
 

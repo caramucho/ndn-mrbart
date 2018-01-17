@@ -105,7 +105,7 @@ DashMrbart::CalculateNextBitrate()
 
   m_SegmentSeqMax = m_nextSegmentSeqMax;
   m_nextSegmentSeqMax = m_seq + (m_bitRate * SEGMENT_LENGTH / (NDN_PAYLOAD_SIZE * 8));
-  // std::cout << "m_bitrate "<< m_bitRate << '\n';
+  std::cout << Simulator::Now().GetSeconds() << "\t" << m_bitRate / 1000000.0 << '\n';
   // std::cout << "size " << (m_bitRate * SEGMENT_LENGTH / (PAYLOADSIZE * 8)) << "segment max"<< m_SegmentSeqMax << " next seqMax" << m_nextSegmentSeqMax << '\n';
   // std::cout << "bitrate "<< m_bitRate << '\n';
 }

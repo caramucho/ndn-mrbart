@@ -36,6 +36,7 @@ Phases::Phases()
 {
   NS_LOG_FUNCTION(this);
   m_kf = CreateObject<KalmanFilter>();
+  SetRandomize();
 }
 
 TypeId
@@ -72,25 +73,25 @@ Phases::PhaseSwitch(){
    }
    case MAIN_PHASE:
    {
-     if(m_ips < IPSTHRESHOLD){
-       if(m_previousSmallIps){
-         m_ipsCounter += 1;
-       }else{
-         m_previousSmallIps = true;
-       }
-     }else{
-       m_ipsCounter = 0;
-       m_previousSmallIps = false;
-     }
-
-     if(m_ipsCounter > 4){
-       m_currentPhase = PROBE_PHASE;
-       m_ipsCounter = 0;
-       m_probeInitial = m_frequency;
-      //  m_currentPhase = INITIAL_PHASE;
-       Reset();
-     }
-     break;
+                        //  if(m_ips < IPSTHRESHOLD){
+                        //    if(m_previousSmallIps){
+                        //      m_ipsCounter += 1;
+                        //    }else{
+                        //      m_previousSmallIps = true;
+                        //    }
+                        //  }else{
+                        //    m_ipsCounter = 0;
+                        //    m_previousSmallIps = false;
+                        //  }
+                         //
+                        //  if(m_ipsCounter > 4){
+                        //    m_currentPhase = PROBE_PHASE;
+                        //    m_ipsCounter = 0;
+                        //    m_probeInitial = m_frequency;
+                        //   //  m_currentPhase = INITIAL_PHASE;
+                        //    Reset();
+                        //  }
+                        //  break;
 
   }
    case PROBE_PHASE:
@@ -127,7 +128,9 @@ Phases::CalculateNextFreq(){
     case MAIN_PHASE:
     {
       m_kf->Measurement(m_u,m_ips);
-      m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
+      double gain = m_random->GetValue();
+      // std::cout << "gain "<< gain << '\n';
+      m_frequency =  gain * rateToFreq(m_kf->GetEstimatedBandwidth());
 
       // if(m_ips < IPSTHRESHOLD){
       //   // m_frequency =  FREQGAIN * rateToFreq(m_kf->GetEstimatedBandwidth());
@@ -228,6 +231,15 @@ Phases::Reset() {
   m_initialized = false;
   m_ppSent = 0;
   m_pptime = Seconds(0);
+}
+
+void
+Phases::SetRandomize()
+{
+  RngSeedManager::SetSeed (2);
+  m_random = CreateObject<UniformRandomVariable>();
+  m_random->SetAttribute("Min", DoubleValue(1.2));
+  m_random->SetAttribute("Max", DoubleValue(1.4));
 }
 
 

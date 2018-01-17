@@ -66,6 +66,9 @@ namespace ndn {
     void
     Reset();
 
+    void
+    SetRandomize();
+
 
   private:
     int m_currentPhase;
@@ -81,6 +84,7 @@ namespace ndn {
     bool m_initialized;
     int m_ppSent;
     Time m_pptime;
+    Ptr<RandomVariableStream> m_random;
   };
 
 

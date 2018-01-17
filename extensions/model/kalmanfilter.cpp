@@ -47,7 +47,7 @@ KalmanFilter::Measurement(double u, double ips)
   // std::cout <<"u "<< u << "\t" << " ips " <<ips<< '\n';
 
   NS_LOG_FUNCTION_NOARGS();
-  if (u < 0.00001 || ips == -1 || ips < IPSTHRESHOLD){
+  if (u < 0.00001 || ips == -1 ){
     m_measures.clear();
     return;
   }
@@ -58,7 +58,7 @@ KalmanFilter::Measurement(double u, double ips)
 
   Vector2d ipsvec;
   if (m_measures.size() == 2){
-    std::cout << "KalmanFilter Update" << '\n';
+    // std::cout << "KalmanFilter Update" << '\n';
     for (auto i = m_measures.begin(); i != m_measures.end(); ++i){
       size_t index = std::distance(m_measures.begin(), i);
       m_u.row(index) << std::get<0>(*i), 1;
