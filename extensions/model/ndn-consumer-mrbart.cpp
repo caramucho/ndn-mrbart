@@ -32,9 +32,6 @@
 
 #include <ndn-cxx/lp/tags.hpp>
 
-#ifndef NDN_PAYLOAD_SIZE
-#define NDN_PAYLOAD_SIZE 8000
-#endif
 
 NS_LOG_COMPONENT_DEFINE("ndn.ConsumerMrbart");
 
@@ -131,7 +128,7 @@ ConsumerMrbart::SendPacket()
     ScheduleNextPacket();
     return;
   }
-  m_inflight += 0.008;
+  m_inflight += DATA_PACKET_SIZE / 1000000.0;
   Consumer::SendPacket();
 
 }
@@ -142,7 +139,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   NS_LOG_FUNCTION_NOARGS();
 
   double ips = 0;
-  m_inflight -= 0.008;
+  m_inflight -= DATA_PACKET_SIZE / 1000000.0;
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
   // std::cout << Simulator::Now().GetMilliSeconds() << " Data for " << seq << '\n';
 
@@ -217,15 +214,15 @@ ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 
-double
-ConsumerMrbart::freqToRate(double freq){
-  return freq * 8 * 0.008;
-}
-
-double
-ConsumerMrbart::rateToFreq(double rate){
-  return rate / (8*0.008);
-}
+// double
+// ConsumerMrbart::freqToRate(double freq){
+//   return freq * 8 * 0.008;
+// }
+//
+// double
+// ConsumerMrbart::rateToFreq(double rate){
+//   return rate / (8*0.008);
+// }
 
 
 

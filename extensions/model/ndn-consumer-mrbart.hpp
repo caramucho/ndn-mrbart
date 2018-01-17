@@ -63,11 +63,11 @@ protected:
   void
   WillSendOutInterest(uint32_t sequenceNumber);
 
-  double
-  freqToRate(double freq);
-
-  double
-  rateToFreq(double rate);
+  // double
+  // freqToRate(double freq);
+  //
+  // double
+  // rateToFreq(double rate);
 
 protected:
   double m_frequency; // Frequency of interest packets (in hertz)

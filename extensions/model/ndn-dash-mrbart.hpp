@@ -2,7 +2,7 @@
 #define NDN_DASH_MRBART_H
 
 #include "ndn-consumer-mrbart.hpp"
-
+#include "parameter.hpp"
 namespace ns3 {
 namespace ndn {
 

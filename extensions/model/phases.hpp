@@ -4,8 +4,7 @@
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
-#define FREQGAIN 1.5
-#define NDN_PAYLOAD_SIZE 8000
+#include "parameter.hpp"
 
 namespace ns3 {
 namespace ndn {
@@ -38,10 +37,10 @@ namespace ndn {
     void
     PhaseSwitch();
 
-    double
+    static double
     freqToRate(double freq);
 
-    double
+    static double
     rateToFreq(double rate);
 
     double

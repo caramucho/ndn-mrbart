@@ -129,7 +129,7 @@ Phases::CalculateNextFreq(){
   switch(m_currentPhase)
   {
     case INITIAL_PHASE_1:{
-      m_frequency = rateToFreq((double)(NDN_PAYLOAD_SIZE * 8 / (1000 * 1000 * m_pptime.GetSeconds())));
+      m_frequency = rateToFreq((double)(DATA_PACKET_SIZE * 8 / (1000 * 1000 * m_pptime.GetSeconds())));
       break;
     }
     case INITIAL_PHASE_2:
@@ -193,12 +193,12 @@ Phases::GetEstimatedBandwidth(){
 
 double
 Phases::freqToRate(double freq){
-  return freq * 8 * 0.008;
+  return freq * 8 * DATA_PACKET_SIZE / 1000000.0;
 }
 
-double
+double 
 Phases::rateToFreq(double rate){
-  return rate / (8*0.008);
+  return rate / (8 * DATA_PACKET_SIZE / 1000000.0);
 }
 
 int

@@ -7,8 +7,7 @@
 #include "ns3/nstime.h"
 #include "ns3/object.h"
 #include<memory>
-#define IPSCYCLE 10
-
+#include "parameter.hpp"
 namespace ns3 {
 namespace ndn {
 

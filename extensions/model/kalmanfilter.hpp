@@ -4,8 +4,10 @@
 #include <tuple>
 #include <ns3/core-module.h>
 #include <Eigen/Dense>
+#include "parameter.hpp"
+
 using namespace Eigen;
-#define IPSTHRESHOLD 0.03
+
 namespace ns3 {
 namespace ndn {
 
@@ -39,7 +41,6 @@ namespace ndn {
     Matrix2d m_H;   //测量噪声偏差，(系统搭建好以后，通过测量统计实验获得)
     int m_index;
     std::deque<std::tuple<double,double>> m_measures;
-    // bool m_previous;
 };
 }
 }

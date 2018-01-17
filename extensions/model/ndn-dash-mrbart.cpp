@@ -1,7 +1,7 @@
 #include "ndn-dash-mrbart.hpp"
 NS_LOG_COMPONENT_DEFINE("ndn.DashMrbart");
-#define SEGMENT_LENGTH 2
-#define PAYLOADSIZE 8000
+
+
 namespace ns3 {
 namespace ndn {
 
@@ -52,6 +52,8 @@ DashMrbart::OnData(shared_ptr<const Data> data)
   // if(!m_phase->isInitialized()){
   //   return;
   // }
+
+  // std::cout << "size" <<data->wireEncode().size()<< '\n';
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
 
   if (seq == m_SegmentSeqMax){
@@ -80,7 +82,7 @@ DashMrbart::CalculateNextBitrate()
   // m_segmentDownloadedSize = 0;
   // m_bitRate = (uint32_t)(previousRate);
   uint32_t previousRate = m_bitRate;
-  if(freqToRate(m_frequency) < rates[0]){
+  if(Phases::freqToRate(m_frequency) < rates[0]){
     m_bitRate = rates[0];
   }
 
@@ -102,7 +104,7 @@ DashMrbart::CalculateNextBitrate()
   // m_bitRate = freqToRate(m_frequency) * 1000000;
 
   m_SegmentSeqMax = m_nextSegmentSeqMax;
-  m_nextSegmentSeqMax = m_seq + (m_bitRate * SEGMENT_LENGTH / (PAYLOADSIZE * 8));
+  m_nextSegmentSeqMax = m_seq + (m_bitRate * SEGMENT_LENGTH / (NDN_PAYLOAD_SIZE * 8));
   // std::cout << "m_bitrate "<< m_bitRate << '\n';
   // std::cout << "size " << (m_bitRate * SEGMENT_LENGTH / (PAYLOADSIZE * 8)) << "segment max"<< m_SegmentSeqMax << " next seqMax" << m_nextSegmentSeqMax << '\n';
   // std::cout << "bitrate "<< m_bitRate << '\n';

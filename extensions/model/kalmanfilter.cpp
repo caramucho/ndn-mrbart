@@ -1,7 +1,6 @@
 #include "kalmanfilter.hpp"
 #include "ns3/log.h"
 #include <deque>
-#define WINDOW 3
 
 
 NS_LOG_COMPONENT_DEFINE("ndn.kalmanFilter");
