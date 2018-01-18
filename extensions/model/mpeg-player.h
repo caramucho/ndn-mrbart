@@ -23,7 +23,7 @@
 
 #include <queue>
 #include <map>
-// #include "dash-client.h"
+#include "ndn-dash-mrbart.hpp"
 #include <ns3/core-module.h>
 #include <ns3/ndnSIM-module.h>
 
@@ -59,7 +59,7 @@ namespace ns3
     GetRealPlayTime(Time playTime);
 
     void inline
-    SchduleBufferWakeup(const Time t, DashClient * client)
+    SchduleBufferWakeup(const Time t, DashMrbart * client)
     {
       m_bufferDelay = t;
       m_dashClient = client;
@@ -77,6 +77,9 @@ namespace ns3
     uint32_t m_f_id;
     uint32_t m_segment_id;
 
+    void
+    ReceiveData(uint32_t resolution);
+
   private:
     void
     PlayFrame();
@@ -84,8 +87,9 @@ namespace ns3
     Time m_lastpaused;
     std::queue<Ptr<Packet> > m_queue;
     Time m_bufferDelay;
-    DashClient * m_dashClient;
-
+    DashMrbart * m_dashClient;
+    uint32_t m_buffer_size;
+    
   };
 }
 } // namespace ns3

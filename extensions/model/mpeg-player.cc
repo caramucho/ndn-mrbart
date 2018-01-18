@@ -24,7 +24,7 @@
 #include "http-header.h"
 #include "mpeg-header.h"
 #include "mpeg-player.h"
-#include "dash-client.h"
+// #include "dash-client.h"
 #include <cmath>
 
 NS_LOG_COMPONENT_DEFINE("MpegPlayer");
@@ -35,7 +35,7 @@ namespace ns3
 
   MpegPlayer::MpegPlayer() :
       m_state(MPEG_PLAYER_NOT_STARTED), m_interrruptions(0), m_totalRate(0), m_minRate(
-          100000000), m_framesPlayed(0), m_bufferDelay("0s")
+          100000000), m_framesPlayed(0), m_bufferDelay("0s") , m_buffer_size(0)
   {
     NS_LOG_FUNCTION(this);
   }
@@ -138,7 +138,7 @@ namespace ns3
 
     if (m_bufferDelay > Time("0s") && b_t < m_bufferDelay && m_dashClient)
       {
-        m_dashClient->RequestSegment();
+        // m_dashClient->RequestSegment();
         m_bufferDelay = Seconds(0);
         m_dashClient = NULL;
       }
@@ -173,7 +173,7 @@ namespace ns3
                 - (int) (mpeg_header_tmp.GetSerializedSize()
                     + http_header_tmp.GetSerializedSize()
                   ), 1)));
-    uint32_t total_size = 0;
+    m_buffer_size += 8000;
 
     while (true)
       {
@@ -182,9 +182,8 @@ namespace ns3
           m_segment_id++;
           break;
         }
-        uint32_t frame_size = (unsigned) frame_size_gen->GetValue();
-        total_size += frame_size + (int) mpeg_header_tmp.GetSerializedSize();
-        if (total_size > 8000){
+        uint32_t frame_size = (unsigned) frame_size_gen->GetValue() + (int) mpeg_header_tmp.GetSerializedSize();
+        if (m_buffer_size - frame_size < 0){
           break;
         }
         HTTPHeader http_header;
@@ -210,6 +209,7 @@ namespace ns3
             "SENDING PACKET " << m_f_id << " " << frame->GetSize() << " res=" << http_header.GetResolution() << " size=" << mpeg_header.GetSize() << " avg=" << avg_packetsize);
         ReceiveFrame(frame);
         m_f_id++;
+        m_buffer_size -= frame_size;
 
       }
     // DataSend(socket, 0);
