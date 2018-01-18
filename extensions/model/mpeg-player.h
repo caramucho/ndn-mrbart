@@ -74,6 +74,9 @@ namespace ns3
     uint32_t m_minRate;
     uint32_t m_framesPlayed;
 
+    uint32_t m_f_id;
+    uint32_t m_segment_id;
+
   private:
     void
     PlayFrame();

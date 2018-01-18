@@ -155,5 +155,64 @@ namespace ns3
     Simulator::Schedule(MilliSeconds(20), &MpegPlayer::PlayFrame, this);
 
   }
+
+  void
+  MpegPlayer::ReceiveData(uint32_t resolution)
+  {
+    int avg_packetsize = resolution / (50 * 8);
+
+    HTTPHeader http_header_tmp;
+    MPEGHeader mpeg_header_tmp;
+
+    Ptr<UniformRandomVariable> frame_size_gen = CreateObject<UniformRandomVariable> ();
+
+    frame_size_gen->SetAttribute ("Min", DoubleValue (0));
+    frame_size_gen->SetAttribute ("Max", DoubleValue (
+        std::max(
+            std::min(2 * avg_packetsize, MPEG_MAX_MESSAGE)
+                - (int) (mpeg_header_tmp.GetSerializedSize()
+                    + http_header_tmp.GetSerializedSize()
+                  ), 1)));
+    uint32_t total_size = 0;
+
+    while (true)
+      {
+        if(m_f_id >= MPEG_FRAMES_PER_SEGMENT){
+          m_f_id = 0;
+          m_segment_id++;
+          break;
+        }
+        uint32_t frame_size = (unsigned) frame_size_gen->GetValue();
+        total_size += frame_size + (int) mpeg_header_tmp.GetSerializedSize();
+        if (total_size > 8000){
+          break;
+        }
+        HTTPHeader http_header;
+        http_header.SetMessageType(HTTP_RESPONSE);
+        // http_header.SetVideoId(video_id);
+        http_header.SetVideoId(1);
+        http_header.SetResolution(resolution);
+        http_header.SetSegmentId(m_segment_id);
+
+        MPEGHeader mpeg_header;
+        mpeg_header.SetFrameId(m_f_id);
+        mpeg_header.SetPlaybackTime(
+            MilliSeconds(
+                (m_f_id + (m_segment_id * MPEG_FRAMES_PER_SEGMENT))
+                    * MPEG_TIME_BETWEEN_FRAMES)); //50 fps
+        mpeg_header.SetType('B');
+        mpeg_header.SetSize(frame_size);
+
+        Ptr<Packet> frame = Create<Packet>(frame_size);
+        // frame->AddHeader(http_header);
+        frame->AddHeader(mpeg_header);
+        NS_LOG_INFO(
+            "SENDING PACKET " << m_f_id << " " << frame->GetSize() << " res=" << http_header.GetResolution() << " size=" << mpeg_header.GetSize() << " avg=" << avg_packetsize);
+        ReceiveFrame(frame);
+        m_f_id++;
+
+      }
+    // DataSend(socket, 0);
+  }
 }
 } // namespace ns3
