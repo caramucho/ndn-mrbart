@@ -80,7 +80,8 @@ DashMrbart::OnData(shared_ptr<const Data> data)
   // std::cout << data->getName().toUri() << '\n';
   m_player->ReceiveData(bitrate, segment_id);
   // AddBitRate(Simulator::Now(), 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
-  // Time currDt = m_player->GetRealPlayTime(mpegHeader.GetPlaybackTime());
+  Time currDt = m_player->GetCurrDt();
+  std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
   // And tell the player to monitor the buffer level
   // LogBufferLevel(currDt);
   // uint32_t old = m_bitRate;

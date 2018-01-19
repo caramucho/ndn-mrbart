@@ -70,6 +70,10 @@ namespace ns3
 //    NS_LOG_INFO("Received Frame " << m_state);
 
     Ptr<Packet> msg = message->Copy();
+    Ptr<Packet> msg2 = message->Copy();
+    MPEGHeader mpeg_header;
+    message->RemoveHeader(mpeg_header);
+    m_currDt = GetRealPlayTime(mpeg_header.GetPlaybackTime());
 
     m_queue.push(msg);
     if (m_state == MPEG_PLAYER_PAUSED)
@@ -232,6 +236,11 @@ namespace ns3
       m_making_segment = false;
       // m_remained_buffer = buffer;
     // DataSend(socket, 0);
+  }
+
+  Time
+  MpegPlayer::GetCurrDt(){
+    return m_currDt;
   }
 }
 } // namespace ns3

@@ -75,6 +75,7 @@ namespace ns3
     uint32_t m_framesPlayed;
 
     uint32_t m_f_id;
+    Time m_currDt;
     // uint32_t m_segment_id;
 
     void
@@ -82,6 +83,9 @@ namespace ns3
 
     void
     MakeSegment(uint32_t resolution, uint32_t segment_id);
+
+    Time
+    GetCurrDt();
 
   private:
     void
