@@ -146,12 +146,12 @@ namespace ns3
 //    NS_LOG_INFO(
 //        Simulator::Now().GetSeconds() << " PLAYING FRAME: " << " VidId: " << http_header.GetVideoId() << " SegId: " << http_header.GetSegmentId() << " Res: " << http_header.GetResolution() << " FrameId: " << mpeg_header.GetFrameId() << " PlayTime: " << mpeg_header.GetPlaybackTime().GetSeconds() << " Type: " << (char) mpeg_header.GetType() << " interTime: " << m_interruption_time.GetSeconds() << " queueLength: " << m_queue.size());
 
-    /*   std::cout << " frId: " << mpeg_header.GetFrameId()
-     << " playtime: " << mpeg_header.GetPlaybackTime()
-     << " target: " << (m_start_time + m_interruption_time + mpeg_header.GetPlaybackTime()).GetSeconds()
-     << " now: " << Simulator::Now().GetSeconds()
-     << std::endl;
-     */
+    // std::cout << " frId: " << mpeg_header.GetFrameId()
+    //  << " playtime: " << mpeg_header.GetPlaybackTime()
+    //  << " target: " << (m_start_time + m_interruption_time + mpeg_header.GetPlaybackTime()).GetSeconds()
+    //  << " now: " << Simulator::Now().GetSeconds()
+    //  << std::endl;
+
     Simulator::Schedule(MilliSeconds(20), &MpegPlayer::PlayFrame, this);
 
   }
@@ -180,6 +180,7 @@ namespace ns3
         if(m_f_id >= MPEG_FRAMES_PER_SEGMENT){
           m_f_id = 0;
           m_segment_id++;
+          m_buffer_size = 0;
           break;
         }
         uint32_t frame_size = (unsigned) frame_size_gen->GetValue() + (int) mpeg_header_tmp.GetSerializedSize();

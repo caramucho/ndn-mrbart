@@ -3,8 +3,12 @@
 
 #include "ndn-consumer-mrbart.hpp"
 #include "parameter.hpp"
+#include "mpeg-player.h"
+
 namespace ns3 {
 namespace ndn {
+
+  class MpegPlayer;
 
   class DashMrbart : public ConsumerMrbart {
   public:
@@ -35,10 +39,11 @@ namespace ndn {
 
     uint32_t m_bitRate;
     uint32_t m_nextSegmentSeqMax;
-    uint32_t m_segmentID;
+    uint32_t m_segment_id;
     uint32_t m_SegmentSeqMax;
     // uint32_t m_segmentDownloadedSize;
     Time m_SegmentFetchStart;
+    Ptr<MpegPlayer> m_player;
 
 };
 

@@ -36,9 +36,9 @@ namespace ns3
     MPEG_PLAYER_PAUSED, MPEG_PLAYER_PLAYING, MPEG_PLAYER_NOT_STARTED, MPEG_PLAYER_DONE
   };
 
-  // class DashClient;
+  class DashMrbart;
 
-  class MpegPlayer
+  class MpegPlayer : public Object
   {
   public:
     MpegPlayer();
@@ -88,8 +88,8 @@ namespace ns3
     std::queue<Ptr<Packet> > m_queue;
     Time m_bufferDelay;
     DashMrbart * m_dashClient;
-    uint32_t m_buffer_size;
-    
+    int m_buffer_size;
+
   };
 }
 } // namespace ns3
