@@ -22,12 +22,24 @@ namespace ndn {
     DashMrbart();
     virtual ~DashMrbart();
 
+    void
+    RequestSegment();
+
   protected:
     void
     SendPacket();
 
     void
     CalculateNextBitrate();
+
+    virtual void
+    CalcNextSegment(uint32_t currRate, uint32_t & nextRate, Time & delay);
+
+    void
+    LogBufferLevel(Time t);
+
+
+
 
     /**
      * \brief Constructs the Interest packet and sends it using a callback to the underlying NDN
@@ -44,6 +56,10 @@ namespace ndn {
     // uint32_t m_segmentDownloadedSize;
     Time m_SegmentFetchStart;
     Ptr<MpegPlayer> m_player;
+
+    std::map<Time, Time> m_bufferState;
+    Time m_window; //The window for measuring the average throughput (Time)
+    double m_bitrateEstimate;
 
 };
 
