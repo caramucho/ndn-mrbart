@@ -61,7 +61,6 @@ DashMrbart::OnData(shared_ptr<const Data> data)
   // }
 
   // std::cout << "size" <<data->wireEncode().size()<< '\n';
-  // ReceiveData()
   if (data->getName().size() < 4) {
     return;
   }
@@ -77,7 +76,7 @@ DashMrbart::OnData(shared_ptr<const Data> data)
 
   uint32_t bitrate = data->getName().at(1).toNumber();
   uint32_t segment_id = data->getName().at(2).toNumber();
-  std::cout << "bitrate " << bitrate  <<" segid "<< segment_id <<'\n';
+  // std::cout << "bitrate " << bitrate  <<" segid "<< segment_id <<'\n';
   // std::cout << data->getName().toUri() << '\n';
   m_player->ReceiveData(bitrate, segment_id);
   // AddBitRate(Simulator::Now(), 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());

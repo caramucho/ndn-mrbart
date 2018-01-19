@@ -35,7 +35,7 @@ namespace ns3
 
   MpegPlayer::MpegPlayer() :
       m_state(MPEG_PLAYER_NOT_STARTED), m_interrruptions(0), m_totalRate(0), m_minRate(
-          100000000), m_framesPlayed(0), m_bufferDelay("0s") , m_buffer_size(0)
+          100000000), m_framesPlayed(0), m_bufferDelay("0s"), m_making_segment(false)
   {
     NS_LOG_FUNCTION(this);
   }
@@ -157,10 +157,24 @@ namespace ns3
   }
 
   void
-  MpegPlayer::ReceiveData(uint32_t resolution)
+  MpegPlayer::ReceiveData(uint32_t resolution , uint32_t segment_id)
   {
-    int avg_packetsize = resolution / (50 * 8);
+    if(m_buffer.count(segment_id) != 0) {
+      get<0>(m_buffer[segment_id]) += 8000;
+    }else{
+      m_buffer[segment_id] = make_pair(8000,0);
+    }
+    // std::cout << "buffer" << get<0>(m_buffer[segment_id])<< '\n';
+    if(!m_making_segment){
+      MakeSegment(resolution, segment_id);
+    }
+  }
 
+  void
+  MpegPlayer::MakeSegment(uint32_t resolution, uint32_t segment_id)
+  {
+    m_making_segment = true;
+    int avg_packetsize = resolution / (50 * 8);
     HTTPHeader http_header_tmp;
     MPEGHeader mpeg_header_tmp;
 
@@ -173,32 +187,33 @@ namespace ns3
                 - (int) (mpeg_header_tmp.GetSerializedSize()
                     + http_header_tmp.GetSerializedSize()
                   ), 1)));
-    m_buffer_size += 8000;
+    uint32_t frame_size = (unsigned) frame_size_gen->GetValue() + (int) mpeg_header_tmp.GetSerializedSize();
+    int& buffer = get<0>(m_buffer[segment_id]);
+    uint32_t& fid = get<1>(m_buffer[segment_id]);
 
-    while (true)
-      {
-        if(m_f_id >= MPEG_FRAMES_PER_SEGMENT){
-          m_f_id = 0;
-          m_segment_id++;
-          m_buffer_size = 0;
+    while (((int)buffer - (int)frame_size) > 0)
+    {
+        if(fid >= MPEG_FRAMES_PER_SEGMENT){
+          // fid = 0;
+          // segment_id++;
+          // m_buffer[segment_id] = 0;
           break;
         }
-        uint32_t frame_size = (unsigned) frame_size_gen->GetValue() + (int) mpeg_header_tmp.GetSerializedSize();
-        if (m_buffer_size - frame_size < 0){
-          break;
-        }
+        // if (buffer - frame_size < 0){
+        //   break;
+        // }
         HTTPHeader http_header;
         http_header.SetMessageType(HTTP_RESPONSE);
         // http_header.SetVideoId(video_id);
         http_header.SetVideoId(1);
         http_header.SetResolution(resolution);
-        http_header.SetSegmentId(m_segment_id);
+        http_header.SetSegmentId(segment_id);
 
         MPEGHeader mpeg_header;
-        mpeg_header.SetFrameId(m_f_id);
+        mpeg_header.SetFrameId(fid);
         mpeg_header.SetPlaybackTime(
             MilliSeconds(
-                (m_f_id + (m_segment_id * MPEG_FRAMES_PER_SEGMENT))
+                (fid + (segment_id * MPEG_FRAMES_PER_SEGMENT))
                     * MPEG_TIME_BETWEEN_FRAMES)); //50 fps
         mpeg_header.SetType('B');
         mpeg_header.SetSize(frame_size);
@@ -207,12 +222,15 @@ namespace ns3
         // frame->AddHeader(http_header);
         frame->AddHeader(mpeg_header);
         NS_LOG_INFO(
-            "SENDING PACKET " << m_f_id << " " << frame->GetSize() << " res=" << http_header.GetResolution() << " size=" << mpeg_header.GetSize() << " avg=" << avg_packetsize);
+            "SENDING PACKET " << fid << " " << frame->GetSize() << " res=" << http_header.GetResolution() << " size=" << mpeg_header.GetSize() << " avg=" << avg_packetsize);
         ReceiveFrame(frame);
-        m_f_id++;
-        m_buffer_size -= frame_size;
+        fid++;
+        buffer -= frame_size;
+        frame_size = (unsigned) frame_size_gen->GetValue() + (int) mpeg_header_tmp.GetSerializedSize();
 
       }
+      m_making_segment = false;
+      // m_remained_buffer = buffer;
     // DataSend(socket, 0);
   }
 }

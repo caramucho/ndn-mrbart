@@ -75,20 +75,24 @@ namespace ns3
     uint32_t m_framesPlayed;
 
     uint32_t m_f_id;
-    uint32_t m_segment_id;
+    // uint32_t m_segment_id;
 
     void
-    ReceiveData(uint32_t resolution);
+    ReceiveData(uint32_t resolution, uint32_t segment_id);
+
+    void
+    MakeSegment(uint32_t resolution, uint32_t segment_id);
 
   private:
     void
     PlayFrame();
 
     Time m_lastpaused;
-    std::queue<Ptr<Packet> > m_queue;
+    std::queue<Ptr<Packet>> m_queue;
     Time m_bufferDelay;
     DashMrbart * m_dashClient;
-    int m_buffer_size;
+    std::map<uint32_t, std::pair<int, uint32_t>> m_buffer;
+    bool m_making_segment;
 
   };
 }
