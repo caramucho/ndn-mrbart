@@ -55,7 +55,7 @@ DashMrbart::SendPacket() {
     m_bitrateEstimate = m_phase->GetEstimatedBandwidth() * 1000000;
     CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
 
-    std::cout <<Simulator::Now().GetSeconds()<< "\t" << "bitrate " << m_bitRate << '\n';
+    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << "bitrate " << m_bitRate << '\n';
 
     if (bufferDelay == Seconds(0)){
       NS_LOG_INFO( "Request next segment" );

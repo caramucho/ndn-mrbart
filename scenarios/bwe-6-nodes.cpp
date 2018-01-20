@@ -72,7 +72,7 @@ main(int argc, char* argv[])
     }
 
     //Consumer application
-    ns3::ndn::AppHelper consumerHelper("ns3::ndn::OsmpClient");
+    ns3::ndn::AppHelper consumerHelper("ns3::ndn::DashMrbart");
     // ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
   //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
     consumerHelper.SetPrefix("/Dst1");
@@ -112,12 +112,13 @@ main(int argc, char* argv[])
 
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
+    consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
     consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
     consumerapps[1] = consumerapp2;
-    consumerapp2.Start(Seconds(SCENARIOTIME/3));
-    consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
+    consumerapp2.Start(Seconds(0));
+    consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();

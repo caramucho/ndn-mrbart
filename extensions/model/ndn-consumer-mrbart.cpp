@@ -153,12 +153,14 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   //   m_phase->AckPP();
   // }else{
     // Calculate the ips
-  if(m_counter < IPSCYCLE){
-    m_counter += 1;
-  }else{
-    ips = m_ips->AckSeq(SequenceNumber32(seq));
-    m_counter = 0;
-  }
+  m_ips->AckSeq(SequenceNumber32(seq),NDN_PAYLOAD_SIZE);
+  ips = m_ips->GetIpsEstimation();
+  // if(m_counter < IPSCYCLE){
+  //   m_counter += 1;
+  // }else{
+  //   ips = m_ips->AckSeq(SequenceNumber32(seq));
+  //   m_counter = 0;
+  // }
   if ((ips != -1 && m_counter == 0) || (m_phase->GetCurrentPhase() == INITIAL_PHASE)) {
     m_phase->Measurement(ips,m_ips->GetU());
     m_phase->CalculateNextFreq();
@@ -168,7 +170,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     }
     m_phase->PhaseSwitch();
     // cout << "phase"<<m_phase->GetCurrentPhase() << " "<< Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
-    // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
   }
 

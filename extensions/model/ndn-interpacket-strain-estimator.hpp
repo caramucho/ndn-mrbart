@@ -6,8 +6,9 @@
 #include "ns3/sequence-number.h"
 #include "ns3/nstime.h"
 #include "ns3/object.h"
-#include<memory>
+#include <memory>
 #include "parameter.hpp"
+#include <map>
 namespace ns3 {
 namespace ndn {
 
@@ -40,10 +41,10 @@ namespace ndn {
     SentSeq(SequenceNumber32 seq, uint32_t size);
 
     double
-    AckSeq(SequenceNumber32 ackSeq);
+    AckSeq(SequenceNumber32 ackSeq, uint32_t size);
 
-    void
-    Measurement(Time measure);
+    double
+    GetIpsEstimation();
 
     double
     GetU();
@@ -57,8 +58,11 @@ namespace ndn {
 
   private:
     Time m_variance; // Current variance
-    IpsHistory_t m_history;
-    Ptr<IpsHistory> m_previousAckSeq;
+    // IpsHistory_t m_history;
+    std::map<SequenceNumber32, Time> m_history;
+    IpsHistory_t m_arrival;
+    Time m_window;
+    // Ptr<IpsHistory> m_previousAckSeq;
     double m_lastu;
   };
 

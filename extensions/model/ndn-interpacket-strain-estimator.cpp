@@ -33,10 +33,10 @@ InterpacketStrainEstimator::GetTypeId(void)
 }
 
 InterpacketStrainEstimator::InterpacketStrainEstimator()
-:m_lastu(0.0)
+:m_lastu(0.0) , m_window(Seconds(4))
 {
   NS_LOG_FUNCTION(this);
-  m_previousAckSeq = CreateObject<IpsHistory>(SequenceNumber32(0),0,Seconds(0.0));
+  // m_previousAckSeq = CreateObject<IpsHistory>(SequenceNumber32(0),0,Seconds(0.0));
 }
 
 // InterpacketStrainEstimator::InterpacketStrainEstimator(const InterpacketStrainEstimator& c)
@@ -54,11 +54,6 @@ InterpacketStrainEstimator::GetInstanceTypeId(void) const
   return GetTypeId();
 }
 
-void
-InterpacketStrainEstimator::Measurement(Time m)
-{
-  NS_LOG_FUNCTION(this);
-}
 
 
 // Ptr<RttEstimator>
@@ -77,27 +72,32 @@ InterpacketStrainEstimator::Reset()
   // RttEstimator::Reset();
 }
 
-void
-InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
-{
-  NS_LOG_FUNCTION(this << seq << size);
-  IpsHistory_t::iterator i;
-  for (i = m_history.begin(); i != m_history.end(); ++i) {
-    if (seq == i->seq) { // Found it
-      i->retx = true;
-      i->time = Simulator::Now();
-      break;
-    }
-  }
+// void
+// InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size)
+// {
+//   NS_LOG_FUNCTION(this << seq << size);
+//   IpsHistory_t::iterator i;
+//   for (i = m_history.begin(); i != m_history.end(); ++i) {
+//     if (seq == i->seq) { // Found it
+//       i->retx = true;
+//       i->time = Simulator::Now();
+//       break;
+//     }
+//   }
+//
+//   // Note that a particular sequence has been sent
+//   if (i == m_history.end())
+//     m_history.push_back(IpsHistory(seq, size, Simulator::Now()));
+//   // NS_LOG_INFO ("Added IpsHistory  " <<  i->seq  << "   " << i->time.GetMilliSeconds());
+// }
 
-  // Note that a particular sequence has been sent
-  if (i == m_history.end())
-    m_history.push_back(IpsHistory(seq, size, Simulator::Now()));
-  // NS_LOG_INFO ("Added IpsHistory  " <<  i->seq  << "   " << i->time.GetMilliSeconds());
+void
+InterpacketStrainEstimator::SentSeq(SequenceNumber32 seq, uint32_t size){
+  m_history[seq] = Simulator::Now();
 }
 
 double
-InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
+InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq, uint32_t size)
 {
   NS_LOG_FUNCTION(this << ackSeq);
   // An ack has been received, calculate rtt and log this measurement
@@ -105,61 +105,46 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq)
   // case the ack'ed packet will be at the head of the list
   NS_LOG_INFO("Acked seq " << ackSeq);
 
-  Time m = Seconds(0.0);
-  Time n = Seconds(0.0);
+  m_arrival.push_back(IpsHistory(ackSeq, size, Simulator::Now()));
+  IpsHistory_t::iterator i;
+  for (i = m_arrival.begin(); i != m_arrival.end(); ++i) {
+    if (i->time < Simulator::Now() - m_window) {
+      m_arrival.erase(i);
+    }
+  }
+}
+
+double
+InterpacketStrainEstimator::GetIpsEstimation()
+{
   if (m_history.size() == 0)
   {
     NS_LOG_DEBUG("No pending history");
     return -1; // No pending history, just exit
   }
-  if (m_previousAckSeq->time == Seconds(0.0))
-  {
-    NS_LOG_DEBUG("Previous AckSeq is 0.0");
-    m_previousAckSeq->seq = ackSeq;
-    m_previousAckSeq->time = Simulator::Now();
+  if (m_arrival.size() < 2) {
+    NS_LOG_DEBUG("No previous log");
     return -1;
   }
-  NS_LOG_DEBUG("Previous AckSeq is " << m_previousAckSeq->seq << " " << m_previousAckSeq->time.GetMilliSeconds());
-  Time DeltaOut = Simulator::Now() - m_previousAckSeq->time;
-  NS_LOG_DEBUG("DeltaOut " << DeltaOut.GetMilliSeconds());
+
+  // NS_LOG_DEBUG("Previous AckSeq is " << m_previousAckSeq->seq << " " << m_previousAckSeq->time.GetMilliSeconds());
+
+  Time DeltaOut = m_arrival.back().time - m_arrival.front().time;
+  NS_LOG_DEBUG("DeltaOut " << DeltaOut.GetSeconds());
   Time DeltaIn = Seconds(0.0);
-  for (IpsHistory_t::iterator i = m_history.begin(); i != m_history.end(); ++i) {
-    if (ackSeq == i->seq) { // Found it
-      m = i->time;
-      NS_LOG_DEBUG("m " << m.GetMilliSeconds());
-    }
-    if (m_previousAckSeq->seq == i->seq){
-      n = i->time;
-      NS_LOG_DEBUG("n " << n.GetMilliSeconds());
-      m_history.erase(i);// erase the previous seq
-    }
-    if (m!=Seconds(0.0)){
-      DeltaIn = m - n;
-      break;
-    }
-  }
-  NS_LOG_DEBUG("DeltaIn " << DeltaIn.GetMilliSeconds());
+  DeltaIn = m_history[m_arrival.back().seq] - m_history[m_arrival.front().seq];
+  // std::cout << "size "  <<  m_arrival.size()  << '\n';
+  m_lastu = Seconds(1.0).GetSeconds() * ( DATA_PACKET_SIZE / 1000000.0 * 8) * m_arrival.size() / DeltaIn.GetSeconds();
 
-  m_lastu = Seconds(1.0).GetSeconds() / DeltaIn.GetSeconds() * ( DATA_PACKET_SIZE / 1000000.0 * 8);
-
-  // Update the previous seq
-  m_previousAckSeq->seq = ackSeq;
-  m_previousAckSeq->time = Simulator::Now();
-
-  double retval = (DeltaOut.GetNanoSeconds() / (double)DeltaIn.GetNanoSeconds()) - 1.0;
-  NS_LOG_DEBUG("ips " << retval);
-  if (retval<=-1){
-    return -1;
-  }
-  // std::cout << DeltaIn.GetMilliSeconds() << " " << retval << std::endl;
-  return retval;
+  return DeltaOut.GetSeconds() / DeltaIn.GetSeconds() - 1;
+  // return 0;
 }
 
 double
 InterpacketStrainEstimator::GetU()
 {
   if (m_lastu != 0){
-    return m_lastu * IPSCYCLE; //u is the average of 8 interests
+    return m_lastu; //u is the average of 8 interests
   }else{
     // std::cout << "m_lastu == 0" << '\n';
     return 0;
