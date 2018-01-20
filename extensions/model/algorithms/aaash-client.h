@@ -1,8 +1,8 @@
 #ifndef AAASH_CLIENT_H_
 #define AAASH_CLIENT_H_
 
-#include "ndn-dash-mrbart.hpp"
-#include "mpeg-header.h"
+#include "../ndn-dash-mrbart.hpp"
+#include "../mpeg-header.h"
 namespace ns3
 {
   namespace ndn{

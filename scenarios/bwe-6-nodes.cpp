@@ -72,7 +72,7 @@ main(int argc, char* argv[])
     }
 
     //Consumer application
-    ns3::ndn::AppHelper consumerHelper("ns3::ndn::DashMrbart");
+    ns3::ndn::AppHelper consumerHelper("ns3::ndn::OsmpClient");
     // ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
   //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
     consumerHelper.SetPrefix("/Dst1");

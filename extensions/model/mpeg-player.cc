@@ -70,10 +70,7 @@ namespace ns3
 //    NS_LOG_INFO("Received Frame " << m_state);
 
     Ptr<Packet> msg = message->Copy();
-    Ptr<Packet> msg2 = message->Copy();
-    MPEGHeader mpeg_header;
-    message->RemoveHeader(mpeg_header);
-    m_currDt = GetRealPlayTime(mpeg_header.GetPlaybackTime());
+
 
     m_queue.push(msg);
     if (m_state == MPEG_PLAYER_PAUSED)
@@ -138,8 +135,8 @@ namespace ns3
     /*std::cerr << "res= " << http_header.GetResolution() << " tot="
      << m_totalRate << " played=" << m_framesPlayed << std::endl;*/
 
-    Time b_t = GetRealPlayTime(mpeg_header.GetPlaybackTime());
-
+     // Time b_t = GetRealPlayTime(mpeg_header.GetPlaybackTime());
+    Time b_t = GetCurrDt();
     if (m_bufferDelay > Time("0s") && b_t < m_bufferDelay && m_dashClient)
       {
         m_dashClient->RequestSegment();
@@ -157,7 +154,6 @@ namespace ns3
     //  << std::endl;
 
     Simulator::Schedule(MilliSeconds(20), &MpegPlayer::PlayFrame, this);
-
   }
 
   void
@@ -168,7 +164,6 @@ namespace ns3
     }else{
       m_buffer[segment_id] = make_pair(8000,0);
     }
-    // std::cout << "buffer" << get<0>(m_buffer[segment_id])<< '\n';
     if(!m_making_segment){
       MakeSegment(resolution, segment_id);
     }
@@ -240,6 +235,14 @@ namespace ns3
 
   Time
   MpegPlayer::GetCurrDt(){
+    if (m_queue.empty()) {
+      m_currDt = Seconds(0.0);
+    }else{
+      Ptr<Packet> msg2 = m_queue.back()->Copy();
+      MPEGHeader mpeg_header;
+      msg2->RemoveHeader(mpeg_header);
+      m_currDt = GetRealPlayTime(mpeg_header.GetPlaybackTime());
+    }
     return m_currDt;
   }
 }

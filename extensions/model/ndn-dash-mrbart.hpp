@@ -38,6 +38,12 @@ namespace ndn {
     void
     LogBufferLevel(Time t);
 
+    double
+    GetBufferDifferential();
+
+    double
+    GetBufferEstimate();
+
 
 
 
