@@ -4,8 +4,6 @@
 #include "ns3/point-to-point-module.h"
 
 #include <iostream>
-// #include "model/ndn-net-device-face.hpp"
-// #include "model/ndn-consumer-mrbart.hpp"
 #include "dash-parameters.h"
 #include "scenario-parameters.h"
 #include "model/ndn-dash-mrbart.hpp"
@@ -22,16 +20,13 @@ main(int argc, char* argv[])
 {
 
     CommandLine cmd;
-//    cmd.AddValue ("mean", "mean interval parameter", mean);
     cmd.Parse (argc, argv);
 
     AnnotatedTopologyReader topologyReader("", 25);
     topologyReader.SetFileName("topo/topo-6-node.txt");
     topologyReader.Read();
-
     // topologyReader.ApplySettings();
-//    topologyReader.ApplyOspfMetric();
-
+    // topologyReader.ApplyOspfMetric();
 
     // Install NDN stack on all nodes
     StackHelper ndnHelper;
@@ -70,53 +65,20 @@ main(int argc, char* argv[])
         producer.Start(Seconds(0));
         producer.Stop(Seconds(SCENARIOTIME));
     }
-
     //Consumer application
     ns3::ndn::AppHelper consumerHelper("ns3::ndn::DashMrbart");
-    // ns3::ndn::AppHelper consumerHelper("ns3::ndn::ConsumerMrbart");
-  //  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerBatches");
     consumerHelper.SetPrefix("/Dst1");
-
-    // consumerHelper.SetAttribute("VideoId", StringValue("1"));
-    // consumerHelper.SetAttribute("NumberOfContents", StringValue(CONTENT_NUMBER_STR));
-
-    ns3::ApplicationContainer consumerapps[2];
-
-
-
-
-    // for(int i=0;i<2;i++) {
-        // consumerHelper.SetAttribute("ConsumerId", StringValue(to_string(i+1)));
-        // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
-        // consumerHelper.SetAttribute("Batches", StringValue("1s 10 10s 10"));
-
-    //     ApplicationContainer consumerapp = consumerHelper.Install(consumers[i]);
-    //     consumerapps[i] = consumerapp;
-    //     consumerapp.Start(Seconds(0));
-    //     consumerapp.Stop(Seconds(SCENARIOTIME));
-    // }
-
-    // consumerHelper.SetAttribute("Frequency", StringValue("2.0"));
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
-    consumerapps[0] = consumerapp;
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
 
-    // consumerHelper.SetPrefix("/Dst2");
-    // ApplicationContainer consumerapp2 = consumerHelper.Install(consumers[1]);
-    // consumerapps[1] = consumerapp2;
-    // consumerapp2.Start(Seconds(SCENARIOTIME/2));
-    // consumerapp2.Stop(Seconds(SCENARIOTIME));
-
     // cross traffic generator
-
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
     consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
     consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    consumerapps[1] = consumerapp2;
     consumerapp2.Start(Seconds(0));
     consumerapp2.Stop(Seconds(SCENARIOTIME));
 
@@ -127,11 +89,6 @@ main(int argc, char* argv[])
     L3RateTracer::Install(Names::Find<Node>("Rtr1"), "data/Rtr1-1s-2apps.txt", Seconds(1.0));
     Simulator::Run();
     Simulator::Destroy();
-//    for(int i=0;i<10;i++) {
-//        Ptr<DashClient> app = DynamicCast<DashClient>(consumerapps[i].Get(0));
-//    // std::cout << protocols[k % protoNum] << "-Node: " << k;
-//        app->GetStats();
-//    }
 
 
     return 0;
