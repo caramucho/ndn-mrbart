@@ -1,5 +1,10 @@
 #!/bin/bash
-. ./sync-clion.sh
+#available bandwidth estimation
+DIRECTORY=data/simu7/
 rm -f out.txt
 touch out.txt
-waf --run=dash-simple >> out.txt
+waf --run="bwe-6-nodes" >> out.txt
+if [ ! -d "$DIRECTORY" ]; then
+  mkdir "$DIRECTORY"
+fi
+mv out.txt "$DIRECTORY"/ba1.txt
