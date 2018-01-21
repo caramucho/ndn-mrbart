@@ -66,7 +66,7 @@ main(int argc, char* argv[])
         producer.Stop(Seconds(SCENARIOTIME));
     }
     //Consumer application
-    ns3::ndn::AppHelper consumerHelper("ns3::ndn::DashMrbart");
+    ns3::ndn::AppHelper consumerHelper("ns3::ndn::SvaaClient");
     consumerHelper.SetPrefix("/Dst1");
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapp.Start(Seconds(0));
@@ -75,12 +75,12 @@ main(int argc, char* argv[])
     // cross traffic generator
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
-    consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
+    // consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
     consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    consumerapp2.Start(Seconds(0));
-    consumerapp2.Stop(Seconds(SCENARIOTIME));
+    consumerapp2.Start(Seconds(SCENARIOTIME/3));
+    consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
 
 
     GlobalRoutingHelper::CalculateRoutes();

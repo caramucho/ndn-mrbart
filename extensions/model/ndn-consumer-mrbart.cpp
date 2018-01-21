@@ -170,7 +170,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
     }
     m_phase->PhaseSwitch();
     // cout << "phase"<<m_phase->GetCurrentPhase() << " "<< Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
-    cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
   }
 

@@ -23,10 +23,12 @@ DashMrbart::DashMrbart()
   : m_nextSegmentSeqMax(0)
   // , m_segmentDownloadedSize(0)
   , m_SegmentFetchStart(Seconds(0))
+  , m_segmentFetchTime(Seconds(0))
   , m_segment_id(0)
   , m_SegmentSeqMax(0)
   , m_bitRate(45000)
   , m_window(Seconds(10.0))
+  , m_target_dt(Seconds(35.0))
 {
   NS_LOG_FUNCTION_NOARGS();
   m_player = CreateObject<MpegPlayer>();
@@ -43,7 +45,7 @@ DashMrbart::SendPacket() {
 
 
     Time currDt = m_player->GetCurrDt();
-    // std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+    std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
     // And tell the player to monitor the buffer level
     LogBufferLevel(currDt);
     // uint32_t old = m_bitRate;
@@ -55,7 +57,7 @@ DashMrbart::SendPacket() {
     m_bitrateEstimate = m_phase->GetEstimatedBandwidth() * 1000000;
     CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
 
-    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << "bitrate " << m_bitRate << '\n';
+    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
 
     if (bufferDelay == Seconds(0)){
       NS_LOG_INFO( "Request next segment" );
@@ -105,7 +107,7 @@ DashMrbart::OnData(shared_ptr<const Data> data)
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
 
   if (seq == m_SegmentSeqMax){
-    Time SegmentFetchTime = Simulator::Now() - m_SegmentFetchStart;
+    m_segmentFetchTime = Simulator::Now() - m_SegmentFetchStart;
     // m_segment_id += 1;
     // CalculateNextBitrate();
     // std::cout << "SegmentFetchTime " <<SegmentFetchTime.GetSeconds()<< '\n';
@@ -218,6 +220,10 @@ DashMrbart::GetBufferDifferential()
   it--;
   Time prev = it->second;
   return (last - prev).GetSeconds();
+}
+double
+DashMrbart::GetSegmentFetchTime(){
+  return m_segmentFetchTime.GetSeconds();
 }
 
 }

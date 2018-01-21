@@ -1,38 +1,37 @@
 /*
- * fdash-client.h
+ * svaa-client.h
  *
  *  Created on: Jun 16, 2014
  *      Author: dimitriv
  */
 
-#ifndef FDASH_CLIENT_H_
-#define FDASH_CLIENT_H_
-
+#ifndef SVAA_CLIENT_H_
+#define SVAA_CLIENT_H_
+#include "../mpeg-header.h"
 #include "../ndn-dash-mrbart.hpp"
 namespace ns3
 {
   namespace ndn{
-
-  class FdashClient : public DashMrbart
+  class SvaaClient : public DashMrbart
   {
   public:
     static TypeId
     GetTypeId(void);
 
-    FdashClient();
+    SvaaClient();
 
     virtual
-    ~FdashClient();
+    ~SvaaClient();
 
     virtual void
     CalcNextSegment(uint32_t currRate, uint32_t & nextRate, Time & delay);
 
   private:
-    bool
-    BufferInc();
-
+    int m_m_k_1;
+    int m_m_k_2;
+    int m_counter;
   };
 }
 } /* namespace ns3 */
 
-#endif /* FDASH_CLIENT_H_ */
+#endif /* SVAA_CLIENT_H_ */

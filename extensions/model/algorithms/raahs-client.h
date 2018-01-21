@@ -1,38 +1,34 @@
 /*
- * fdash-client.h
+ * raahs-client.h
  *
  *  Created on: Jun 16, 2014
  *      Author: dimitriv
  */
 
-#ifndef FDASH_CLIENT_H_
-#define FDASH_CLIENT_H_
-
+#ifndef RAAHS_CLIENT_H_
+#define RAAHS_CLIENT_H_
 #include "../ndn-dash-mrbart.hpp"
 namespace ns3
 {
   namespace ndn{
-
-  class FdashClient : public DashMrbart
+  class RaahsClient : public DashMrbart
   {
   public:
     static TypeId
     GetTypeId(void);
 
-    FdashClient();
+    RaahsClient();
 
     virtual
-    ~FdashClient();
+    ~RaahsClient();
 
     virtual void
     CalcNextSegment(uint32_t currRate, uint32_t & nextRate, Time & delay);
 
   private:
-    bool
-    BufferInc();
 
   };
 }
 } /* namespace ns3 */
 
-#endif /* FDASH_CLIENT_H_ */
+#endif /* RAAHS_CLIENT_H_ */

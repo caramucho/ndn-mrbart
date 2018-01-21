@@ -4,6 +4,7 @@
 #include "ndn-consumer-mrbart.hpp"
 #include "parameter.hpp"
 #include "mpeg-player.h"
+#include "mpeg-header.h"
 
 namespace ns3 {
 namespace ndn {
@@ -44,6 +45,9 @@ namespace ndn {
     double
     GetBufferEstimate();
 
+    double
+    GetSegmentFetchTime();
+
 
 
 
@@ -61,11 +65,14 @@ namespace ndn {
     uint32_t m_SegmentSeqMax;
     // uint32_t m_segmentDownloadedSize;
     Time m_SegmentFetchStart;
+    Time m_segmentFetchTime;
     Ptr<MpegPlayer> m_player;
 
     std::map<Time, Time> m_bufferState;
     Time m_window; //The window for measuring the average throughput (Time)
     double m_bitrateEstimate;
+    Time m_target_dt;
+
 
 };
 

@@ -20,13 +20,11 @@ namespace ns3
   FdashClient::GetTypeId(void)
   {
     static TypeId tid =
-        TypeId("ns3::ndn::FdashClient").SetParent<DashMrbart>().AddConstructor<
-            FdashClient>();
+        TypeId("ns3::ndn::FdashClient").SetParent<DashMrbart>().AddConstructor<FdashClient>();
     return tid;
   }
 
   FdashClient::FdashClient()
-  : m_target_dt(Seconds(35.0))
   {
     // TODO Auto-generated constructor stub
 

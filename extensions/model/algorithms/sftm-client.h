@@ -1,38 +1,37 @@
 /*
- * fdash-client.h
+ * sftm-client.h
  *
  *  Created on: Jun 16, 2014
  *      Author: dimitriv
  */
 
-#ifndef FDASH_CLIENT_H_
-#define FDASH_CLIENT_H_
-
+#ifndef SFTM_CLIENT_H_
+#define SFTM_CLIENT_H_
 #include "../ndn-dash-mrbart.hpp"
 namespace ns3
 {
   namespace ndn{
 
-  class FdashClient : public DashMrbart
+
+  class SftmClient : public DashMrbart
   {
   public:
     static TypeId
     GetTypeId(void);
 
-    FdashClient();
+    SftmClient();
 
     virtual
-    ~FdashClient();
+    ~SftmClient();
 
     virtual void
     CalcNextSegment(uint32_t currRate, uint32_t & nextRate, Time & delay);
 
   private:
-    bool
-    BufferInc();
+    bool m_rsft_exceeded;
 
   };
 }
 } /* namespace ns3 */
 
-#endif /* FDASH_CLIENT_H_ */
+#endif /* SFTM_CLIENT_H_ */
