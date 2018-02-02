@@ -28,7 +28,7 @@ DashMrbart::DashMrbart()
   , m_SegmentSeqMax(0)
   , m_bitRate(45000)
   , m_window(Seconds(10.0))
-  , m_target_dt(Seconds(35.0))
+  , m_target_dt(Seconds(17.0))
 {
   NS_LOG_FUNCTION_NOARGS();
   m_player = CreateObject<MpegPlayer>();
@@ -57,8 +57,10 @@ DashMrbart::SendPacket() {
     CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
     // std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
-    std::string issue("issue23/");
-    std::string scenario("bn3M-5rates/");
+    std::string issue("issue24/");
+    std::string scenario("2user/");
+    // std::string scenario("2user/");
+
     m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate.txt"), ios::app);
     m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
     m_fout.close();

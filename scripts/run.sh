@@ -1,6 +1,6 @@
 #!/bin/bash
 #available bandwidth estimation
-DIRECTORY=data/issue23/bn3M-5rates
+DIRECTORY=data/issue24/2user
 # SIMUNAME=bn2M-bitrate
 # rm -f out.txt
 # touch out.txt
