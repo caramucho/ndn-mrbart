@@ -77,22 +77,20 @@ main(int argc, char* argv[])
     consumerHelper3.SetPrefix("/Dst3");
     consumerHelper3.SetAttribute("ConsumerID" , StringValue("1"));
     ApplicationContainer consumerapp3 = consumerHelper3.Install(consumers[2]);
-    consumerapp3.Start(Seconds(100));
+    consumerapp3.Start(Seconds(0));
     consumerapp3.Stop(Seconds(SCENARIOTIME));
 
     // cross traffic generator
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
     // consumerHelper2.SetAttribute("Randomize" , StringValue("exponential"));
-    consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
+    // consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
     consumerHelper2.SetAttribute("Frequency", StringValue("15.625")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
     // consumerHelper2.SetAttribute("Frequency", StringValue("5")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    consumerapp2.Start(Seconds(0));
+    consumerapp2.Start(Seconds(150));
     consumerapp2.Stop(Seconds(SCENARIOTIME));
-    // consumerapp2.Start(Seconds(0));
-    // consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();

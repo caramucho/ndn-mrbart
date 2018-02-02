@@ -28,7 +28,15 @@ Src10   NA       10       3
 Rtr1   NA        2       5
 Rtr2   NA        2       7
 Dst1   NA        1       9
-Dst2   NA        3       9
+Dst2   NA        2       9
+Dst3   NA        3       9
+Dst4   NA        4       9
+Dst5   NA        5       9
+Dst6   NA        6       9
+Dst7   NA        7       9
+Dst8   NA        8       9
+Dst9   NA        9       9
+Dst10   NA        10       9
 
 link
 
@@ -46,3 +54,11 @@ Src10        Rtr1       100Mbps      1        10ms    20
 Rtr1        Rtr2        10Mbps       1        10ms    20
 Dst1        Rtr2        100Mbps      1        10ms    20
 Dst2        Rtr2        100Mbps      1        10ms    20
+Dst3        Rtr2        100Mbps      1        10ms    20
+Dst4        Rtr2        100Mbps      1        10ms    20
+Dst5        Rtr2        100Mbps      1        10ms    20
+Dst6        Rtr2        100Mbps      1        10ms    20
+Dst7        Rtr2        100Mbps      1        10ms    20
+Dst8        Rtr2        100Mbps      1        10ms    20
+Dst9        Rtr2        100Mbps      1        10ms    20
+Dst10        Rtr2        100Mbps      1        10ms    20
