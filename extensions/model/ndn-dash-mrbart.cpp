@@ -45,7 +45,6 @@ DashMrbart::SendPacket() {
 
 
     Time currDt = m_player->GetCurrDt();
-    std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
     // And tell the player to monitor the buffer level
     LogBufferLevel(currDt);
     // uint32_t old = m_bitRate;
@@ -56,8 +55,30 @@ DashMrbart::SendPacket() {
     uint32_t prevBitrate = m_bitRate;
     m_bitrateEstimate = m_phase->GetEstimatedBandwidth() * 1000000;
     CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
-
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
+    // std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+    std::string issue("issue23/");
+    std::string scenario("bn3M-5rates/");
+    m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate.txt"), ios::app);
+    m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
+    m_fout.close();
+    m_fout.open(std::string("data/") + issue + scenario + std::string("buffer.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+    m_fout.close();
+    m_fout.open(std::string("data/") + issue + scenario + std::string("interruption.txt"), ios::app);
+    m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
+    m_fout.close();
+    m_fout.open(std::string("data/") + issue + scenario + std::string("bandwidth-estimation.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    m_fout.close();
+    // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate-change.txt"), ios::app);
+    // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
+    // m_fout.close();
+
+    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << GetSegmentFetchTime() << '\n';
+    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
+    // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+
 
     if (bufferDelay == Seconds(0)){
       NS_LOG_INFO( "Request next segment" );

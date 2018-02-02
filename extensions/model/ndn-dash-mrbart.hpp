@@ -5,6 +5,7 @@
 #include "parameter.hpp"
 #include "mpeg-player.h"
 #include "mpeg-header.h"
+#include <fstream>
 
 namespace ns3 {
 namespace ndn {
@@ -72,6 +73,7 @@ namespace ndn {
     Time m_window; //The window for measuring the average throughput (Time)
     double m_bitrateEstimate;
     Time m_target_dt;
+    ofstream m_fout;
 
 
 };

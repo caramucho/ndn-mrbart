@@ -66,7 +66,7 @@ main(int argc, char* argv[])
         producer.Stop(Seconds(SCENARIOTIME));
     }
     //Consumer application
-    ns3::ndn::AppHelper consumerHelper("ns3::ndn::SvaaClient");
+    ns3::ndn::AppHelper consumerHelper("ns3::ndn::FdashClient");
     consumerHelper.SetPrefix("/Dst1");
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapp.Start(Seconds(0));
@@ -75,18 +75,22 @@ main(int argc, char* argv[])
     // cross traffic generator
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
-    // consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
-    consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
+    // consumerHelper2.SetAttribute("Randomize" , StringValue("exponential"));
+    consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
+    consumerHelper2.SetAttribute("Frequency", StringValue("23.4375")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
+    // consumerHelper2.SetAttribute("Frequency", StringValue("5")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
     ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
     consumerapp2.Start(Seconds(SCENARIOTIME/3));
     consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
+    // consumerapp2.Start(Seconds(0));
+    // consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
 
-    L3RateTracer::Install(Names::Find<Node>("Rtr1"), "data/Rtr1-1s-2apps.txt", Seconds(1.0));
+    L3RateTracer::Install(Names::Find<Node>("Rtr1"), "data/L3Rate.txt", Seconds(1.0));
     Simulator::Run();
     Simulator::Destroy();
 
