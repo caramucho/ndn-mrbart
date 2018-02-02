@@ -79,7 +79,7 @@ protected:
   Time m_minrtt;
   Ptr<InterpacketStrainEstimator> m_ips;
   Ptr<Phases> m_phase;
-
+  int m_consumer_id;
 };
 
 } // namespace ndn

@@ -55,6 +55,9 @@ ConsumerMrbart::GetTypeId(void)
       .AddAttribute("MaxSeq", "Maximum sequence number to request",
                     IntegerValue(std::numeric_limits<uint32_t>::max()),
                     MakeIntegerAccessor(&ConsumerMrbart::m_seqMax), MakeIntegerChecker<uint32_t>())
+      .AddAttribute("ConsumerID", "ConsumerID",
+                    IntegerValue(std::numeric_limits<uint32_t>::max()),
+                    MakeIntegerAccessor(&ConsumerMrbart::m_consumer_id), MakeIntegerChecker<uint32_t>())
 
     ;
 

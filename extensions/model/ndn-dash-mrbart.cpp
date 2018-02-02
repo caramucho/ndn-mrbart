@@ -61,18 +61,20 @@ DashMrbart::SendPacket() {
     std::string scenario("2user/");
     // std::string scenario("2user/");
 
-    m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate.txt"), ios::app);
-    m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
-    m_fout.close();
-    m_fout.open(std::string("data/") + issue + scenario + std::string("buffer.txt"), ios::app);
-    m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
-    m_fout.close();
-    m_fout.open(std::string("data/") + issue + scenario + std::string("interruption.txt"), ios::app);
-    m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
-    m_fout.close();
-    m_fout.open(std::string("data/") + issue + scenario + std::string("bandwidth-estimation.txt"), ios::app);
-    m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
-    m_fout.close();
+    // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate.txt"), ios::app);
+    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
+    // m_fout.close();
+    // m_fout.open(std::string("data/") + issue + scenario + std::string("buffer.txt"), ios::app);
+    // m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+    // m_fout.close();
+    // m_fout.open(std::string("data/") + issue + scenario + std::string("interruption.txt"), ios::app);
+    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
+    // m_fout.close();
+    // m_fout.open(std::string("data/") + issue + scenario + std::string("bandwidth-estimation.txt"), ios::app);
+    // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    // m_fout.close();
+
+    std::cout << "ConsumerID "<< m_consumer_id << '\n';
     // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate-change.txt"), ios::app);
     // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
     // m_fout.close();
