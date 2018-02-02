@@ -144,7 +144,7 @@ ConsumerMrbart::OnData(shared_ptr<const Data> data)
   double ips = 0;
   m_inflight -= DATA_PACKET_SIZE / 1000000.0;
   uint32_t seq = data->getName().at(-1).toSequenceNumber();
-  // std::cout << Simulator::Now().GetMilliSeconds() << " Data for " << seq << '\n';
+
 
   Consumer::OnData(data);
   //Update the minrtt
@@ -215,7 +215,7 @@ ConsumerMrbart::WillSendOutInterest(uint32_t sequenceNumber)
 {
   Consumer::WillSendOutInterest(sequenceNumber);
   NS_LOG_INFO(Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber);
-  // std::cout << Simulator::Now().GetMilliSeconds() << " Interest for " << sequenceNumber << '\n';
+
   m_ips->SentSeq(SequenceNumber32(sequenceNumber), NDN_PAYLOAD_SIZE);
 }
 

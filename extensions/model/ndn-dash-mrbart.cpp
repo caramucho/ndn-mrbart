@@ -74,14 +74,14 @@ DashMrbart::SendPacket() {
     // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
     // m_fout.close();
 
-    std::cout << "ConsumerID "<< m_consumer_id << '\n';
+    // std::cout << "ConsumerID "<< m_consumer_id << '\n';
     // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate-change.txt"), ios::app);
     // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
     // m_fout.close();
 
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << GetSegmentFetchTime() << '\n';
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
-    // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    cout << m_consumer_id << "\t" << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
 
     if (bufferDelay == Seconds(0)){

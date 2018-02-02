@@ -50,7 +50,7 @@ main(int argc, char* argv[])
     }
 
 //    DashClient::RegisterProducerDomain(producerList);
-    const std::vector<string> producerList = {"Dst1","Dst2"};
+    const std::vector<string> producerList = {"Dst1","Dst2","Dst3"};
 
     for (auto itr = producerList.begin();  itr != producerList.end(); itr++) {
         Ptr<Node> producerNode = Names::Find<Node>(*itr);
@@ -77,7 +77,7 @@ main(int argc, char* argv[])
     consumerHelper3.SetPrefix("/Dst3");
     consumerHelper3.SetAttribute("ConsumerID" , StringValue("1"));
     ApplicationContainer consumerapp3 = consumerHelper3.Install(consumers[2]);
-    consumerapp3.Start(Seconds(0));
+    consumerapp3.Start(Seconds(100));
     consumerapp3.Stop(Seconds(SCENARIOTIME));
 
     // cross traffic generator
