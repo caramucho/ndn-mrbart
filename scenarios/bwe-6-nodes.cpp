@@ -109,7 +109,7 @@ main(int argc, char* argv[])
     ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
     consumerHelper2.SetPrefix("/Dst2");
     // consumerHelper2.SetAttribute("Randomize" , StringValue("exponential"));
-    consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
+    // consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
     consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
     // consumerHelper2.SetAttribute("Frequency", StringValue("5")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 

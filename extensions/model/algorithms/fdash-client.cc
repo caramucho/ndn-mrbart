@@ -103,8 +103,8 @@ namespace ns3
     n2 = std::sqrt(std::pow(r1, 2));
 
     /*output = (n2 * 0.25 + n1 * 0.5 + z * 1 + p1 * 1.4 + p2 * 2)*/
-    // output = (n2 * 0.25 + n1 * 0.5 + z * 1 + p1 * 2 + p2 * 4)
-    output = (n2 * 0.25 + n1 * 0.5 + z * 1 + p1 * 4 + p2 * 8)
+    output = (n2 * 0.25 + n1 * 0.5 + z * 1 + p1 * 2 + p2 * 4)
+    // output = (n2 * 0.25 + n1 * 0.5 + z * 1 + p1 * 4 + p2 * 8)
         / (n2 + n1 + z + p1 + p2);
 
     NS_LOG_INFO(

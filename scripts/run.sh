@@ -10,7 +10,7 @@ DIRECTORY=data/$ISSUE/$SIMUTAG
 if [ ! -d "$DIRECTORY" ]; then
   mkdir "$DIRECTORY"
 fi
-waf --run='bwe-6-nodes --targetDt=35 --ipswindow=8s --Issue='$ISSUE' --Simutag='$SIMUTAG''
+waf --run='bwe-6-nodes --targetDt=35 --ipswindow=4s --Issue='$ISSUE' --Simutag='$SIMUTAG''
 
 # mv out.txt "$DIRECTORY"/"$SIMUNAME".txt
 mv data/L3Rate.txt "$DIRECTORY"/L3rate.txt

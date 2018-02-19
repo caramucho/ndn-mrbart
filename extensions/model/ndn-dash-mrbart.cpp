@@ -87,21 +87,21 @@ DashMrbart::SendPacket() {
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
     // std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
 
-    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate.txt"), ios::app);
-    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate.txt"), ios::app);
+    m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
+    m_fout.close();
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("buffer.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+    m_fout.close();
+    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("interruption.txt"), ios::app);
+    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
     // m_fout.close();
-    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("buffer.txt"), ios::app);
-    // m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
-    // m_fout.close();
-    // // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("interruption.txt"), ios::app);
-    // // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
-    // // m_fout.close();
-    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bandwidth-estimation.txt"), ios::app);
-    // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
-    // m_fout.close();
-    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate-change.txt"), ios::app);
-    // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
-    // m_fout.close();
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bandwidth-estimation.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    m_fout.close();
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate-change.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
+    m_fout.close();
 
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << GetSegmentFetchTime() << '\n';
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
