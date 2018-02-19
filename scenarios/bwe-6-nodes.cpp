@@ -24,7 +24,7 @@ main(int argc, char* argv[])
     // double stopTime = 100.0;
     // std::string delay = "5ms";
     // std::string protocol = "ns3::DashClient";
-    std::string window = "10s";
+    std::string ipswindow = "10s";
     std::string issue = "issue27";
     std::string simutag = "simu1";
     std::string crosstraffic = "7.8125";
@@ -35,8 +35,8 @@ main(int argc, char* argv[])
     cmd.AddValue("targetDt",
       "The target time difference between receiving and playing a frame.",
       target_dt);
-    cmd.AddValue("window",
-      "The window for measuring the inter packet strain(Seconds).", window);
+    cmd.AddValue("ipswindow",
+      "The window for measuring the inter packet strain(Seconds).", ipswindow);
     // cmd.AddValue("linkRate",
     //   "The bitrate of the link connecting the clients to the server (e.g. 500kbps)",
     //   linkRate);
@@ -50,8 +50,6 @@ main(int argc, char* argv[])
       "The simutag",
       simutag);
     cmd.Parse (argc, argv);
-
-
 
     AnnotatedTopologyReader topologyReader("", 25);
     topologyReader.SetFileName("topo/topo-6-node.txt");
@@ -100,7 +98,9 @@ main(int argc, char* argv[])
     ns3::ndn::AppHelper consumerHelper("ns3::ndn::FdashClient");
     consumerHelper.SetPrefix("/Dst1");
     consumerHelper.SetAttribute("TargetDt", TimeValue(Seconds(target_dt)));
-    consumerHelper.SetAttribute("window", TimeValue(Time(window)));
+    consumerHelper.SetAttribute("ipswindow", TimeValue(Time(ipswindow)));
+    consumerHelper.SetAttribute("Issue", StringValue(issue));
+    consumerHelper.SetAttribute("Simutag", StringValue(simutag));
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
