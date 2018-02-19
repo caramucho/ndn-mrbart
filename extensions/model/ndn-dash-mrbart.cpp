@@ -21,19 +21,24 @@ DashMrbart::GetTypeId(void)
       .AddAttribute("Simutag", "simulation tag",
                     StringValue("simu1"),
                     MakeStringAccessor(&DashMrbart::m_simutag), MakeIntegerChecker<uint32_t>())
+
+      .AddAttribute("TargetDt", "The target buffering time",
+                    TimeValue(Time("35s")),
+                    MakeTimeAccessor(&DashMrbart::m_target_dt), MakeTimeChecker())
+
       ;
 
   return tid;
 }
 
 DashMrbart::DashMrbart()
-  : m_nextSegmentSeqMax(0)
+  : m_bitRate(45000)
+  , m_nextSegmentSeqMax(0)
   // , m_segmentDownloadedSize(0)
-  , m_SegmentFetchStart(Seconds(0))
-  , m_segmentFetchTime(Seconds(0))
   , m_segment_id(0)
   , m_SegmentSeqMax(0)
-  , m_bitRate(45000)
+  , m_SegmentFetchStart(Seconds(0))
+  , m_segmentFetchTime(Seconds(0))
   , m_window(Seconds(10.0))
   , m_target_dt(Seconds(35.0))
   , m_rateChanges(0)
@@ -185,18 +190,18 @@ DashMrbart::CalculateNextBitrate()
       595000, 791000, 1033000, 1245000, 1547000, 2134000, 2484000, 3079000,
       3527000, 3840000, 4220000 };
 
-  uint32_t rates_size = sizeof(rates) / sizeof(rates[0]);
+  uint8_t rates_size = sizeof(rates) / sizeof(rates[0]);
   m_SegmentFetchStart = Simulator::Now();
 
   // double previousRate = m_segmentDownloadedSize * 8 / SegmentFetchTime.GetSeconds();
   // m_segmentDownloadedSize = 0;
   // m_bitRate = (uint32_t)(previousRate);
-  uint32_t previousRate = m_bitRate;
+  // uint32_t previousRate = m_bitRate;
   if(Phases::freqToRate(m_frequency) < rates[0]){
     m_bitRate = rates[0];
   }
 
-  for (int i = 0;i < rates_size;i++){
+  for (uint8_t i = 0;i < rates_size;i++){
     // if (rates[i+1] >= freqToRate(m_frequency) * 1000000){
     if (rates[i+1] >= m_phase->GetEstimatedBandwidth() * 1000000){
       m_bitRate = rates[i];

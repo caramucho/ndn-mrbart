@@ -99,6 +99,8 @@ main(int argc, char* argv[])
     //Consumer application
     ns3::ndn::AppHelper consumerHelper("ns3::ndn::FdashClient");
     consumerHelper.SetPrefix("/Dst1");
+    consumerHelper.SetAttribute("TargetDt", TimeValue(Seconds(target_dt)));
+    consumerHelper.SetAttribute("window", TimeValue(Time(window)));
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
