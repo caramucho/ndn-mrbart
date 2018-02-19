@@ -238,8 +238,8 @@ Phases::SetRandomize()
 {
   RngSeedManager::SetSeed (2);
   m_random = CreateObject<UniformRandomVariable>();
-  m_random->SetAttribute("Min", DoubleValue(1.2));
-  m_random->SetAttribute("Max", DoubleValue(1.4));
+  m_random->SetAttribute("Min", DoubleValue(1.1));
+  m_random->SetAttribute("Max", DoubleValue(1.3));
 }
 
 

@@ -74,7 +74,10 @@ namespace ndn {
     double m_bitrateEstimate;
     Time m_target_dt;
     ofstream m_fout;
+    int m_rateChanges;
 
+    std::string m_simutag;
+    std::string m_issue;
 
 };
 

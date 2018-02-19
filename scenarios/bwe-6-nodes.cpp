@@ -18,9 +18,40 @@ using namespace std;
 int
 main(int argc, char* argv[])
 {
+    // std::string linkRate = "500Kbps";
+    uint32_t users = 1;
+    double target_dt = 35.0;
+    // double stopTime = 100.0;
+    // std::string delay = "5ms";
+    // std::string protocol = "ns3::DashClient";
+    std::string window = "10s";
+    std::string issue = "issue27";
+    std::string simutag = "simu1";
+    std::string crosstraffic = "7.8125";
+
+
 
     CommandLine cmd;
+    cmd.AddValue("targetDt",
+      "The target time difference between receiving and playing a frame.",
+      target_dt);
+    cmd.AddValue("window",
+      "The window for measuring the inter packet strain(Seconds).", window);
+    // cmd.AddValue("linkRate",
+    //   "The bitrate of the link connecting the clients to the server (e.g. 500kbps)",
+    //   linkRate);
+    cmd.AddValue("crosstraffic",
+      "The cross traffic rate ",
+      crosstraffic);
+    cmd.AddValue("Issue",
+      "The issue number",
+      issue);
+    cmd.AddValue("Simutag",
+      "The simutag",
+      simutag);
     cmd.Parse (argc, argv);
+
+
 
     AnnotatedTopologyReader topologyReader("", 25);
     topologyReader.SetFileName("topo/topo-6-node.txt");
@@ -77,12 +108,12 @@ main(int argc, char* argv[])
     consumerHelper2.SetPrefix("/Dst2");
     // consumerHelper2.SetAttribute("Randomize" , StringValue("exponential"));
     consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
-    consumerHelper2.SetAttribute("Frequency", StringValue("23.4375")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
+    consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
     // consumerHelper2.SetAttribute("Frequency", StringValue("5")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
-    ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    consumerapp2.Start(Seconds(SCENARIOTIME/3));
-    consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
+    // ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
+    // consumerapp2.Start(Seconds(SCENARIOTIME/3));
+    // consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
     // consumerapp2.Start(Seconds(0));
     // consumerapp2.Stop(Seconds(SCENARIOTIME));
 
