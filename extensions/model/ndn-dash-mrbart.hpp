@@ -26,7 +26,7 @@ namespace ndn {
 
     void
     RequestSegment();
-    
+
     void
     GetStats();
   protected:
@@ -82,6 +82,8 @@ namespace ndn {
 
     std::string m_simutag;
     std::string m_issue;
+
+    std::vector<double> m_segmentBitrates;
 
 };
 
