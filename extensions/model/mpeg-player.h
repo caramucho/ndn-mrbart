@@ -73,7 +73,6 @@ namespace ns3
     uint64_t m_totalRate;
     uint32_t m_minRate;
     uint32_t m_framesPlayed;
-
     uint32_t m_f_id;
     Time m_currDt;
     // uint32_t m_segment_id;
@@ -97,7 +96,8 @@ namespace ns3
     DashMrbart * m_dashClient;
     std::map<uint32_t, std::pair<int, uint32_t>> m_buffer;
     bool m_making_segment;
-
+    uint32_t m_framesRecieved;
+    
   };
 }
 } // namespace ns3

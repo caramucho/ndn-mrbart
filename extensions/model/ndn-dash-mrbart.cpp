@@ -49,15 +49,7 @@ DashMrbart::DashMrbart()
 
 DashMrbart::~DashMrbart()
 {
-  std::cout << " InterruptionTime: "
-        << m_player->m_interruption_time.GetSeconds() << " interruptions: "
-        << m_player->m_interrruptions << " avgRate: "
-        << (1.0 * m_player->m_totalRate) / m_player->m_framesPlayed
-        << " minRate: " << m_player->m_minRate
-        // << " AvgDt: "
-        // << m_sumDt.GetSeconds() / m_player->m_framesPlayed
-        << " changes: "
-        << m_rateChanges << std::endl;
+
 }
 
 
@@ -107,9 +99,8 @@ DashMrbart::SendPacket() {
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
     // cout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
-    cout << " avgRate: "
-    << (1.0 * m_player->m_totalRate) / m_player->m_framesPlayed << " changes: "
-    << m_rateChanges << std::endl;
+
+
 
     if (bufferDelay == Seconds(0)){
       NS_LOG_INFO( "Request next segment" );
@@ -171,6 +162,8 @@ DashMrbart::OnData(shared_ptr<const Data> data)
   // std::cout << "bitrate " << bitrate  <<" segid "<< segment_id <<'\n';
   // std::cout << data->getName().toUri() << '\n';
   m_player->ReceiveData(bitrate, segment_id);
+
+  // m_avgRate = (1.0 * m_player->m_totalRate) / m_player->m_framesRecieved;
   // AddBitRate(Simulator::Now(), 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
 }
 
@@ -277,6 +270,24 @@ double
 DashMrbart::GetSegmentFetchTime(){
   return m_segmentFetchTime.GetSeconds();
 }
+void
+DashMrbart::GetStats() {
+  // cout << " avgRate: "
+  // // << (1.0 * m_player->m_totalRate) / m_player->m_framesPlayed << " changes: "
+  // << m_avgRate << " changes: "
+  // << m_rateChanges << std::endl;
+
+  std::cout << " InterruptionTime: "
+        << m_player->m_interruption_time.GetSeconds() << " interruptions: "
+        << m_player->m_interrruptions << " avgRate: "
+        << (1.0 * m_player->m_totalRate) / (m_player->m_framesPlayed * 1000000.0)
+        // << " minRate: " << m_player->m_minRate
+        // << " AvgDt: "
+        // << m_sumDt.GetSeconds() / m_player->m_framesPlayed
+        << " changes: "
+        << m_rateChanges << std::endl;
+}
+
 
 }
 }
