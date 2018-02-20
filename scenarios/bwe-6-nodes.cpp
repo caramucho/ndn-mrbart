@@ -122,10 +122,15 @@ main(int argc, char* argv[])
 
     GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
-
     L3RateTracer::Install(Names::Find<Node>("Rtr1"), "data/L3Rate.txt", Seconds(1.0));
     Simulator::Run();
     Simulator::Destroy();
+
+    //    for(int i=0;i<10;i++) {
+    Ptr<DashMrbart> app = DynamicCast<DashMrbart>(consumerapp.Get(0));
+//    // std::cout << protocols[k % protoNum] << "-Node: " << k;
+    app->GetStats();
+//    }
 
 
     return 0;

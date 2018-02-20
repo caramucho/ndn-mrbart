@@ -13,4 +13,4 @@ fi
 waf --run='bwe-6-nodes --targetDt=0 --ipswindow=4s --Issue='$ISSUE' --Simutag='$SIMUTAG''
 
 # mv out.txt "$DIRECTORY"/"$SIMUNAME".txt
-mv data/L3Rate.txt "$DIRECTORY"/L3rate.txt
+# mv data/L3Rate.txt "$DIRECTORY"/L3rate.txt

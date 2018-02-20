@@ -26,7 +26,9 @@ namespace ndn {
 
     void
     RequestSegment();
-
+    
+    void
+    GetStats();
   protected:
     void
     SendPacket();
@@ -48,6 +50,8 @@ namespace ndn {
 
     double
     GetSegmentFetchTime();
+
+
 
 
 
