@@ -58,9 +58,10 @@ ConsumerMrbart::GetTypeId(void)
       .AddAttribute("ConsumerID", "ConsumerID",
                     IntegerValue(std::numeric_limits<uint32_t>::max()),
                     MakeIntegerAccessor(&ConsumerMrbart::m_consumer_id), MakeIntegerChecker<uint32_t>())
-
+      .AddAttribute("ipswindow", "The window for measuring the average ips (Time)",
+                    TimeValue(Time("4s")),
+                    MakeTimeAccessor(&ConsumerMrbart::m_ipswindow),MakeTimeChecker())
     ;
-
   return tid;
 }
 
@@ -72,6 +73,7 @@ ConsumerMrbart::ConsumerMrbart()
   , m_ips0counter(0)
   , m_inflight(0.0)
   , m_minrtt(Seconds(999))
+  , m_ipswindow(Seconds(4))
 {
   NS_LOG_FUNCTION_NOARGS();
   m_seqMax = std::numeric_limits<uint32_t>::max();
@@ -205,6 +207,7 @@ void
 ConsumerMrbart::StartApplication()
 {
   Consumer::StartApplication();
+  m_ips->SetIpsWindow(m_ipswindow);
 
   // std::cout << "Batches: " << batches << "\n";
   // sendPacketTrain(100, 100);

@@ -35,7 +35,7 @@ namespace ns3
 
   MpegPlayer::MpegPlayer() :
       m_state(MPEG_PLAYER_NOT_STARTED), m_interrruptions(0), m_totalRate(0), m_minRate(
-          100000000), m_framesPlayed(0), m_bufferDelay("0s"), m_making_segment(false)
+          100000000), m_framesPlayed(0), m_bufferDelay("0s"), m_making_segment(false),m_framesRecieved(0)
   {
     NS_LOG_FUNCTION(this);
   }
@@ -119,11 +119,11 @@ namespace ns3
 
     MPEGHeader mpeg_header;
     HTTPHeader http_header;
-
     message->RemoveHeader(mpeg_header);
-    message->RemoveHeader(http_header);
+    // message->RemoveHeader(http_header);
 
-    m_totalRate += http_header.GetResolution();
+    // std::cout << "http header " <<http_header.GetResolution() << '\n';
+
     if (http_header.GetSegmentId() > 0) // Discard the first segment for the minRate
       {                                 // calculation, as it is always the minimum rate
         m_minRate =
@@ -220,13 +220,15 @@ namespace ns3
         Ptr<Packet> frame = Create<Packet>(frame_size);
         // frame->AddHeader(http_header);
         frame->AddHeader(mpeg_header);
+
         NS_LOG_INFO(
             "SENDING PACKET " << fid << " " << frame->GetSize() << " res=" << http_header.GetResolution() << " size=" << mpeg_header.GetSize() << " avg=" << avg_packetsize);
         ReceiveFrame(frame);
         fid++;
         buffer -= frame_size;
         frame_size = (unsigned) frame_size_gen->GetValue() + (int) mpeg_header_tmp.GetSerializedSize();
-
+        m_totalRate += http_header.GetResolution();
+        m_framesRecieved++;
       }
       m_making_segment = false;
       // m_remained_buffer = buffer;

@@ -14,21 +14,34 @@ DashMrbart::GetTypeId(void)
     TypeId("ns3::ndn::DashMrbart")
       .SetGroupName("Ndn")
       .SetParent<ConsumerMrbart>()
-      .AddConstructor<DashMrbart>();
+      .AddConstructor<DashMrbart>()
+      .AddAttribute("Issue", "issue name",
+                    StringValue("Issue27"),
+                    MakeStringAccessor(&DashMrbart::m_issue), MakeStringChecker())
+      .AddAttribute("Simutag", "simulation tag",
+                    StringValue("simu1"),
+                    MakeStringAccessor(&DashMrbart::m_simutag), MakeStringChecker())
+
+      .AddAttribute("TargetDt", "The target buffering time",
+                    TimeValue(Time("35s")),
+                    MakeTimeAccessor(&DashMrbart::m_target_dt), MakeTimeChecker())
+
+      ;
 
   return tid;
 }
 
 DashMrbart::DashMrbart()
-  : m_nextSegmentSeqMax(0)
+  : m_bitRate(45000)
+  , m_nextSegmentSeqMax(0)
   // , m_segmentDownloadedSize(0)
-  , m_SegmentFetchStart(Seconds(0))
-  , m_segmentFetchTime(Seconds(0))
   , m_segment_id(0)
   , m_SegmentSeqMax(0)
-  , m_bitRate(45000)
+  , m_SegmentFetchStart(Seconds(0))
+  , m_segmentFetchTime(Seconds(0))
   , m_window(Seconds(10.0))
-  , m_target_dt(Seconds(17.0))
+  , m_target_dt(Seconds(35.0))
+  , m_rateChanges(0)
 {
   NS_LOG_FUNCTION_NOARGS();
   m_player = CreateObject<MpegPlayer>();
@@ -36,6 +49,7 @@ DashMrbart::DashMrbart()
 
 DashMrbart::~DashMrbart()
 {
+
 }
 
 
@@ -54,9 +68,17 @@ DashMrbart::SendPacket() {
     //m_bitRate, bufferDelay);
     uint32_t prevBitrate = m_bitRate;
     m_bitrateEstimate = m_phase->GetEstimatedBandwidth() * 1000000;
+    m_segmentBitrates.push_back(m_bitRate/1000000.0);
     CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
+
+    if (prevBitrate != m_bitRate)
+      {
+        m_rateChanges++;
+      }
+    // CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
     // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
     // std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+<<<<<<< HEAD
     std::string issue("issue24/");
     std::string scenario("simu4/");
     // std::string scenario("2user/");
@@ -76,6 +98,22 @@ DashMrbart::SendPacket() {
 
     // std::cout << "ConsumerID "<< m_consumer_id << '\n';
     // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate-change.txt"), ios::app);
+=======
+    //
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate.txt"), ios::app);
+    m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
+    m_fout.close();
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("buffer.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
+    m_fout.close();
+    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("interruption.txt"), ios::app);
+    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
+    // m_fout.close();
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bandwidth-estimation.txt"), ios::app);
+    m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    m_fout.close();
+    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate-change.txt"), ios::app);
+>>>>>>> simulation_base
     // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
     // m_fout.close();
 
@@ -86,6 +124,8 @@ DashMrbart::SendPacket() {
     // m_fout  << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
     // m_fout.close();
     cout <<  m_consumer_id <<"\t" << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+
+
 
 
     if (bufferDelay == Seconds(0)){
@@ -148,6 +188,8 @@ DashMrbart::OnData(shared_ptr<const Data> data)
   // std::cout << "bitrate " << bitrate  <<" segid "<< segment_id <<'\n';
   // std::cout << data->getName().toUri() << '\n';
   m_player->ReceiveData(bitrate, segment_id);
+
+  // m_avgRate = (1.0 * m_player->m_totalRate) / m_player->m_framesRecieved;
   // AddBitRate(Simulator::Now(), 8 * m_segment_bytes / m_segmentFetchTime.GetSeconds());
 }
 
@@ -167,18 +209,18 @@ DashMrbart::CalculateNextBitrate()
       595000, 791000, 1033000, 1245000, 1547000, 2134000, 2484000, 3079000,
       3527000, 3840000, 4220000 };
 
-  uint32_t rates_size = sizeof(rates) / sizeof(rates[0]);
+  uint8_t rates_size = sizeof(rates) / sizeof(rates[0]);
   m_SegmentFetchStart = Simulator::Now();
 
   // double previousRate = m_segmentDownloadedSize * 8 / SegmentFetchTime.GetSeconds();
   // m_segmentDownloadedSize = 0;
   // m_bitRate = (uint32_t)(previousRate);
-  uint32_t previousRate = m_bitRate;
+  // uint32_t previousRate = m_bitRate;
   if(Phases::freqToRate(m_frequency) < rates[0]){
     m_bitRate = rates[0];
   }
 
-  for (int i = 0;i < rates_size;i++){
+  for (uint8_t i = 0;i < rates_size;i++){
     // if (rates[i+1] >= freqToRate(m_frequency) * 1000000){
     if (rates[i+1] >= m_phase->GetEstimatedBandwidth() * 1000000){
       m_bitRate = rates[i];
@@ -254,6 +296,52 @@ double
 DashMrbart::GetSegmentFetchTime(){
   return m_segmentFetchTime.GetSeconds();
 }
+void
+DashMrbart::GetStats() {
+  // cout << " avgRate: "
+  // // << (1.0 * m_player->m_totalRate) / m_player->m_framesPlayed << " changes: "
+  // << m_avgRate << " changes: "
+  // << m_rateChanges << std::endl;
+  const auto ave = std::accumulate(std::begin(m_segmentBitrates), std::end(m_segmentBitrates), 0.0) / m_segmentBitrates.size();
+  const auto var = std::accumulate(std::begin(m_segmentBitrates), std::end(m_segmentBitrates), 0.0, [ave](double sum, const uint32_t& e){
+      const auto temp = e - ave;
+      return sum + temp * temp;
+  }) / m_segmentBitrates.size();
+
+  for (auto i = m_segmentBitrates.begin(); i < m_segmentBitrates.end(); i++) {
+    std::cout << *i << '\n';
+  }
+  // m_segmentBitrates
+
+  std::cout << " InterruptionTime: "
+        << m_player->m_interruption_time.GetSeconds() << " interruptions: "
+        << m_player->m_interrruptions << " avgRate: "
+        << (1.0 * m_player->m_totalRate) / (m_player->m_framesPlayed * 1000000.0)
+        // << " minRate: " << m_player->m_minRate
+        // << " AvgDt: "
+        // << m_sumDt.GetSeconds() / m_player->m_framesPlayed
+        << " changes: "
+        << m_rateChanges
+        << " avg: "
+        << ave
+        << " var : "
+        <<  var  << std::endl;
+
+
+  // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("stats.txt"), ios::out);
+  // m_fout << "Issue\t"<< "Simutag\t" << "targetDt\t" << "InterruptionTime" << "\t" << "interruptions" << "\t" << "avgRate" << "\t" << "changes\t" << "SegmentsAvgRate\t" << "SegmentsVar" << std::endl;
+  // m_fout << m_issue << "\t" <<
+  //           m_simutag << "\t" <<
+  //           m_target_dt.GetSeconds() << "\t" <<
+  //           m_player->m_interruption_time.GetSeconds() << "\t" <<
+  //           m_player->m_interrruptions << "\t" <<
+  //           (1.0 * m_player->m_totalRate) / (m_player->m_framesPlayed * 1000000.0)  << "\t" <<
+  //           m_rateChanges  << "\t" <<
+  //           ave  << "\t" <<
+  //           var <<  '\n';
+  // m_fout.close();
+}
+
 
 }
 }

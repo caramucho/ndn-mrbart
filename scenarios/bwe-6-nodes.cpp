@@ -18,8 +18,37 @@ using namespace std;
 int
 main(int argc, char* argv[])
 {
+    // std::string linkRate = "500Kbps";
+    uint32_t users = 1;
+    double target_dt = 35.0;
+    // double stopTime = 100.0;
+    // std::string delay = "5ms";
+    // std::string protocol = "ns3::DashClient";
+    std::string ipswindow = "10s";
+    std::string issue = "issue27";
+    std::string simutag = "simu1";
+    std::string crosstraffic = "7.8125";
+
+
 
     CommandLine cmd;
+    cmd.AddValue("targetDt",
+      "The target time difference between receiving and playing a frame.",
+      target_dt);
+    cmd.AddValue("ipswindow",
+      "The window for measuring the inter packet strain(Seconds).", ipswindow);
+    // cmd.AddValue("linkRate",
+    //   "The bitrate of the link connecting the clients to the server (e.g. 500kbps)",
+    //   linkRate);
+    cmd.AddValue("crosstraffic",
+      "The cross traffic rate ",
+      crosstraffic);
+    cmd.AddValue("Issue",
+      "The issue number",
+      issue);
+    cmd.AddValue("Simutag",
+      "The simutag",
+      simutag);
     cmd.Parse (argc, argv);
 
     AnnotatedTopologyReader topologyReader("", 25);
@@ -69,6 +98,10 @@ main(int argc, char* argv[])
     ns3::ndn::AppHelper consumerHelper("ns3::ndn::FdashClient");
     consumerHelper.SetPrefix("/Dst1");
     consumerHelper.SetAttribute("ConsumerID" , StringValue("0"));
+    consumerHelper.SetAttribute("TargetDt", TimeValue(Seconds(target_dt)));
+    consumerHelper.SetAttribute("ipswindow", TimeValue(Time(ipswindow)));
+    consumerHelper.SetAttribute("Issue", StringValue(issue));
+    consumerHelper.SetAttribute("Simutag", StringValue(simutag));
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
@@ -95,10 +128,15 @@ main(int argc, char* argv[])
 
     GlobalRoutingHelper::CalculateRoutes();
     Simulator::Stop(Seconds(SCENARIOTIME));
-
     L3RateTracer::Install(Names::Find<Node>("Rtr1"), "data/L3Rate.txt", Seconds(1.0));
     Simulator::Run();
     Simulator::Destroy();
+
+    //    for(int i=0;i<10;i++) {
+    Ptr<DashMrbart> app = DynamicCast<DashMrbart>(consumerapp.Get(0));
+//    // std::cout << protocols[k % protoNum] << "-Node: " << k;
+    app->GetStats();
+//    }
 
 
     return 0;

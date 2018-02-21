@@ -77,6 +77,7 @@ protected:
   int m_ips0counter;
   double m_inflight;
   Time m_minrtt;
+  Time m_ipswindow;
   Ptr<InterpacketStrainEstimator> m_ips;
   Ptr<Phases> m_phase;
   int m_consumer_id;

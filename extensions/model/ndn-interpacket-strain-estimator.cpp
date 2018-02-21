@@ -33,7 +33,7 @@ InterpacketStrainEstimator::GetTypeId(void)
 }
 
 InterpacketStrainEstimator::InterpacketStrainEstimator()
-:m_lastu(0.0) , m_window(Seconds(4))
+:m_lastu(0.0) , m_ipswindow(Seconds(4))
 {
   NS_LOG_FUNCTION(this);
   // m_previousAckSeq = CreateObject<IpsHistory>(SequenceNumber32(0),0,Seconds(0.0));
@@ -108,7 +108,7 @@ InterpacketStrainEstimator::AckSeq(SequenceNumber32 ackSeq, uint32_t size)
   m_arrival.push_back(IpsHistory(ackSeq, size, Simulator::Now()));
   IpsHistory_t::iterator i;
   for (i = m_arrival.begin(); i != m_arrival.end(); ++i) {
-    if (i->time < Simulator::Now() - m_window) {
+    if (i->time < Simulator::Now() - m_ipswindow) {
       m_arrival.erase(i);
     }
   }
@@ -149,6 +149,12 @@ InterpacketStrainEstimator::GetU()
     // std::cout << "m_lastu == 0" << '\n';
     return 0;
   }
+}
+
+void
+InterpacketStrainEstimator::SetIpsWindow(Time ipswindow)
+{
+  m_ipswindow = ipswindow;
 }
 
 // IpsHistory methods

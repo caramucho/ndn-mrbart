@@ -53,6 +53,9 @@ namespace ndn {
     // Copy() const;
     void
     Reset();
+
+    void
+    SetIpsWindow(Time ipswindow);
     // void
     // Gain(double g);
 
@@ -61,7 +64,7 @@ namespace ndn {
     // IpsHistory_t m_history;
     std::map<SequenceNumber32, Time> m_history;
     IpsHistory_t m_arrival;
-    Time m_window;
+    Time m_ipswindow;
     // Ptr<IpsHistory> m_previousAckSeq;
     double m_lastu;
   };
