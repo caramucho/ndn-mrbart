@@ -302,10 +302,11 @@ DashMrbart::GetStats() {
         <<  var  << std::endl;
 
 
-  m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("stats.txt"), ios::app);
-  m_fout << "Issue\t"<< "Simutag\t" << "InterruptionTime" << "\t" << "interruptions" << "\t" << "avgRate" << "\t" << "changes\t" << "SegmentsAvgRate\t" << "SegmentsRateVar" << std::endl;
+  m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("stats.txt"), ios::out);
+  m_fout << "Issue\t"<< "Simutag\t" << "targetDt\t" << "InterruptionTime" << "\t" << "interruptions" << "\t" << "avgRate" << "\t" << "changes\t" << "SegmentsAvgRate\t" << "SegmentsVar" << std::endl;
   m_fout << m_issue << "\t" <<
             m_simutag << "\t" <<
+            m_target_dt.GetSeconds() << "\t" <<
             m_player->m_interruption_time.GetSeconds() << "\t" <<
             m_player->m_interrruptions << "\t" <<
             (1.0 * m_player->m_totalRate) / (m_player->m_framesPlayed * 1000000.0)  << "\t" <<
