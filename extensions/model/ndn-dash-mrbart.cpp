@@ -75,55 +75,25 @@ DashMrbart::SendPacket() {
       {
         m_rateChanges++;
       }
-    // CalcNextSegment(prevBitrate, m_bitRate, bufferDelay);
-    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
-    // std::cout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
-<<<<<<< HEAD
-    std::string issue("issue24/");
-    std::string scenario("simu4/");
-    // std::string scenario("2user/");
-
-    // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate.txt"), ios::app);
-    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
-    // m_fout.close();
-    // m_fout.open(std::string("data/") + issue + scenario + std::string("buffer.txt"), ios::app);
-    // m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
-    // m_fout.close();
-    // m_fout.open(std::string("data/") + issue + scenario + std::string("interruption.txt"), ios::app);
-    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
-    // m_fout.close();
-    // m_fout.open(std::string("data/") + issue + scenario + std::string("bandwidth-estimation.txt"), ios::app);
-    // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
-    // m_fout.close();
-
-    // std::cout << "ConsumerID "<< m_consumer_id << '\n';
-    // m_fout.open(std::string("data/") + issue + scenario + std::string("bitrate-change.txt"), ios::app);
-=======
-    //
-    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate.txt"), ios::app);
+    // write to files
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + to_string(m_consumer_id) + std::string("-bitrate.txt"), ios::app);
     m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_bitRate / (1000000.0) << '\n';
     m_fout.close();
-    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("buffer.txt"), ios::app);
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + to_string(m_consumer_id) + std::string("-buffer.txt"), ios::app);
     m_fout << Simulator::Now().GetSeconds() << "\t" <<currDt.GetSeconds()<< '\n';
     m_fout.close();
-    // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("interruption.txt"), ios::app);
-    // m_fout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
-    // m_fout.close();
-    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bandwidth-estimation.txt"), ios::app);
+    m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + to_string(m_consumer_id) + std::string("-bandwidth-estimation.txt"), ios::app);
     m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
     m_fout.close();
     // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("bitrate-change.txt"), ios::app);
->>>>>>> simulation_base
     // m_fout << Simulator::Now().GetSeconds() << "\t" <<  m_player->m_interruption_time << endl;
     // m_fout.close();
 
-    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << GetSegmentFetchTime() << '\n';
-    // std::cout <<Simulator::Now().GetSeconds()<< "\t" << m_player->m_interruption_time.GetSeconds() << '\n';
 
     // m_fout.open(std::string("data/") + issue + scenario + to_string(m_consumer_id) + std::string("-bwe.txt"), ios::app);
     // m_fout  << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
     // m_fout.close();
-    cout <<  m_consumer_id <<"\t" << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
+    // cout <<  m_consumer_id <<"\t" << Simulator::Now().GetSeconds() << "\t" <<  m_phase->GetEstimatedBandwidth() << endl;
 
 
 
@@ -328,7 +298,7 @@ DashMrbart::GetStats() {
         <<  var  << std::endl;
 
 
-  // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + std::string("stats.txt"), ios::out);
+  // m_fout.open(std::string("data/") + m_issue + "/" + m_simutag + "/" + to_string(m_consumer_id) + std::string("-stats.txt"), ios::out);
   // m_fout << "Issue\t"<< "Simutag\t" << "targetDt\t" << "InterruptionTime" << "\t" << "interruptions" << "\t" << "avgRate" << "\t" << "changes\t" << "SegmentsAvgRate\t" << "SegmentsVar" << std::endl;
   // m_fout << m_issue << "\t" <<
   //           m_simutag << "\t" <<

@@ -1,13 +1,9 @@
 #!/bin/bash
 #available bandwidth estimation
-<<<<<<< HEAD
-DIRECTORY=data/issue24/simu4
-=======
-ISSUE=issue28
-SIMUTAG=simu4
+ISSUE=issue29
+SIMUTAG=simu1
 DIRECTORY=data/$ISSUE/$SIMUTAG
 
->>>>>>> simulation_base
 # SIMUNAME=bn2M-bitrate
 # rm -f out.txt
 # touch out.txt
