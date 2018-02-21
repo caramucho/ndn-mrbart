@@ -69,6 +69,9 @@ namespace ndn {
     void
     SetRandomize();
 
+    void
+    SetRandomSeed(int seed);
+
 
   private:
     int m_currentPhase;
@@ -85,6 +88,7 @@ namespace ndn {
     int m_ppSent;
     Time m_pptime;
     Ptr<RandomVariableStream> m_random;
+    int m_randomSeed;
   };
 
 

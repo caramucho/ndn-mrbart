@@ -28,6 +28,7 @@ main(int argc, char* argv[])
     std::string issue = "issue27";
     std::string simutag = "simu1";
     std::string crosstraffic = "7.8125";
+    std::string randomSeed = "1";
 
 
 
@@ -49,6 +50,9 @@ main(int argc, char* argv[])
     cmd.AddValue("Simutag",
       "The simutag",
       simutag);
+    cmd.AddValue("Seed",
+    "the seed",
+    randomSeed);
     cmd.Parse (argc, argv);
 
     AnnotatedTopologyReader topologyReader("", 25);
@@ -102,6 +106,7 @@ main(int argc, char* argv[])
     consumerHelper.SetAttribute("ipswindow", TimeValue(Time(ipswindow)));
     consumerHelper.SetAttribute("Issue", StringValue(issue));
     consumerHelper.SetAttribute("Simutag", StringValue(simutag));
+    consumerHelper.SetAttribute("randomSeed",  StringValue(randomSeed));
     ApplicationContainer consumerapp = consumerHelper.Install(consumers[0]);
     consumerapp.Start(Seconds(0));
     consumerapp.Stop(Seconds(SCENARIOTIME));
@@ -109,21 +114,27 @@ main(int argc, char* argv[])
     ns3::ndn::AppHelper consumerHelper3("ns3::ndn::FdashClient");
     consumerHelper3.SetPrefix("/Dst3");
     consumerHelper3.SetAttribute("ConsumerID" , StringValue("1"));
+    consumerHelper3.SetAttribute("TargetDt", TimeValue(Seconds(target_dt)));
+    consumerHelper3.SetAttribute("ipswindow", TimeValue(Time(ipswindow)));
+    consumerHelper3.SetAttribute("Issue", StringValue(issue));
+    consumerHelper3.SetAttribute("Simutag", StringValue(simutag));
+    consumerHelper3.SetAttribute("randomSeed", StringValue(randomSeed));
+
     ApplicationContainer consumerapp3 = consumerHelper3.Install(consumers[2]);
     consumerapp3.Start(Seconds(0));
     consumerapp3.Stop(Seconds(SCENARIOTIME));
 
     // cross traffic generator
-    ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
-    consumerHelper2.SetPrefix("/Dst2");
+    // ns3::ndn::AppHelper consumerHelper2("ns3::ndn::ConsumerCbr");
+    // consumerHelper2.SetPrefix("/Dst2");
     // consumerHelper2.SetAttribute("Randomize" , StringValue("exponential"));
     // consumerHelper2.SetAttribute("Randomize" , StringValue("uniform"));
-    consumerHelper2.SetAttribute("Frequency", StringValue("15.625")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
+    // consumerHelper2.SetAttribute("Frequency", StringValue("15.625")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
     // consumerHelper2.SetAttribute("Frequency", StringValue("5")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
-    ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    consumerapp2.Start(Seconds(150));
-    consumerapp2.Stop(Seconds(SCENARIOTIME));
+    // ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
+    // consumerapp2.Start(Seconds(150));
+    // consumerapp2.Stop(Seconds(SCENARIOTIME));
 
 
     GlobalRoutingHelper::CalculateRoutes();

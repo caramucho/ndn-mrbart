@@ -236,17 +236,22 @@ Phases::Reset() {
 void
 Phases::SetRandomize()
 {
-  RngSeedManager::SetSeed (2);
-  m_random = CreateObject<UniformRandomVariable>();
-<<<<<<< HEAD
-  m_random->SetAttribute("Min", DoubleValue(0.9));
-  m_random->SetAttribute("Max", DoubleValue(1.1));
-=======
-  m_random->SetAttribute("Min", DoubleValue(1.1));
-  m_random->SetAttribute("Max", DoubleValue(1.3));
->>>>>>> simulation_base
+  // std::cout << m_randomSeed << '\n';
+
 }
 
+void
+Phases::SetRandomSeed(int seed)
+{
+  m_randomSeed = seed;
+  RngSeedManager::SetSeed ((int)m_randomSeed);
+  m_random = CreateObject<UniformRandomVariable>();
+
+  m_random->SetAttribute("Min", DoubleValue(0.9));
+  m_random->SetAttribute("Max", DoubleValue(1.1));
+
+
+}
 
 } // namespace ndn
 } // namespace ns3

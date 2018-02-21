@@ -28,6 +28,8 @@ public:
   ConsumerMrbart();
   virtual ~ConsumerMrbart();
 
+
+
 protected:
   /**
    * \brief Constructs the Interest packet and sends it using a callback to the underlying NDN
@@ -81,6 +83,7 @@ protected:
   Ptr<InterpacketStrainEstimator> m_ips;
   Ptr<Phases> m_phase;
   int m_consumer_id;
+  int m_randomSeed;
 };
 
 } // namespace ndn

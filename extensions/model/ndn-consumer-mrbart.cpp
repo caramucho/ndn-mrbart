@@ -61,6 +61,9 @@ ConsumerMrbart::GetTypeId(void)
       .AddAttribute("ipswindow", "The window for measuring the average ips (Time)",
                     TimeValue(Time("4s")),
                     MakeTimeAccessor(&ConsumerMrbart::m_ipswindow),MakeTimeChecker())
+      .AddAttribute("randomSeed", "The seed",
+                    IntegerValue(1),
+                    MakeIntegerAccessor(&ConsumerMrbart::m_randomSeed),MakeIntegerChecker<uint32_t>())
     ;
   return tid;
 }
@@ -208,6 +211,7 @@ ConsumerMrbart::StartApplication()
 {
   Consumer::StartApplication();
   m_ips->SetIpsWindow(m_ipswindow);
+  m_phase->SetRandomSeed(m_randomSeed);
 
   // std::cout << "Batches: " << batches << "\n";
   // sendPacketTrain(100, 100);
