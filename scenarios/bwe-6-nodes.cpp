@@ -113,9 +113,9 @@ main(int argc, char* argv[])
     consumerHelper2.SetAttribute("Frequency", StringValue("7.8125")); // 0.5Mbps cbr cross traffic 0.5*2/(0.008*8)=7.8125
     // consumerHelper2.SetAttribute("Frequency", StringValue("5")); // 0.5Mbps cbr cross traffic 0.5/(0.008*8)=7.8125
 
-    // ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
-    // consumerapp2.Start(Seconds(SCENARIOTIME/3));
-    // consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
+    ApplicationContainer consumerapp2 = consumerHelper2.Install(consumers[1]);
+    consumerapp2.Start(Seconds(SCENARIOTIME/3));
+    consumerapp2.Stop(Seconds(SCENARIOTIME*2/3));
     // consumerapp2.Start(Seconds(0));
     // consumerapp2.Stop(Seconds(SCENARIOTIME));
 
