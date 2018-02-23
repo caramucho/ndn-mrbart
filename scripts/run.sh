@@ -11,7 +11,7 @@ DIRECTORY=data/$ISSUE/$SIMUTAG
 if [ ! -d "$DIRECTORY" ]; then
   mkdir "$DIRECTORY"
 fi
-waf --run='bwe-6-nodes --targetDt=4.0 --ipswindow=1s --Issue='$ISSUE' --Simutag='$SIMUTAG' --Seed='$SEED''
+waf --run='simulation --targetDt=4.0 --ipswindow=1s --Issue='$ISSUE' --Simutag='$SIMUTAG' --Seed='$SEED''
 
 # mv out.txt "$DIRECTORY"/"$SIMUNAME".txt
 # mv data/L3Rate.txt "$DIRECTORY"/L3rate.txt
