@@ -1,96 +1,96 @@
 router
-#name	city	latitude	longitude	
-caida	NA	5	5	
-ucla	NA	20	10	
-uci	NA	10	13	
-remap	NA	17	15	
-byu	NA	35	20	
-ua	NA	7	20	
-csu	NA	37	23	
-wu	NA	25	40	
-um	NA	18	41	
-uiuc	NA	40	43	
-mich	NA	45	45	
-verisign	NA	25	50	
-neu	NA	45	55	
-lip6	NA	75	65	
-urjc	NA	37	69	
-orange	NA	65	70	
-systemx	NA	74	71	
-ntnu	NA	90	73	
-basel	NA	70	77	
-padua	NA	60	80	
-bupt	NA	30	100	
-pku	NA	37	105	
-tongji	NA	5	115	
-anyang	NA	30	125	
-kisti	NA	15	130	
-waseda	NA	20	150	
+#name	city	latitude	longitude
+caida     NA	5	5
+ucla      NA	20	10
+uci       NA	10	13
+remap     NA	17	15
+byu       NA	35	20
+ua        NA	7	20
+csu       NA	37	23
+wu        NA	25	40
+um        NA	18	41
+uiuc      NA	40	43
+mich      NA	45	45
+verisign  NA	25	50
+neu       NA	45	55
+lip6      NA	75	65
+urjc      NA	37	69
+orange    NA	65	70
+systemx   NA	74	71
+ntnu      NA	90	73
+basel     NA	70	77
+padua     NA	60	80
+bupt      NA	30	100
+pku       NA	37	105
+tongji    NA	5	115
+anyang    NA	30	125
+kisti     NA	15	130
+waseda    NA	20	150
 link
-#x	y	bandwidth	OSPF	Delay	MaxPackets	
-caida	ucla	100Mbps	3	50ms	200	
-caida	uci	100Mbps	3	20ms	200	
-caida	ua	45Mbps	25	20ms	200	
-caida	tongji	20Mbps	93	20ms	200	
-ucla	csu	80Mbps	16	20ms	200	
-ucla	pku	10Mbps	85	20ms	200	
-ucla	remap	300Mbps	1	20ms	200	
-ucla	uci	300Mbps	1	20ms	200	
-uci	remap	300Mbps	1	50ms	200	
-remap	byu	150Mbps	9	50ms	200	
-remap	csu	80Mbps	16	50ms	200	
-remap	ua	70Mbps	25	50ms	200	
-byu	csu	140Mbps	8	50ms	200	
-byu	ua	70Mbps	30	50ms	200	
-ua	csu	90Mbps	18	40ms	200	
-ua	wu	60Mbps	33	40ms	200	
-ua	um	90Mbps	17	40ms	200	
-ua	waseda	15Mbps	75	40ms	200	
-csu	mich	60Mbps	15	40ms	200	
-csu	uiuc	60Mbps	14	40ms	200	
-csu	kisti	60Mbps	16	40ms	200	
-wu	uiuc	70Mbps	9	40ms	200	
-wu	urjc	20Mbps	86	40ms	200	
-wu	verisign	80Mbps	15	50ms	200	
-wu	um	80Mbps	17	50ms	200	
-um	mich	80Mbps	12	50ms	200	
-um	neu	70Mbps	21	50ms	200	
-um	orange	40Mbps	56	50ms	200	
-um	verisign	20Mbps	18	50ms	200	
-uiuc	mich	100Mbps	5	50ms	200	
-uiuc	padua	20Mbps	80	50ms	200	
-mich	lip6	30Mbps	69	50ms	200	
-mich	neu	80Mbps	14	50ms	200	
-mich	verisign	80Mbps	16	50ms	200	
-neu	ntnu	30Mbps	62	50ms	200	
-neu	pku	12Mbps	112	50ms	200	
-lip6	ntnu	70Mbps	25	50ms	200	
-lip6	systemx	120Mbps	2	50ms	200	
-lip6	basel	100Mbps	18	10ms	200	
-lip6	orange	120Mbps	3	10ms	200	
-lip6	urjc	90Mbps	15	10ms	200	
-urjc	orange	90Mbps	15	10ms	200	
-urjc	basel	100Mbps	9	10ms	200	
-urjc	padua	90Mbps	15	10ms	200	
-orange	systemx	100Mbps	2	10ms	200	
-orange	basel	90Mbps	18	10ms	200	
-orange	padua	90Mbps	15	10ms	200	
-orange	waseda	10Mbps	144	50ms	200	
-systemx	ntnu	70Mbps	24	50ms	200	
-systemx	basel	90Mbps	10	50ms	200	
-ntnu	basel	70Mbps	30	50ms	200	
-ntnu	pku	14Mbps	107	50ms	200	
-basel	pku	10Mbps	127	50ms	200	
-basel	padua	100Mbps	9	50ms	200	
-bupt	pku	90Mbps	14	50ms	200	
-bupt	anyang	60Mbps	33	50ms	200	
-bupt	waseda	50Mbps	48	60ms	200	
-bupt	kisti	80Mbps	16	60ms	200	
-bupt	tongji	80Mbps	18	60ms	200	
-pku	anyang	60Mbps	38	60ms	200	
-pku	tongji	70Mbps	14	60ms	200	
-tongji	anyang	40Mbps	54	60ms	200	
-tongji	waseda	19Mbps	98	50ms	200	
-anyang	waseda	70Mbps	22	50ms	200	
-anyang	kisti	90Mbps	16	50ms	200	
-kisti	waseda	90Mbps	16	50ms	200	
+#x	y	bandwidth	OSPF	Delay	MaxPackets
+caida   	ucla      10Mbps 3    50ms	200
+caida   	uci       10Mbps 3    20ms	200
+caida   	ua        45Mbps 25   20ms	200
+caida   	tongji    20Mbps 93   20ms	200
+ucla    	csu       80Mbps 16   20ms	200
+ucla    	pku       10Mbps 85   20ms	200
+ucla    	remap     30Mbps 1    20ms	200
+ucla    	uci       30Mbps 1    20ms	200
+uci     	remap     30Mbps 1    50ms	200
+remap   	byu       15Mbps 9    50ms	200
+remap   	csu       80Mbps 16   50ms	200
+remap   	ua        70Mbps 25   50ms	200
+byu     	csu       40Mbps 8    50ms	200
+byu     	ua        70Mbps 30   50ms	200
+ua      	csu       30Mbps 18   40ms	200
+ua      	wu        20Mbps 33   40ms	200
+ua      	um        30Mbps 17   40ms	200
+ua      	waseda    10Mbps 75   40ms	200
+csu     	mich      60Mbps 15   40ms	200
+csu     	uiuc      60Mbps 14   40ms	200
+csu     	kisti     60Mbps 16   40ms	200
+wu      	uiuc      70Mbps 9    40ms	200
+wu      	urjc      10Mbps 86   40ms	200
+wu      	verisign  80Mbps 15   50ms	200
+wu      	um        80Mbps 17   50ms	200
+um      	mich      80Mbps 12   50ms	200
+um      	neu       70Mbps 21   50ms	200
+um      	orange    40Mbps 56   50ms	200
+um      	verisign  20Mbps 18   50ms	200
+uiuc    	mich      10Mbps 5    50ms	200
+uiuc    	padua     20Mbps 80   50ms	200
+mich    	lip6      30Mbps 69   50ms	200
+mich    	neu       10Mbps 14   50ms	200
+mich    	verisign  10Mbps 16   50ms	200
+neu     	ntnu      10Mbps 62   50ms	200
+neu     	pku       10Mbps 112  50ms	200
+lip6    	ntnu      10Mbps 25   50ms	200
+lip6    	systemx   10Mbps 2    50ms	200
+lip6    	basel     10Mbps 18   10ms	200
+lip6    	orange    10Mbps 3    10ms	200
+lip6    	urjc      10Mbps 15   10ms	200
+urjc    	orange    10Mbps 15   10ms	200
+urjc    	basel     10Mbps 9    10ms	200
+urjc    	padua     10Mbps 15   10ms	200
+orange  	systemx   10Mbps 2    10ms	200
+orange  	basel     10Mbps 18   10ms	200
+orange  	padua     10Mbps 15   10ms	200
+orange  	waseda    10Mbps 144  50ms	200
+systemx 	ntnu      10Mbps 24   50ms	200
+systemx 	basel     10Mbps 10   50ms	200
+ntnu    	basel     10Mbps 30   50ms	200
+ntnu    	pku       10Mbps 107  50ms	200
+basel   	pku       10Mbps 127  50ms	200
+basel   	padua     10Mbps 9    50ms	200
+bupt    	pku       10Mbps 14   50ms	200
+bupt    	anyang    10Mbps 33   50ms	200
+bupt    	waseda    10Mbps 48   60ms	200
+bupt    	kisti     10Mbps 16   60ms	200
+bupt    	tongji    10Mbps 18   60ms	200
+pku     	anyang    10Mbps 38   60ms	200
+pku     	tongji    10Mbps 14   60ms	200
+tongji  	anyang    10Mbps 54   60ms	200
+tongji  	waseda    10Mbps 98   50ms	200
+anyang  	waseda    10Mbps 22   50ms	200
+anyang  	kisti     10Mbps 16   50ms	200
+kisti   	waseda    10Mbps 16   50ms	200

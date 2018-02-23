@@ -19,16 +19,16 @@ int
 main(int argc, char* argv[])
 {
     // std::string linkRate = "500Kbps";
-    uint32_t users = 1;
-    double target_dt = 35.0;
-    // double stopTime = 100.0;
-    // std::string delay = "5ms";
-    // std::string protocol = "ns3::DashClient";
-    std::string ipswindow = "10s";
-    std::string issue = "issue27";
-    std::string simutag = "simu1";
+    uint32_t users           = 1;
+    double target_dt         = 35.0;
+    // double stopTime       = 100.0;
+    // std::string delay     = "5ms";
+    // std::string protocol  = "ns3::DashClient";
+    std::string ipswindow    = "10s";
+    std::string issue        = "issue27";
+    std::string simutag      = "simu1";
     std::string crosstraffic = "7.8125";
-    std::string randomSeed = "1";
+    std::string randomSeed   = "1";
 
 
 
